@@ -4,7 +4,7 @@ TOPDIR = $(shell pwd)
 help:
 	@echo "Please use \`make <target>' where <target> is one of:"
 	@echo "  setup                                          Copy configuration, install, packages to OS specific folders"
-	@echo "  setup-release version=<release_version>        Download official install scripts from GitHub specified by version.  Copy configuration, install, packages to OS specific folders"
+	@echo "  setup-release                                  Download latest official install scripts from GitHub.  Copy configuration, install, packages to OS specific folders"
 	@echo "  refresh                                        Recopy configuration, install, packages to OS specific folders"
 	@echo "  build-docker version=<release_version>         Build a docker image for quipucords source"
 	@echo "  test-all                                       Launch VMs for all supported Operating Systems"
@@ -62,7 +62,7 @@ build-docker:
 setup: create-test-dirs copy-config copy-install copy-packages
 setup-release: create-test-dirs copy-config
 	mkdir -p test/downloaded_install
-	cd test/downloaded_install;curl -k -O -sSL https://github.com/quipucords/quipucords/releases/download/$(version)/quipucords_install.tar.gz
+	cd test/downloaded_install;curl -k -O -sSL https://github.com/quipucords/quipucords-installer/releases/latest/download/quipucords_install.tar.gz
 	cd test/downloaded_install;tar -xzf quipucords_install.tar.gz
 	cp -rf test/downloaded_install/install test/rhel6
 	cp -rf test/downloaded_install/install test/rhel7

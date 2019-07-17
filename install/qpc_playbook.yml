@@ -29,21 +29,34 @@
     - role: setup_docker
       when: install_server|lower == 'true'
     - role: postgres_offline
-      when: install_offline|lower == 'true'
-    - postgres
+      when:
+        - install_offline|lower == 'true'
+        - install_server|lower == 'true'
+    - role: postgres
+      when: install_server|lower == 'true'
     - role: qpc_server_online_prep
-      when: 
+      when:
         - install_offline|lower == 'false'
         - install_server|lower == 'true'
     - role: qpc_server_common_prep
       when: install_server|lower == 'true'
     - role: qpc_server_online
-      when: 
+      when:
         - install_offline|lower == 'false'
         - install_server|lower == 'true'
     - role: qpc_server_start
       when: install_server|lower == 'true'
+    - role: qpc_cli_offline
+      when:
+        - install_cli|lower == 'true'
+        - install_offline|lower == 'true'
+    - role: qpc_cli_online
+      when:
+        - install_cli|lower == 'true'
+        - install_offline|lower == 'false'
     - role: qpc_cli
+      when: install_cli|lower == 'true'
+    - role: validate_cli_install
       when: install_cli|lower == 'true'
     - role: validate_install
       when: install_server|lower == 'true'

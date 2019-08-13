@@ -1,9 +1,9 @@
 #!/bin/bash
 #===============================================================================
 #
-#          FILE:  install.sh
+#          FILE:  quipucords-installer
 #
-#         USAGE:  ./install.sh
+#         USAGE:  ./quipucords-installer
 #
 #   DESCRIPTION:  Install Quipucords server and command-line components.
 #
@@ -12,7 +12,12 @@
 #===============================================================================
 
 export PATH=$PATH:$ANSIBLE_HOME/bin
+#Note: The playbook path will be sed replaced in the spec file
+# to match the location of where the package is being installed.
 PLAYBOOKFILE="qpc_playbook.yml"
+PLAYBOOKPATH=""
+PLAYBOOK=$PLAYBOOKPATH$PLAYBOOKFILE
+
 POSTGRES_VERSION='-e POSTGRES_VERSION=9.6.10'
 INSTALLER_VERSION='BUILD_VERSION_PLACEHOLDER'
 
@@ -33,7 +38,7 @@ usage() {
 
     Options:
     -h | --help   Obtain command USAGE
-    -e | --extra-vars  set additional variables as key=value
+    -e | --extra-vars  set additional variables as option=value
 
 
     Extra Variables:
@@ -44,9 +49,9 @@ usage() {
     * Perform an offline install
          -e install_offline=true
     * Quipucords server version to install (defaults to the latest release):
-         -e server_version=0.0.46
+         -e server_version=0.9.0
     * QPC cli version to install (defaults to the latest release):
-         -e cli_version=0.0.46
+         -e cli_version=0.9.0
     * Specify if the Quipucords server port should be opened in the host firewall (defaults to true):
          -e open_port=false
     * Quipucords server username (defaults to admin):
@@ -70,21 +75,6 @@ then
   usage;
 fi
 
-if [ ! -f /etc/redhat-release ]; then
-  echo "/etc/redhat-release not found. You need to run this on a Red Hat based OS."
-  exit 1
-fi
-
-PKG_MGR=yum
-if grep -q -i "release 7" /etc/redhat-release; then
-  dist="el7"
-  if grep -q -i "Red Hat" /etc/redhat-release; then
-    RHEL7=true
-  fi
-elif grep -q -i "release 6" /etc/redhat-release; then
-  dist="el6"
-fi
-
 for arg in $args; do
   if [[ $arg != "-e" ]]; then
     IFS='=' read -r -a temp_arr <<< "$arg"
@@ -94,36 +84,13 @@ for arg in $args; do
   fi
 done
 
-if [[ ($RHEL7) && (-z "$install_offline") ]] || [[ ($RHEL7) && ($install_offline = "false") ]]; then
-  echo "Trying to install RHEL7 dependencies..."
-  sudo subscription-manager repos --enable="rhel-7-server-extras-rpms" || true
-  sudo subscription-manager repos --enable="rhel-7-server-optional-rpms" || true
-fi
-
-echo "Checking if ansible is installed..."
-command -v ansible > /dev/null 2>&1
-
-if [ $? -ne 0 ]; then
-  echo "Ansible prerequisite could not be found. Trying to install ansible..."
-  sudo "${PKG_MGR}" install -y ansible
-  
-  command -v ansible > /dev/null 2>&1
-  if [ $? -ne 0 ]; then
-    echo ""
-    echo "Installation failed. Ansible prerequisite could not be installed."
-    echo "Follow installation documentation for installing Ansible."
-    unset args
-    exit 1
-  fi
-fi
-
 if [[ $EUID -ne 0 ]]
 then
-  echo ansible-playbook $PLAYBOOKFILE -v -K $*
-  ansible-playbook $PLAYBOOKFILE -v -K $*
+  echo ansible-playbook $PLAYBOOK -v -K $*
+  ansible-playbook $PLAYBOOK -v -K $*
 else
-  echo ansible-playbook $PLAYBOOKFILE -v $*
-  ansible-playbook $PLAYBOOKFILE -v $*
+  echo ansible-playbook $PLAYBOOK -v $*
+  ansible-playbook $PLAYBOOK -v $*
 fi
 
 if [ $? -eq 0 ]

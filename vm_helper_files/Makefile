@@ -5,9 +5,9 @@ TOPDIR = $(shell pwd)
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of:"
-	@echo "  install-help                                       Runs install.sh help"
-	@echo "  setup                                              Configure yum repos as needed"
-	@echo "  offline-install-prep                               Install required dependencies for offline install"
+	@echo "  setup                                              Sets up yum repos"
+	@echo "  offline-prep                                       Install required dependencies for offline install"
+	@echo "  install-help                                       Runs quipucords-installer help"
 	@echo "  install                                            Install with defaults"
 	@echo "  install-offline                                    Perform an offline installation"
 	@echo "           server_version=<x.x.x>                        @param - required"
@@ -19,12 +19,12 @@ help:
 
 
 install-help:
-	./install/install.sh --help
+	./install/quipucords-installer --help
 
 setup:
 	scripts/setup_repos.sh
 
-offline-install-prep: setup
+offline-prep: setup
 	@if grep -q -i "release 7" /etc/redhat-release; then \
 		echo "Running 7"; \
 		yum install -y libcgroup; \
@@ -53,14 +53,36 @@ offline-install-prep: setup
 		yum install -y libselinux-python3; \
 	fi
 
-install: setup
-	cd install;./install.sh
+#Internal
+online-prep: setup
+	@if grep -q -i "release 7" /etc/redhat-release; then \
+		echo "Running 7"; \
+		yum install -y libcgroup; \
+		yum install -y yum-utils; \
+		yum install -y ansible; \
+	elif grep -q -i "release 6" /etc/redhat-release; then \
+		echo "Running 6"; \
+		yum install -y libcgroup; \
+		yum install -y yum-utils; \
+		yum install -y ansible; \
+	else \
+		echo "Running 8"; \
+		subscription-manager repos --enable="rcm-tools-rhel-8-baseos-rpms" || true; \
+		subscription-manager repos --enable="rcm-tools-rhel-8-appstream-rpms" || true; \
+		subscription-manager repos --enable ansible-2.8-for-rhel-8-x86_64-rpms; \
+		yum install -y ansible; \
+		yum install -y podman; \
+	fi
 
-install-offline:
-	cd install;./install.sh -e install_offline=true -e server_version=$(server_version) -e cli_version=$(cli_version)
 
-install-version: setup
-	cd install;./install.sh -e server_version=$(server_version) -e cli_version=$(cli_version)
+install-offline: offline-prep
+	cd install;./quipucords-installer -e install_offline=true -e server_version=$(server_version) -e cli_version=$(cli_version)
+
+install: online-prep
+	cd install;./quipucords-installer
+
+install-version: online-prep
+	cd install;./quipucords-installer -e server_version=$(server_version) -e cli_version=$(cli_version)
 
 clean:
 	scripts/cleanup.sh

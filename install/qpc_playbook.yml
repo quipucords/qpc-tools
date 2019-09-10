@@ -11,6 +11,7 @@
       open_port: 'true'
       server_port: '9443'
       server_name: 'quipucords'
+      postgres_version: '9.6.10'
       db_name: 'qpc-db'
       server_username: 'admin'
       server_password: 'qpcpassw0rd'
@@ -23,6 +24,8 @@
       connect_job_timeout: 600
       inspect_job_timeout: 10800
       ansible_log_level: 0
+      have_qpc_docker_containers: false
+      have_qpc_podman_containers: false
   roles:
     - validate_common
     - role: validate_offline
@@ -41,12 +44,10 @@
     - role: uninstall_common_docker
       when:
         - install_server | lower == 'true'
-        - have_docker is defined
         - have_docker
     - role: uninstall_common_podman
       when:
         - install_server | lower == 'true'
-        - have_podman is defined
         - have_podman
     - role: install_docker_online
       when:
@@ -97,6 +98,12 @@
     - role: start_postgres_common_podman
       when:
         - install_server|lower == 'true'
+        - use_docker|lower == 'false'
+    - role: migrate_docker_data_to_podman
+      when:
+        - install_server|lower == 'true'
+        - have_qpc_docker_containers
+        - not have_qpc_podman_containers
         - use_docker|lower == 'false'
     - role: install_cli_offline
       when:

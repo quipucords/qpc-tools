@@ -1,14 +1,16 @@
 %global purpose upstream
 %if "%{purpose}" == "upstream"
 %global stream_name quipucords
+%global pkg_name = qpc
 %global ver 0.1.2
 %else
 %global stream_name discovery
+%global pkg_name = dsc
 %global ver VERSION_PLACE_HOLDER
 %endif
 ####
-%global src_name %{stream_name}-installer
-%global egg_name %{stream_name}_installer
+%global src_name %{pkg_name}-tools
+%global egg_name %{pkg_name}_tools
 Name: %{src_name}
 Version: %{ver}
 Release: 1%{?dist}

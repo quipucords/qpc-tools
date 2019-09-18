@@ -45,7 +45,7 @@ install_usage() {
     Install Quipucords server and command-line components.
 
     Usage:
-    $(basename --install $0) | $(basename -i $0)
+    $(basename $0) --install | $(basename $0) -i
 
     Options:
     -h | --help        Obtain command USAGE

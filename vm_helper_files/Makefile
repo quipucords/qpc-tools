@@ -8,7 +8,7 @@ help:
 	@echo "  setup                                              Sets up yum repos"
 	@echo "  offline-prep                                       Install required dependencies for offline install"
 	@echo "  online-prep                                        Install required dependencies for online install. Required if not using make commands."
-	@echo "  install-help                                       Runs quipucords-installer help"
+	@echo "  install-help                                       Runs qpc-tools help"
 	@echo "  install                                            Install with defaults"
 	@echo "  install-offline                                    Perform an offline installation"
 	@echo "           server_version=<x.x.x>                        @param - required"
@@ -20,7 +20,7 @@ help:
 
 
 install-help:
-	./install/quipucords-installer --help
+	./install/qpc-tools --help
 
 setup:
 	scripts/setup_repos.sh
@@ -72,13 +72,13 @@ online-prep: setup
 	fi
 
 install-offline:
-	cd install;./quipucords-installer -e install_offline=true -e server_version=$(server_version) -e cli_version=$(cli_version)
+	cd install;./qpc-tools -e install_offline=true -e server_version=$(server_version) -e cli_version=$(cli_version)
 
 install: online-prep
-	cd install;./quipucords-installer
+	cd install;./qpc-tools
 
 install-version: online-prep
-	cd install;./quipucords-installer -e server_version=$(server_version) -e cli_version=$(cli_version)
+	cd install;./qpc-tools -e server_version=$(server_version) -e cli_version=$(cli_version)
 
 clean:
 	scripts/cleanup.sh

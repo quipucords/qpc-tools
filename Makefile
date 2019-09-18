@@ -10,9 +10,9 @@ help:
 	@echo "         server_source=<local||release>                @param - defaults to release"
 	@echo "         cli_version=<x.x.x>                           @param - defaults to latest"
 	@echo "         server_version=<x.x.x>                        @param - required if server source is local; defaults to latest if using release"
-	@echo "  setup-release-online                           Download and copy quipucords installer to OS specific folders"
+	@echo "  setup-release-online                           Download and copy qpc-tools to OS specific folders"
 	@echo "         installer_version=<x.x.x>                     @param - defaults to latest"
-	@echo "  setup-release-offline                          Download and copy quipucords installer, server image and qpc client rpm to OS specific folders"
+	@echo "  setup-release-offline                          Download and copy qpc-tools, server image and qpc client rpm to OS specific folders"
 	@echo "         installer_version=<x.x.x>                     @param - defaults to latest"
 	@echo "         cli_version=<x.x.x>                           @param - defaults to latest"
 	@echo "         server_version=<x.x.x>                        @param - defaults to latest"
@@ -102,9 +102,9 @@ download-client:
 download-installer:
 	mkdir -p test/downloaded_install
 ifeq ($(installer_version),$(filter $(installer_version),latest))
-	cd test/downloaded_install;curl -k -SL https://github.com/quipucords/quipucords-installer/releases/latest/download/quipucords_install.tar.gz -o quipucords_install.tar.gz
+	cd test/downloaded_install;curl -k -SL https://github.com/quipucords/qpc-tools/releases/latest/download/quipucords_install.tar.gz -o quipucords_install.tar.gz
 else
-	cd test/downloaded_install;curl -k -SL https://github.com/quipucords/quipucords-installer/releases/download/$(installer_version)/quipucords_install.tar.gz -o quipucords_install.tar.gz
+	cd test/downloaded_install;curl -k -SL https://github.com/quipucords/qpc-tools/releases/download/$(installer_version)/quipucords_install.tar.gz -o quipucords_install.tar.gz
 endif
 	cd test/downloaded_install;tar -xzf quipucords_install.tar.gz
 	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf test/downloaded_install/install test/$$os/; done
@@ -173,8 +173,8 @@ clean:
 
 manpage:
 	$(pandoc) docs/man.rst \
-	  --standalone -t man -o docs/quipucords-installer.1 \
+	  --standalone -t man -o docs/qpc-tools.1 \
 	  --variable=section:1 \
 	  --variable=date:'June 6, 2019' \
 	  --variable=footer:'version 0.9.1' \
-	  --variable=header:'quipucords-installer'
+	  --variable=header:'qpc-tools'

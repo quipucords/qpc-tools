@@ -1,10 +1,10 @@
-# Quipucords Installer
+# qpc-tools
 
 Installs the Quipucords server and CLI.  Quipucords is a tool for discovery, inspection, collection, deduplication, and reporting on an IT environment.
 
-This *README* file contains information about the installation and development of Quipucords installer, as well as instructions about where to find basic usage, known issues, and best practices information.
+This *README* file contains information about the installation and development of qpc-tools, as well as instructions about where to find basic usage, known issues, and best practices information.
 
-- [Introduction to Quipucords installer](#intro)
+- [Introduction to qpc-tools](#intro)
 - [Requirements and Assumptions](#requirements)
 - [Installation](#installation)
 - [Development](#development)
@@ -14,28 +14,28 @@ This *README* file contains information about the installation and development o
 - [Copyright and License](#copyright)
 
 
-# <a name="intro"></a> Introduction to Quipucords installer
-Quipucords installer is a bash script that utilizes Ansible to install both the Quipucords server and CLI.
+# <a name="intro"></a> Introduction to qpc-tools
+qpc-tools is a bash script that utilizes Ansible to install both the Quipucords server and CLI.
 
 
 # <a name="requirements"></a> Requirements and Assumptions
-Before installing Quipucords installer on a system, review the following guidelines about installing and running Quipucords and Quipucords installer:
+Before installing qpc-tools on a system, review the following guidelines about installing and running Quipucords and qpc-tools:
 
- - Quipucords installer is written to run on RHEL or CentOS servers.
+ - qpc-tools is written to run on RHEL or CentOS servers.
 
 # <a name="installation"></a> Installation
-To work with the Quipucords installer, begin by cloning the repository.
+To work with the qpc-tools, begin by cloning the repository.
 
 ```
-git clone git@github.com:quipucords/quipucords-installer.git
-cd quipucords-installer/install
-./quipucords-installer
+git clone git@github.com:quipucords/qpc-tools.git
+cd qpc-tools/install
+./qpc-tools
 ```
 
 # <a name="development"></a> Development
-To develop the Quipucords installer, begin by cloning the repository.
+To develop the qpc-tools, begin by cloning the repository.
 ```
-git clone git@github.com:quipucords/quipucords-installer.git
+git clone git@github.com:quipucords/qpc-tools.git
 ```
 # <a name="test"></a> Test
 There are various options testing your changes to the installation scripts. You can test scripts from this repository or an official build.
@@ -45,7 +45,7 @@ There are various options testing your changes to the installation scripts. You 
 ```
 git clone git@github.com:quipucords/quipucords.git
 git clone git@github.com:quipucords/quipucords-ui.git
-git clone git@github.com:quipucords/quipucords-installer.git
+git clone git@github.com:quipucords/qpc-tools.git
 ```
 
 ## Testing local installation scripts
@@ -84,7 +84,7 @@ make refresh
 ```
 There is no need to restart the VM.
 
-**Warning:** If you are switching from doing an offline test to online, then you should run `make clean` on the quipucords-installer repository folder before starting the online installation.
+**Warning:** If you are switching from doing an offline test to online, then you should run `make clean` on the qpc-tools repository folder before starting the online installation.
 
 ## Testing released installation scripts
 This method is used when you are testing installation scripts that have been released.  They will be available on GitHub.
@@ -97,7 +97,7 @@ make test-all
 ```
 **Options:**
 - `installer_version`
-  - Contains the released version of the `quipucords-installer`. Defaults to `latest`. Supply the installer version number you want to use.
+  - Contains the released version of the `qpc-tools`. Defaults to `latest`. Supply the installer version number you want to use.
 
 ### Testing offline installation
 To test the release scripts on all supported OS's, run the following. This command will download Quipucords server docker image, installer, `qpc` client and copy them to OS specific folders.
@@ -107,14 +107,14 @@ make test-all
 ```
 **Options:**
 - `installer_version`
-  - Contains the released version of the `quipucords-installer`. Defaults to `latest`. Supply the installer version number you want to use.
+  - Contains the released version of the `qpc-tools`. Defaults to `latest`. Supply the installer version number you want to use.
 - `cli_version`
   - Contains the released version of the `qpc` client. Defaults to `latest`. Supply the client version number you want to use.
 - `server_version`
   - Contains Quipucords server version number. Defaults to `latest`. Supply the server version number you want to use.
 
 ## Configuring Virtual Machines
-The above `test-all` command will perform a  `vagrant ssh`.  If you have no configuration help, then you can simply run `quipucords-installer`.
+The above `test-all` command will perform a  `vagrant ssh`.  If you have no configuration help, then you can simply run `qpc-tools`.
 
 ### Optional Secret Configuration
 Create or obtain a tarball named `installer_config.tar.gz`.  The files in this tarball will automatically be copied inside the VMs mapped volumes.  If you are testing rhel6 or rhel7 and have internal repositories, your `installer_config.tar.gz` should have the following structure:
@@ -139,7 +139,7 @@ make install
 ```
 Note:
  - Optionally run any secret post install scripts you included in `installer_config.tar.gz`
- - You can replace `make install` with other commands or `cd install;./quipucords-installer -e other_flags`
+ - You can replace `make install` with other commands or `cd install;./qpc-tools -e other_flags`
 
 ## Vagrant: Testing Offline Installation
 
@@ -155,18 +155,18 @@ make install-offline server_version=<server_version> cli_version=<cli_version>
 
 Note:
  - Optionally run any secret post install scripts you included in `installer_config.tar.gz`
- - You can replace `make install` with other commands or `cd install;./quipucords-installer -e other_flags`
+ - You can replace `make install` with other commands or `cd install;./qpc-tools -e other_flags`
 
  ## Creating the man page
  After installing [pandoc](https://pandoc.org/installing.html) locally, run the following command:
 
 ```
  make manpage
- cd install; man ./quipucords-installer.1
+ cd install; man ./qpc-tools.1
 ```
 
 # <a name="issues"></a> Issues
-To report bugs for Quipucords installer [open issues](https://github.com/quipucords/quipucords-installer/issues) against this repository in Github. Complete the issue template when opening a new bug to improve investigation and resolution time.
+To report bugs for qpc-tools [open issues](https://github.com/quipucords/qpc-tools/issues) against this repository in Github. Complete the issue template when opening a new bug to improve investigation and resolution time.
 
 
 # <a name="authors"></a> Authors
@@ -176,4 +176,4 @@ Authorship and current maintainer information can be found in [AUTHORS](AUTHORS.
 # <a name="copyright"></a> Copyright and License
 Copyright 2019, Red Hat, Inc.
 
-Quipucords installer is released under the [GNU Public License version 3](LICENSE)
+qpc-tools is released under the [GNU Public License version 3](LICENSE)

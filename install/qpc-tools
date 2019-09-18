@@ -1,0 +1,188 @@
+#!/bin/bash
+#===============================================================================
+#
+#          FILE:  qpc-tools
+#
+#         USAGE:  ./qpc-tools
+#
+#   DESCRIPTION:  Install Quipucords server and command-line components.
+#
+#       OPTIONS:  -h | --help   Obtain command USAGE
+#                 -e | --extra-vars  set additional variables as key=value
+#===============================================================================
+
+export PATH=$PATH:$ANSIBLE_HOME/bin
+#Note: The playbook path will be sed replaced in the spec file
+# to match the location of where the package is being installed.
+PLAYBOOKFILE="qpc_playbook.yml"
+PLAYBOOKPATH=""
+PLAYBOOK=$PLAYBOOKPATH$PLAYBOOKFILE
+INSTALLER_VERSION='BUILD_VERSION_PLACEHOLDER'
+
+declare -a args
+args=("$*")
+set -- ${args[@]}
+
+config_usage() {
+    cat <<EOM
+    qpc-tools
+    Version: ${INSTALLER_VERSION}
+
+    Configure Quipucords server and command-line components.
+
+    Usage:
+    $(basename $0)
+
+    Options:
+    -h | --help        Obtain command USAGE
+    -i | --install     Start the installer
+    -e | --extra-vars  Set additional variables as option=value
+
+
+    Extra Variables:
+    * Skip install for server:
+         -e install_server=false
+    * Skip install for CLI:
+         -e install_cli=false
+    * Perform an offline install
+         -e install_offline=true
+    * Quipucords server version to install (defaults to the latest release):
+         -e server_version=0.9.0
+    * QPC cli version to install (defaults to the latest release):
+         -e cli_version=0.9.0
+    * Quipucords server port (defaults to 9443):
+         -e server_port=8443
+    * Specify if the Quipucords server port should be opened in the host firewall (defaults to true):
+         -e open_port=false
+    * PostgreSQL db user (defaults to 'postgres'):
+         -e dbms_user=postgres
+    * PostgreSQL db password (defaults to 'password')
+         -e dbms_password=password
+    * Quipucords server username (defaults to admin):
+         -e server_username=cody
+    * Quipucords server password (defaults to qpcpassw0rd):
+         -e server_password=c0dy
+    * Quipucords server user email address (defaults to admin@example.com):
+         -e server_user_email=cody@hotmail.com
+    * Controls whether to start the Quipucords server with supervisord (defaults to true):
+         -e use_supervisord=false
+    * Sets the path to the downloaded packages for the installer (defaults to <installer>/packages/):
+         -e pkg_install_dir=~/packages
+    * Sets the path to the volumes directory for the Quipucords server (defaults to ~/quipucords):
+         -e server_install_dir=~/volumes
+    * Sets the name of the quipucords server (defaults to quipucords):
+         -e server_name=quipucords2
+    * Sets the HTTP timeout length for the Quipucords server (defaults to 120):
+         -e server_http_timeout=90
+    * Sets the network inspection scan timeout in seconds (defaults to 10800):
+         -e inspect_job_timeout=10700
+    * Sets the network connection scan timeout in seconds (defaults to 600):
+         -e connect_job_timeout=500
+    * Sets the level of log output by Ansible during network scans (defaults to 0):
+         -e ansible_log_level=10
+
+EOM
+    exit 0
+}
+
+install_usage() {
+    cat <<EOM
+    qpc-tools
+    Version: ${INSTALLER_VERSION}
+
+    Install Quipucords server and command-line components.
+
+    Usage:
+    $(basename $0)
+
+    Options:
+    -h | --help        Obtain command USAGE
+    -i | --install     Start the installer
+    -e | --extra-vars  Set additional variables as option=value
+
+
+    Extra Variables:
+    * Skip install for server:
+         -e install_server=false
+    * Skip install for CLI:
+         -e install_cli=false
+    * Perform an offline install
+         -e install_offline=true
+    * Quipucords server version to install (defaults to the latest release):
+         -e server_version=0.9.0
+    * QPC cli version to install (defaults to the latest release):
+         -e cli_version=0.9.0
+    * Quipucords server port (defaults to 9443):
+         -e server_port=8443
+    * Specify if the Quipucords server port should be opened in the host firewall (defaults to true):
+         -e open_port=false
+    * PostgreSQL db user (defaults to 'postgres'):
+         -e dbms_user=postgres
+    * PostgreSQL db password (defaults to 'password')
+         -e dbms_password=password
+    * Quipucords server username (defaults to admin):
+         -e server_username=cody
+    * Quipucords server password (defaults to qpcpassw0rd):
+         -e server_password=c0dy
+    * Quipucords server user email address (defaults to admin@example.com):
+         -e server_user_email=cody@hotmail.com
+    * Controls whether to start the Quipucords server with supervisord (defaults to true):
+         -e use_supervisord=false
+    * Sets the path to the downloaded packages for the installer (defaults to <installer>/packages/):
+         -e pkg_install_dir=~/packages
+    * Sets the path to the volumes directory for the Quipucords server (defaults to ~/quipucords):
+         -e server_install_dir=~/volumes
+    * Sets the name of the quipucords server (defaults to quipucords):
+         -e server_name=quipucords2
+    * Sets the HTTP timeout length for the Quipucords server (defaults to 120):
+         -e server_http_timeout=90
+    * Sets the network inspection scan timeout in seconds (defaults to 10800):
+         -e inspect_job_timeout=10700
+    * Sets the network connection scan timeout in seconds (defaults to 600):
+         -e connect_job_timeout=500
+    * Sets the level of log output by Ansible during network scans (defaults to 0):
+         -e ansible_log_level=10
+
+EOM
+    exit 0
+}
+
+install() {
+# for arg in $args; do
+#   if [[ $arg != "-e" ]]; then
+#     IFS='=' read -r -a temp_arr <<< "$arg"
+#     key=${temp_arr[0]}
+#     value=${temp_arr[1]}
+#     printf -v $key "$value"
+#   fi
+# done
+
+if [[ $EUID -ne 0 ]]
+then
+  echo ansible-playbook $PLAYBOOK -vv -K $*
+  ansible-playbook $PLAYBOOK -vv -K $*
+else
+  echo ansible-playbook $PLAYBOOK -vv $*
+  ansible-playbook $PLAYBOOK -vv $*
+fi
+
+if [ $? -eq 0 ]
+then
+  unset args
+  echo "Installation complete."
+  exit 0
+else
+  unset args
+  echo "Installation failed. Review the install logs."
+  exit 1
+fi
+}
+
+if [[ ($1 == "--install") || ($1 == "-i") ]]
+then
+  if [[ ($2 == "--help") || ($2 == "-h") ]]
+  then
+    install_usage;
+  fi
+  install;
+fi

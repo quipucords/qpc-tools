@@ -127,8 +127,8 @@ then
   then
     install_usage;
   fi
-  # pass the positional args for the script to the function
-  # to prevent scoping issues.
+  # pass the positional args for the script
+  # to the function to prevent scoping issues.
   install $*;
 else
 config_usage;

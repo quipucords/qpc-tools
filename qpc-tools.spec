@@ -18,7 +18,7 @@ Summary: A tool for discovery and inspection of an IT environment. The %{src_nam
 
 Group: Applications/Internet
 License: GNU
-URL: http://github.com/quipucords/quipucords
+URL: http://github.com/quipucords/qpc-tools
 Source0: %{src_name}-%{version}.tar.gz
 
 BuildArch: noarch

@@ -1,41 +1,45 @@
 qpc-tools
-====================
+=========
 
 Name
 ----
 
-qpc-tools - Installs the Quipucords server and command line interface client
+qpc-tools - Configuration tools for the Quipucords server and command line interface client.
 
 
 Synopsis
 --------
 
-``qpc-tools [options]``
+``qpc-tools command [options]``
 
 Description
 -----------
-The ``qpc-tools`` tool is used to install the Quipucords server and command line interface (CLI) client. You can run the qpc-tools command with no options to perform a basic installation with the preset defaults. For more information about the options and their preset defaults, see the `Options`_ section. You can also run the qpc-tools command with options. The most common scenarios where you might use options to change the basic installation process are explained in the `Installing offline`_, `Installing a specific version`_, and `Installing the server and command line interface separately`_ sections.
 
-Note that in log information for the ``qpc-tools`` command, references to ``quipucords server`` are relevant to the Quipucords server, and references to ``qpc CLI`` are relevant to the Quipucords command line interface client.
-
+The ``qpc-tools`` package is used to configure the Quipucords server and command line interface (CLI) client.
 
 Usage
 -----
 
-To start a basic Quipucords installation with the preset defaults, enter the following command:
+To install the Quipucords server and command line interfaced (CLI) client:
 
-  ``qpc-tools``
+  ``qpc-tools install [options]``
+
+The following sections describe these commands, their subcommands, and their options in more detail. They also describe additional tasks that are not highlighted in the previous list of major workflow tasks.
+
+Installation
+------------
+The ``qpc-tools install`` command with no options performs a basic installation with the preset defaults. However, it is recommended the ``qpc-tools install`` command with options to change default username and passwords. The most common scenarios where you might use options to change the basic installation process are explained in the `Installing offline`_, `Installing a specific version`_, and `Installing the server and command line interface separately`_ sections.
+
+Note that in log information for the ``qpc-tools install`` command, references to ``quipucords server`` are relevant to the Quipucords server, and references to ``qpc CLI`` are relevant to the Quipucords command line interface client.
+
+  ``qpc-tools install [options]``
 
 Options
--------
+~~~~~~~
 
-The ``-help`` option is available to obtain information about the command usage.
+The ``extra-vars`` options set values that are passed to the Ansible playbook that runs during installation.
 
-**qpc-tools (-h | --help)**
-
-The ``extra-vars`` options set values that are passed to the Ansible playbook that runs during Quipucords installation.
-
-**qpc-tools (-e | --extra-vars) option=** *value*
+**qpc-tools install (-e | --extra-vars) option=** *value*
 
 The following list contains the available ``--extra-vars`` options.
 
@@ -168,13 +172,13 @@ Running the offline installation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 To complete an installation on a machine without internet connectivity, also known as an offline installation, run the ``qpc-tools`` command with the appropriate options. For example, if you are installing version 0.9.0 of the Quipucords server and command line interface, you would enter the following command:
 
-``qpc-tools -e install_offline=true -e server_version=0.9.0  -e cli_version=0.9.0``
+``qpc-tools install -e install_offline=true -e server_version=0.9.0  -e cli_version=0.9.0``
 
 Installing a specific version
 -----------------------------
 By default, the ``qpc-tools`` command installs the latest release unless an earlier version is specified in the command. For example, if the previous version of Quipucords that you want to install is 0.9.0., you would enter the following command:
 
-``qpc-tools -e server_version=0.9.0  -e cli_version=0.9.0``
+``qpc-tools install -e server_version=0.9.0  -e cli_version=0.9.0``
 
 Installing the server and command line interface separately
 -----------------------------------------------------------
@@ -184,13 +188,22 @@ Installing the server without the command line interface
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The following example command installs the Quipucords server but does not install the command line interface.
 
-``qpc-tools -e install_cli=false``
+``qpc-tools install -e install_cli=false``
 
 Installing the command line interface without the server
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The following example command installs the Quipucords command line interface but does not install the server.
 
-``qpc-tools -e install server=false``
+``qpc-tools install -e install_server=false``
+
+Options for All Commands
+------------------------
+
+The following options are available for every Quipucords command.
+
+``--help``
+
+  Prints the help for the ``qpc-tools`` command.
 
 Authors
 -------

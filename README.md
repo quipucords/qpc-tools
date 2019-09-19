@@ -139,7 +139,7 @@ make install
 ```
 Note:
  - Optionally run any secret post install scripts you included in `installer_config.tar.gz`
- - You can replace `make install` with other commands or `cd install;./qpc-tools -i -e other_flags`
+ - You can replace `make install` with other commands or `cd install;./qpc-tools install -e other_flags`
 
 ## Vagrant: Testing Offline Installation
 
@@ -155,7 +155,7 @@ make install-offline server_version=<server_version> cli_version=<cli_version>
 
 Note:
  - Optionally run any secret post install scripts you included in `installer_config.tar.gz`
- - You can replace `make install` with other commands or `cd install;./qpc-tools -i -e other_flags`
+ - You can replace `make install` with other commands or `cd install;./qpc-tools install -e other_flags`
 
  ## Creating the man page
  After installing [pandoc](https://pandoc.org/installing.html) locally, run the following command:

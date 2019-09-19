@@ -27,11 +27,13 @@ config_usage() {
     Configure Quipucords server and command-line components.
 
     Usage:
-    $(basename $0)
+    $(basename $0) [-h] {install}
+
+    Commands:
+    {install}
 
     Options:
-    -h | --help        Obtain command USAGE
-    -i | --install     Start the installer
+    -h, --help        Obtain command USAGE
 
 EOM
     exit 0
@@ -45,12 +47,11 @@ install_usage() {
     Install Quipucords server and command-line components.
 
     Usage:
-    $(basename $0) --install | $(basename $0) -i
+    $(basename $0) install [-h] [-e]
 
     Options:
     -h | --help        Obtain command USAGE
     -e | --extra-vars  Set additional variables as option=value
-
 
     Extra Variables:
     * Skip install for server:
@@ -121,7 +122,7 @@ else
 fi
 }
 
-if [[ ($1 == "--install") || ($1 == "-i") ]]
+if [[ ($1 == "install") ]]
 then
   if [[ ($2 == "--help") || ($2 == "-h") ]]
   then

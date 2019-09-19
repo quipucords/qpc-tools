@@ -1,18 +1,6 @@
-%global purpose upstream
-%if "%{purpose}" == "upstream"
-%global stream_name quipucords
-%global pkg_name = qpc
-%global ver 0.1.2
-%else
-%global stream_name discovery
-%global pkg_name = dsc
-%global ver VERSION_PLACE_HOLDER
-%endif
-####
-%global src_name %{pkg_name}-tools
-%global egg_name %{pkg_name}_tools
+%global src_name qpc-tools
 Name: %{src_name}
-Version: %{ver}
+Version: 0.1.2
 Release: 1%{?dist}
 Summary: A tool for discovery and inspection of an IT environment. The %{src_name} provides a server base infrastructure to process tasks that discover and inspect remote systems.
 
@@ -24,18 +12,9 @@ Source0: %{src_name}-%{version}.tar.gz
 BuildArch: noarch
 #Common Requirements
 Requires: ansible >= 2.4
-# Quipucords (Upstream)
-%if "%{stream_name}" == "quipucords"
 %if "%{dist}" != ".el8"
 BuildRequires: pandoc
 %endif
-%endif
-# Discovery (Downstream)
-%if "%{stream_name}" == "discovery"
-# Downstream rpmbuilder bombs when there are no BuildRequires
-BuildRequires: ansible
-%endif
-
 
 %description
 A tool for discovery and inspection of an IT environment. The %{src_name} provides a server base infrastructure to process tasks that discover and inspect remote systems.
@@ -47,14 +26,12 @@ A tool for discovery and inspection of an IT environment. The %{src_name} provid
 mkdir -p %{buildroot}%{_libdir}
 mkdir -p %{buildroot}%{_bindir}
 pushd %{_builddir}/%{src_name}-*
-%if "%{stream_name}" == "quipucords"
 %if "%{dist}" == ".el8"
 curl -k -SL https://github.com/jgm/pandoc/releases/download/2.7.3/pandoc-2.7.3-linux.tar.gz -o pandoc.tar.gz
 tar xvzf pandoc.tar.gz --strip-components 1 -C ~/
 make manpage pandoc=~/bin/pandoc
 %else
 make manpage
-%endif
 %endif
 sed -i 's?PLAYBOOKPATH=""?PLAYBOOKPATH="%{_libdir}/%{src_name}-%{version}/install/"?g' install/%{src_name}
 sed -i 's/BUILD_VERSION_PLACEHOLDER/%{version}/g' install/%{src_name}

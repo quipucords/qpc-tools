@@ -92,22 +92,22 @@ This method is used when you are testing installation scripts that have been rel
 ### Testing online installation
 To test the release scripts on all supported OS's, run the following.
 ```
-make setup-release-online installer_version=0.1.1
+make setup-release-online tools_version=0.1.1
 make test-all
 ```
 **Options:**
-- `installer_version`
-  - Contains the released version of the `qpc-tools`. Defaults to `latest`. Supply the installer version number you want to use.
+- `tools_version`
+  - Contains the released version of the `qpc-tools`. Defaults to `latest`. Supply the qpc-tools version number you want to use.
 
 ### Testing offline installation
-To test the release scripts on all supported OS's, run the following. This command will download Quipucords server docker image, installer, `qpc` client and copy them to OS specific folders.
+To test the release scripts on all supported OS's, run the following. This command will download Quipucords server docker image, qpc-tools, `qpc` client and copy them to OS specific folders.
 ```
-make setup-release-offline installer_version=0.1.1 cli_version=0.9.0 server_version=0.9.0
+make setup-release-offline tools_version=0.1.1 cli_version=0.9.0 server_version=0.9.0
 make test-all
 ```
 **Options:**
-- `installer_version`
-  - Contains the released version of the `qpc-tools`. Defaults to `latest`. Supply the installer version number you want to use.
+- `tools_version`
+  - Contains the released version of the `qpc-tools`. Defaults to `latest`. Supply the qpc-tools version number you want to use.
 - `cli_version`
   - Contains the released version of the `qpc` client. Defaults to `latest`. Supply the client version number you want to use.
 - `server_version`
@@ -117,7 +117,7 @@ make test-all
 The above `test-all` command will perform a  `vagrant ssh`.  If you have no configuration help, then you can simply run `qpc-tools`.
 
 ### Optional Secret Configuration
-Create or obtain a tarball named `installer_config.tar.gz`.  The files in this tarball will automatically be copied inside the VMs mapped volumes.  If you are testing rhel6 or rhel7 and have internal repositories, your `installer_config.tar.gz` should have the following structure:
+Create or obtain a tarball named `tools_config.tar.gz`.  The files in this tarball will automatically be copied inside the VMs mapped volumes.  If you are testing rhel6 or rhel7 and have internal repositories, your `tools_config.tar.gz` should have the following structure:
 ```
 - config
     - rhel6
@@ -133,12 +133,12 @@ The repository files will be copied to the `/etc/yum.repos.d/` directory in the 
 ## Vagrant: Testing Online Installation
 To test online installation, do the following:
 ```
-clear;cd /quipucords_installer;sudo su
+clear;cd /qpc_tools;sudo su
 make setup
 make install
 ```
 Note:
- - Optionally run any secret post install scripts you included in `installer_config.tar.gz`
+ - Optionally run any secret post install scripts you included in `tools_config.tar.gz`
  - You can replace `make install` with other commands or `cd install;./qpc-tools install -e other_flags`
 
 ## Vagrant: Testing Offline Installation
@@ -146,7 +146,7 @@ Note:
 To test offline installation for RHEL 6/7/8 or CentOS 6/7, do the following (with internet connectivity):
 
 ```
-clear;cd /quipucords_installer;sudo su
+clear;cd /qpc_tools;sudo su
 make setup
 make offline-prep
 # Disconnect from the network
@@ -154,7 +154,7 @@ make install-offline server_version=<server_version> cli_version=<cli_version>
 ```
 
 Note:
- - Optionally run any secret post install scripts you included in `installer_config.tar.gz`
+ - Optionally run any secret post install scripts you included in `tools_config.tar.gz`
  - You can replace `make install` with other commands or `cd install;./qpc-tools install -e other_flags`
 
  ## Creating the man page

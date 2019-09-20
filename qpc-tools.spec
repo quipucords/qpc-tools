@@ -52,4 +52,4 @@ install -D -p -m 644 %{buildroot}%{_libdir}/%{src_name}-%{version}/docs/%{src_na
 
 %changelog
 * Thu Jun 27 2019 Cody Myers <cmyers@redhat.com> 0.1.2
-- Creating the installer as a spec
+- Creating the qpc-tools as a spec

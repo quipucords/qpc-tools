@@ -1,9 +1,9 @@
 # Mac files
 .DS_Store
 test/
-installer_config.tar.gz
-installer_config/
-installer_config_dev/
+tools_config.tar.gz
+tools_config/
+tools_config_dev/
 .vagrant/
 qpc_playbook.retry
 qpc-tools.1

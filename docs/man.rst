@@ -97,7 +97,7 @@ The following list contains the available ``--extra-vars`` options.
 
 ``-e pkg_install_dir=~/packages``
 
-  Sets the fully qualified path to the downloaded packages for the installer. Defaults to ``<installer>/packages/``.
+  Sets the fully qualified path to the downloaded packages for the install command. Defaults to ``<qpc-tools>/packages/``.
 
 ``-e server_install_dir=~/volumes``
 
@@ -125,9 +125,9 @@ The following list contains the available ``--extra-vars`` options.
 
 Installing offline
 ------------------
-If you choose the offline option to run the installer, you must do the following steps:
+If you choose the offline option to run the install command, you must do the following steps:
 
-#. Obtain the installer packages on a machine with internet connectivity.
+#. Obtain the installation packages on a machine with internet connectivity.
 
 #. Create a location for the packages on the machine where Quipucords will be installed and move the packages to that location.
 
@@ -164,7 +164,7 @@ Setting the package location
 
    ``mkdir -p /usr/{lib}/qpc-tools-{x.y.z}/install/packages``
 
-#. Move the packages to the following directory so that the installer can find them:
+#. Move the packages to the following directory so that the install command can find them:
 
    ``mv path/to/quipucords_server_image.tar.gz /usr/{lib}/qpc-tools-{x.y.z}/install/packages``
 

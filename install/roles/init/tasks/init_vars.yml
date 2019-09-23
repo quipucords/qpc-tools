@@ -23,7 +23,7 @@
     pkg_install_dir: "{{ ansible_env['PWD'] + '/packages/' }}"
   when: pkg_install_dir is not defined
 
-- name: Set installer to use Docker for RHEL 6 and CentOS 6
+- name: Set installation to use Docker for RHEL 6 and CentOS 6
   set_fact:
     use_docker: 'true'
   when:

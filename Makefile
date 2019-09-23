@@ -10,10 +10,10 @@ help:
 	@echo "         server_source=<local||release>                @param - defaults to release"
 	@echo "         cli_version=<x.x.x>                           @param - defaults to latest"
 	@echo "         server_version=<x.x.x>                        @param - required if server source is local; defaults to latest if using release"
-	@echo "  setup-release-online                           Download and copy quipucords installer to OS specific folders"
-	@echo "         installer_version=<x.x.x>                     @param - defaults to latest"
-	@echo "  setup-release-offline                          Download and copy quipucords installer, server image and qpc client rpm to OS specific folders"
-	@echo "         installer_version=<x.x.x>                     @param - defaults to latest"
+	@echo "  setup-release-online                           Download and copy qpc-tools to OS specific folders"
+	@echo "         tools_version=<x.x.x>                     @param - defaults to latest"
+	@echo "  setup-release-offline                          Download and copy qpc-tools, server image and qpc client rpm to OS specific folders"
+	@echo "         tools_version=<x.x.x>                     @param - defaults to latest"
 	@echo "         cli_version=<x.x.x>                           @param - defaults to latest"
 	@echo "         server_version=<x.x.x>                        @param - defaults to latest"
 	@echo "  refresh                                        Recopy configuration, install, packages to OS specific folders"
@@ -43,17 +43,17 @@ copy-vm-helper-files:
 
 # Internal subcommands that the user should not call
 copy-config:
-	@if [ -e installer_config.tar.gz ]; then \
+	@if [ -e tools_config.tar.gz ]; then \
 		set -x; \
 		mkdir -p test/helpers | true; \
-		tar -xvf installer_config.tar.gz | true; \
-		cp -rf installer_config/* test/helpers | true; \
-		rm -rf installer_config/ | true; \
+		tar -xvf tools_config.tar.gz | true; \
+		cp -rf tools_config/* test/helpers | true; \
+		rm -rf tools_config/ | true; \
 		for dest in test/rhel8 test/rhel7 test/rhel6 test/centos6 test/centos7 ; do cp -vrf test/helpers/* $$dest | true; done; \
 		rm -rf test/helpers | true; \
 		set +x; \
 	else \
-		echo "installer_config.tar.gz does not exist"; \
+		echo "tools_config.tar.gz does not exist"; \
 	fi
 
 # Internal subcommands that the user should not call
@@ -99,12 +99,12 @@ download-client:
 	rm -f test/packages/*.noarch.rpm
 
 # Internal subcommands that the user should not call
-download-installer:
+download-tools:
 	mkdir -p test/downloaded_install
-ifeq ($(installer_version),$(filter $(installer_version),latest))
-	cd test/downloaded_install;curl -k -SL https://github.com/quipucords/quipucords-installer/releases/latest/download/quipucords_install.tar.gz -o quipucords_install.tar.gz
+ifeq ($(tools_version),$(filter $(tools_version),latest))
+	cd test/downloaded_install;curl -k -SL https://github.com/quipucords/qpc-tools/releases/latest/download/quipucords_install.tar.gz -o quipucords_install.tar.gz
 else
-	cd test/downloaded_install;curl -k -SL https://github.com/quipucords/quipucords-installer/releases/download/$(installer_version)/quipucords_install.tar.gz -o quipucords_install.tar.gz
+	cd test/downloaded_install;curl -k -SL https://github.com/quipucords/qpc-tools/releases/download/$(tools_version)/quipucords_install.tar.gz -o quipucords_install.tar.gz
 endif
 	cd test/downloaded_install;tar -xzf quipucords_install.tar.gz
 	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf test/downloaded_install/install test/$$os/; done
@@ -139,10 +139,10 @@ endif
 	$(MAKE) download-client
 
 setup-release-online: create-test-dirs copy-vm-helper-files copy-config copy-packages
-	$(MAKE) download-installer
+	$(MAKE) download-tools
 
 setup-release-offline: create-test-dirs copy-vm-helper-files copy-config copy-packages
-	$(MAKE) download-installer
+	$(MAKE) download-tools
 	$(MAKE) download-server-image
 	$(MAKE) download-client
 	$(MAKE) copy-packages
@@ -173,8 +173,8 @@ clean:
 
 manpage:
 	$(pandoc) docs/man.rst \
-	  --standalone -t man -o docs/quipucords-installer.1 \
+	  --standalone -t man -o docs/qpc-tools.1 \
 	  --variable=section:1 \
 	  --variable=date:'June 6, 2019' \
 	  --variable=footer:'version 0.9.1' \
-	  --variable=header:'quipucords-installer'
+	  --variable=header:'qpc-tools'

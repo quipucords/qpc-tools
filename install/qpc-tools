@@ -1,9 +1,9 @@
 #!/bin/bash
 #===============================================================================
 #
-#          FILE:  quipucords-installer
+#          FILE:  qpc-tools
 #
-#         USAGE:  ./quipucords-installer
+#         USAGE:  ./qpc-tools
 #
 #   DESCRIPTION:  Install Quipucords server and command-line components.
 #
@@ -17,27 +17,41 @@ export PATH=$PATH:$ANSIBLE_HOME/bin
 PLAYBOOKFILE="qpc_playbook.yml"
 PLAYBOOKPATH=""
 PLAYBOOK=$PLAYBOOKPATH$PLAYBOOKFILE
+QPC_TOOLS_VERSION='BUILD_VERSION_PLACEHOLDER'
 
-INSTALLER_VERSION='BUILD_VERSION_PLACEHOLDER'
-
-declare -a args
-args=("$*")
-set -- ${args[@]}
-
-usage() {
+config_usage() {
     cat <<EOM
-    Quipucords Installer
-    Version: ${INSTALLER_VERSION}
+    qpc-tools
+    Version: ${QPC_TOOLS_VERSION}
+
+    Configure Quipucords server and command-line components.
+
+    Usage:
+    $(basename $0) [-h] {install}
+
+    Commands:
+    {install}
+
+    Options:
+    -h, --help        Obtain command USAGE
+
+EOM
+    exit 0
+}
+
+install_usage() {
+    cat <<EOM
+    qpc-tools
+    Version: ${QPC_TOOLS_VERSION}
 
     Install Quipucords server and command-line components.
 
     Usage:
-    $(basename $0)
+    $(basename $0) install [-h] [-e]
 
     Options:
-    -h | --help   Obtain command USAGE
-    -e | --extra-vars  set additional variables as option=value
-
+    -h | --help        Obtain command USAGE
+    -e | --extra-vars  Set additional variables as option=value
 
     Extra Variables:
     * Skip install for server:
@@ -66,7 +80,7 @@ usage() {
          -e server_user_email=cody@hotmail.com
     * Controls whether to start the Quipucords server with supervisord (defaults to true):
          -e use_supervisord=false
-    * Sets the path to the downloaded packages for the installer (defaults to <installer>/packages/):
+    * Sets the path to the downloaded packages for the install command (defaults to <qpc-tools>/packages/):
          -e pkg_install_dir=~/packages
     * Sets the path to the volumes directory for the Quipucords server (defaults to ~/quipucords):
          -e server_install_dir=~/volumes
@@ -85,35 +99,38 @@ EOM
     exit 0
 }
 
-if [[ ($1 == "--help") ||  ($1 == "-h") ]]
-then
-  usage;
-fi
-
-for arg in $args; do
-  if [[ $arg != "-e" ]]; then
-    IFS='=' read -r -a temp_arr <<< "$arg"
-    key=${temp_arr[0]}
-    value=${temp_arr[1]}
-    printf -v $key "$value"
-  fi
-done
-
+install() {
+shift
+# shift removes the $1 in the positional args
 if [[ $EUID -ne 0 ]]
 then
-  echo ansible-playbook $PLAYBOOK -v -K $*
+  echo ansible-playbook $PLAYBOOK -vv -K $*
   ansible-playbook $PLAYBOOK -vv -K $*
 else
-  echo ansible-playbook $PLAYBOOK -v $*
+  echo ansible-playbook $PLAYBOOK -vv $@
   ansible-playbook $PLAYBOOK -vv $*
 fi
 
+unset args
 if [ $? -eq 0 ]
 then
-  unset args
   echo "Installation complete."
+  exit 0
 else
-  unset args
   echo "Installation failed. Review the install logs."
   exit 1
+fi
+}
+
+if [[ ($1 == "install") ]]
+then
+  if [[ ($2 == "--help") || ($2 == "-h") ]]
+  then
+    install_usage;
+  fi
+  # pass the positional args for the script
+  # to the function to prevent scoping issues.
+  install $*;
+else
+config_usage;
 fi

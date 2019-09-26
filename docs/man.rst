@@ -99,9 +99,9 @@ The following list contains the available ``--extra-vars`` options.
 
   Sets the fully qualified path to the installation directory for the Quipucords server. Defaults to ``~/quipucords/``.
 
-`` -e offline_files=~/offline``
+``-e offline_files=~/offline``
 
-  Sets the fully qualified path to the files needed to complete an offline install. Required if ``install_offline=true``.
+  Sets the fully qualified path to the files needed to complete an offline installation. Required if ``install_offline=true``.
 
 ``-e server_name=quipucords2``
 

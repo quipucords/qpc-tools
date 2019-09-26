@@ -1,5 +1,31 @@
+language: python
+
+python:
+  - "3.6"
+
+cache: pip
+
+matrix:
+  include:
+    - python: 3.5
+      env:
+        - TOX_ENV=py35
+    - python: 3.6
+      env:
+        - TOX_ENV=py36
+
+# command to install dependencies
+install:
+  - pip install -U pip
+  - pip install -r dev-requirements.txt
+  - pip install codecov
+
+# command to run tests
 script:
-  - make help
+  - tox -e $TOX_ENV
+
+after_success:
+  - codecov
 
 notifications:
   slack:

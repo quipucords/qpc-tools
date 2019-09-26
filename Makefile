@@ -1,7 +1,9 @@
 DATE = $(shell date)
+PYTHON = $(shell which python)
 TOPDIR = $(shell pwd)
 # Required for a work around in the spec file
 pandoc = pandoc
+.PHONY: install
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of:"
@@ -11,9 +13,9 @@ help:
 	@echo "         cli_version=<x.x.x>                           @param - defaults to latest"
 	@echo "         server_version=<x.x.x>                        @param - required if server source is local; defaults to latest if using release"
 	@echo "  setup-release-online                           Download and copy qpc-tools to OS specific folders"
-	@echo "         tools_version=<x.x.x>                     @param - defaults to latest"
+	@echo "         tools_version=<x.x.x>                         @param - defaults to latest"
 	@echo "  setup-release-offline                          Download and copy qpc-tools, server image and qpc client rpm to OS specific folders"
-	@echo "         tools_version=<x.x.x>                     @param - defaults to latest"
+	@echo "         tools_version=<x.x.x>                         @param - defaults to latest"
 	@echo "         cli_version=<x.x.x>                           @param - defaults to latest"
 	@echo "         server_version=<x.x.x>                        @param - defaults to latest"
 	@echo "  refresh                                        Recopy configuration, install, packages to OS specific folders"
@@ -24,6 +26,10 @@ help:
 	@echo "  test-centos-6                                  Launch the CentOS 6 VM for testing"
 	@echo "  test-centos-7                                  Launch the CentOS 7 VM for testing"
 	@echo "  manpage                                        Create the manpage"
+	@echo "  install                                        Install the client egg"
+	@echo "  lint                                           Run the flake8/pylint linter"
+	@echo "  unit-test                                      Run the python unit tests"
+	@echo "  test-coverage                                  Run the unit tests and measure test coverage"
 	@echo "  clean                                          Cleanup configure files and destroy VMs"
 
 # Internal subcommands that the user should not call
@@ -168,6 +174,7 @@ test-centos-7:
 	vagrant up vcentos7;vagrant ssh vcentos7
 
 clean:
+	rm -rf dist/ build/ qpc_tools.egg-info/
 	vagrant destroy -f
 	rm -rf test
 
@@ -178,3 +185,21 @@ manpage:
 	  --variable=date:'June 6, 2019' \
 	  --variable=footer:'version 0.9.1' \
 	  --variable=header:'qpc-tools'
+
+# Install python egg
+OMIT_PATTERNS = */test*.py,*/.virtualenvs/*.py,*/virtualenvs/*.py,.tox/*.py
+
+install:
+	$(PYTHON) setup.py build -f
+	$(PYTHON) setup.py install -f
+
+lint:
+	tox -e lint
+
+unit-test:
+	tox -e py36
+
+test-coverage:
+	coverage run -m unittest discover qpc_tools/ -v
+	coverage report -m --omit $(OMIT_PATTERNS)
+	echo $(OMIT_PATTERNS)

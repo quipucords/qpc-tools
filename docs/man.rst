@@ -95,11 +95,7 @@ The following list contains the available ``--extra-vars`` options.
 
   Controls whether to start the Quipucords server with supervisord. Contains a true or false value. Defaults to ``true``. Supply ``false`` to start the server without supervisord.
 
-``-e pkg_install_dir=~/packages``
-
-  Sets the fully qualified path to the downloaded packages for the install command. Defaults to ``<qpc-tools>/packages/``.
-
-``-e server_install_dir=~/volumes``
+``-e tools_install_dir=~/volumes``
 
   Sets the fully qualified path to the installation directory for the Quipucords server. Defaults to ``~/quipucords/``.
 

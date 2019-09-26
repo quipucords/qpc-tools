@@ -34,3 +34,20 @@
     selinux_on: true
   when:
     - have_selinux_raw.rc == 0
+
+- name: Set the {{tools_install_dir}} server subdirectory paths
+  set_fact:
+    server_log_volume: "{{tools_install_dir}}/server/volumes/log/"
+    server_sshkeys_volume: "{{tools_install_dir}}/server/volumes/sshkeys/"
+    server_data_volume: "{{tools_install_dir}}/server/volumes/data/"
+    server_packages: "{{tools_install_dir}}/server/packages/"
+
+- name: Create the {{tools_install_dir}} server subdirectories
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{server_log_volume}}"
+    - "{{server_sshkeys_volume}}"
+    - "{{server_data_volume}}"
+    - "{{server_packages}}"

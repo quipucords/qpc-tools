@@ -2,8 +2,14 @@
 
 - name: Set the Quipucords CLI RPM file path
   set_fact:
-    qpc_rpm_local_path: "{{ pkg_install_dir }}{{ qpc_package_name }}"
+    qpc_rpm_local_path: "{{ cli_packages }}{{ qpc_package_name }}"
   when: install_cli|lower == 'true'
+
+- name: Copy offline files to server packages subdirectory
+  copy:
+    src: "{{offline_files}}/{{qpc_package_name}}"
+    dest: "{{qpc_rpm_local_path}}"
+  ignore_errors: true
 
 - name: Check if the Quipucords CLI RPM file exists
   stat:

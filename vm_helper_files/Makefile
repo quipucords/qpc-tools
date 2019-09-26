@@ -72,7 +72,7 @@ online-prep: setup
 	fi
 
 install-offline:
-	cd install;./qpc-tools install -e install_offline=true -e server_version=$(server_version) -e cli_version=$(cli_version)
+	cd install;./qpc-tools install -e install_offline=true -e server_version=$(server_version) -e cli_version=$(cli_version) -e offline_files=/qpc_tools/install/packages
 
 install: online-prep
 	cd install;./qpc-tools install

@@ -1,5 +1,5 @@
 DATE = $(shell date)
-PYTHON		= $(shell which python)
+PYTHON = $(shell which python)
 TOPDIR = $(shell pwd)
 # Required for a work around in the spec file
 pandoc = pandoc

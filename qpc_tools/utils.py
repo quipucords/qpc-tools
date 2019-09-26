@@ -35,19 +35,19 @@ log = logging.getLogger('qpc_tools')
 
 
 def ensure_config_dir_exists():
-    """Ensure the qpc configuration directory exists."""
+    """Ensure the qpc tools configuration directory exists."""
     if not os.path.exists(CONFIG_DIR):
         os.makedirs(CONFIG_DIR)
 
 
 def ensure_data_dir_exists():
-    """Ensure the qpc data directory exists."""
+    """Ensure the qpc tools data directory exists."""
     if not os.path.exists(DATA_DIR):
         os.makedirs(DATA_DIR)
 
 
 def setup_logging(verbosity):
-    """Set up Python logging for qpc.
+    """Set up Python logging for qpc tools.
 
     Must be run after ensure_data_dir_exists().
 
@@ -60,13 +60,13 @@ def setup_logging(verbosity):
         log_level = logging.DEBUG
 
     # Using basicConfig here means that all log messages, even
-    # those not coming from qpc, will go to the log file
+    # those not coming from qpc tools, will go to the log file
     logging.basicConfig(filename=QPC_LOG, format='%(asctime)s - %(name)s - '
                                                  '%(levelname)s - %(message)s')
-    # but we only adjust the log level for the 'qpc' logger.
+    # but we only adjust the log level for the 'qpc-tools' logger.
     log.setLevel(log_level)
     # the StreamHandler sends warnings and above to stdout, but
-    # only for messages going to the 'qpc' logger, i.e. QPC
+    # only for messages going to the 'qpc-tools' logger, i.e. qpc-tools
     # output.
     stderr_handler = logging.StreamHandler()
     stderr_handler.setLevel(logging.ERROR)
@@ -74,9 +74,9 @@ def setup_logging(verbosity):
 
 
 def log_args(args):
-    """Log the arguments for each qpc command.
+    """Log the arguments for each qpc-tools command.
 
-    :param args: the arguments provided to the qpc command
+    :param args: the arguments provided to the qpc-tools command
     """
     message = 'Args: "%s"'
     log.info(message, args)

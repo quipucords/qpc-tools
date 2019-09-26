@@ -54,7 +54,7 @@
     name: server_docker
     tasks_from: start_postgres_container
 
-- name: Start the QPC server
+- name: Start the Quipucords server
   include_role:
     name: server_docker
     tasks_from: start_quipucords_container

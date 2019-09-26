@@ -44,7 +44,7 @@
     name: server_podman
     tasks_from: load_postgres_image_offline
 
-- name: Start the QPC server
+- name: Start the Quipucords server
   include_role:
     name: server_podman
     tasks_from: start_quipucords_container

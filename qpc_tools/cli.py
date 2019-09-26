@@ -80,8 +80,6 @@ class CLI():
             subcommand = self.subcommands[self.args.subcommand]
             if self.args.action in subcommand:
                 action = subcommand[self.args.action]
-                print(subcommand)
-                print(action)
                 action.main(self.args)
             else:
                 self.parser.print_help()

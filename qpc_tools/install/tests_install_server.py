@@ -25,7 +25,7 @@ PARSER = ArgumentParser()
 SUBPARSER = PARSER.add_subparsers(dest='subcommand')
 
 
-class CredentialAddCliTests(unittest.TestCase):
+class InstallServerCommandTests(unittest.TestCase):
     """Class for testing the install server commands."""
 
     def setUp(self):

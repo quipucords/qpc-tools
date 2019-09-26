@@ -54,6 +54,7 @@ def setup_logging(verbosity):
     :param verbosity: verbosity level, as measured in -v's on the command line.
         Can be None for default.
     """
+    ensure_data_dir_exists()
     if verbosity == LOG_LEVEL_INFO:
         log_level = logging.INFO
     else:

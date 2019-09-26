@@ -23,7 +23,7 @@
   register: docker_postgres_ps_raw
   ignore_errors: yes
 
-- name: Set variable indicating whether Quipucords server PostgreSQL docker container is present
+- name: Set variable indicating whether the Quipucords server PostgreSQL docker container is present
   set_fact:
     have_qpc_db_docker_container: "{{ docker_postgres_ps_raw['stdout_lines'] | length > 0 }}"
 
@@ -34,7 +34,7 @@
   when:
     - have_qpc_db_docker_container
 
-- name: Set variable indicating whether any Quipucords docker containers is present
+- name: Set variable indicating whether any Quipucords docker containers are present
   set_fact:
     have_qpc_docker_containers: true
   when:

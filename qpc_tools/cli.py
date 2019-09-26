@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Copyright (c) 2019-2019 Red Hat, Inc.
+# Copyright (c) 2019 Red Hat, Inc.
 #
 # This software is licensed to you under the GNU General Public License,
 # version 3 (GPLv3). There is NO WARRANTY for this software, express or
@@ -22,7 +22,9 @@ from qpc_tools.install.commands import (InstallAllCommand,
                                         InstallServerCommand)
 from qpc_tools.release import (VERSION)
 from qpc_tools.translation import _
-from qpc_tools.utils import (setup_logging)
+from qpc_tools.utils import (ensure_config_dir_exists,
+                             ensure_data_dir_exists,
+                             setup_logging)
 
 
 # pylint: disable=too-few-public-methods
@@ -52,6 +54,8 @@ class CLI():
                              [InstallAllCommand,
                               InstallServerCommand,
                               InstallCLICommand])
+        ensure_data_dir_exists()
+        ensure_config_dir_exists()
 
     def _add_subcommand(self, subcommand, actions):
         subcommand_parser = self.subparsers.add_parser(subcommand)

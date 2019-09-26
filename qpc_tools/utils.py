@@ -9,7 +9,7 @@
 # along with this software; if not, see
 # https://www.gnu.org/licenses/gpl-3.0.txt.
 #
-"""QPC Command Line utilities."""
+"""qpc tools command line utilities."""
 
 from __future__ import print_function
 
@@ -25,12 +25,25 @@ DATA_HOME = os.path.expanduser(DATA_HOME_PATH)
 CONFIG_DIR = os.path.join(CONFIG_HOME, QPC_PATH)
 DATA_DIR = os.path.join(DATA_HOME, QPC_PATH)
 QPC_LOG = os.path.join(DATA_DIR, 'qpc-tools.log')
+QPC_SERVER_CONFIG = os.path.join(CONFIG_DIR, 'qpc-tools.config')
 
 LOG_LEVEL_INFO = 0
 
 # pylint: disable=invalid-name
 logging.captureWarnings(True)
 log = logging.getLogger('qpc_tools')
+
+
+def ensure_config_dir_exists():
+    """Ensure the qpc configuration directory exists."""
+    if not os.path.exists(CONFIG_DIR):
+        os.makedirs(CONFIG_DIR)
+
+
+def ensure_data_dir_exists():
+    """Ensure the qpc data directory exists."""
+    if not os.path.exists(DATA_DIR):
+        os.makedirs(DATA_DIR)
 
 
 def setup_logging(verbosity):

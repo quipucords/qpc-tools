@@ -9,7 +9,7 @@
 # along with this software; if not, see
 # https://www.gnu.org/licenses/gpl-3.0.txt.
 #
-"""Script for running qpc command line tool"""
+"""Script for running qpc tools command line tool"""
 
 from __future__ import print_function
 import gettext
@@ -26,13 +26,13 @@ if sys.version_info[0] < 3 or \
 BASE_QPC_DIR = os.path.abspath(
     os.path.normpath(
         os.path.join(os.path.dirname(sys.argv[0]), '..')))
-QPC_PATH = os.path.join(BASE_QPC_DIR, 'qpc')
+QPC_PATH = os.path.join(BASE_QPC_DIR, 'qpc_tools')
 sys.path.insert(0, QPC_PATH)
 
 # pylint: disable=wrong-import-position
 from qpc_tools.cli import CLI  # noqa
 
-gettext.install('qpc-tools')
+gettext.install('qpc_tools')
 
 if __name__ == "__main__":
     CLI().main()

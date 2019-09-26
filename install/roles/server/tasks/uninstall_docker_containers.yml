@@ -6,7 +6,7 @@
   register: docker_qpc_ps_raw
   ignore_errors: yes
 
-- name: Set variable indicating whether QPC server docker container found
+- name: Set variable indicating whether quipucords server docker container found
   set_fact:
     have_qpc_server_docker_container: "{{ docker_qpc_ps_raw['stdout_lines'] | length > 0 }}"
 
@@ -23,7 +23,7 @@
   register: docker_postgres_ps_raw
   ignore_errors: yes
 
-- name: Set variable indicating whether QPC PostgreSQL docker container found
+- name: Set variable indicating whether qpc-db PostgreSQL docker container found
   set_fact:
     have_qpc_db_docker_container: "{{ docker_postgres_ps_raw['stdout_lines'] | length > 0 }}"
 
@@ -34,7 +34,7 @@
   when:
     - have_qpc_db_docker_container
 
-- name: Set variable indicating whether any QPC docker containers found
+- name: Set variable indicating whether any quipucords docker containers found
   set_fact:
     have_qpc_docker_containers: true
   when:

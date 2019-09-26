@@ -54,7 +54,7 @@
   when:
     - podman_postgres_volume_mount_path is defined
 
-- name: Move the docker QPC PostgreSQL DB volume's data to the podman PostgreSQL DB volume
+- name: Move the docker PostgreSQL DB volume's data to the podman PostgreSQL DB volume
   command: mv "{{ docker_postgres_volume_mount_path }}" "{{ podman_postgres_volume_mount_path }}"
   when:
     - podman_postgres_volume_mount_path is defined

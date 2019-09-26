@@ -6,7 +6,7 @@
   register: docker_qpc_ps_raw
   ignore_errors: yes
 
-- name: Set variable indicating whether Quipucords server docker container is present
+- name: Set variable indicating whether the Quipucords server docker container is present
   set_fact:
     have_qpc_server_docker_container: "{{ docker_qpc_ps_raw['stdout_lines'] | length > 0 }}"
 

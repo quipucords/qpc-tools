@@ -149,7 +149,7 @@ Download the following packages to the machine with internet connectivity. Make 
 
    ``docker pull postgres:9.6.10 && docker save -o postgres.9.6.10.tar postgres:9.6.10``
 
-*QPC command line interface*
+*qpc tools command line interface*
 
 #. Go to the following URL: https://github.com/quipucords/qpc/releases
 
@@ -213,4 +213,4 @@ The qpc-tools was originally written by Chris Hambridge <chambrid@redhat.com>, K
 Copyright
 ---------
 
-Copyright 2018-2019 Red Hat, Inc. Licensed under the GNU Public License version 3.
+Copyright 2019 Red Hat, Inc. Licensed under the GNU Public License version 3.

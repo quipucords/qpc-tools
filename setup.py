@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding=utf-8
-"""A setuptools-based script for installing qpc."""
+"""A setuptools-based script for installing qpc-tools."""
 import os
 import sys
 import json

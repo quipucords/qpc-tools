@@ -82,6 +82,8 @@ install_usage() {
          -e use_supervisord=false
     * Sets the path to the volumes directory for the Quipucords server (defaults to ~/quipucords):
          -e tools_install_dir=~/volumes
+    *  Sets the fully qualified path to the files needed to complete an offline install.
+         -e offline_files=~/offline
     * Sets the name of the quipucords server (defaults to quipucords):
          -e server_name=quipucords2
     * Sets the HTTP timeout length for the Quipucords server (defaults to 120):

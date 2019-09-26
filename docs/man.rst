@@ -213,4 +213,4 @@ The qpc-tools was originally written by Chris Hambridge <chambrid@redhat.com>, K
 Copyright
 ---------
 
-Copyright 2018-2019 Red Hat, Inc. Licensed under the GNU Public License version 3.
+Copyright 2019-2019 Red Hat, Inc. Licensed under the GNU Public License version 3.

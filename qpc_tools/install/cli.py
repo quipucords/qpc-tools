@@ -13,6 +13,8 @@
 
 from __future__ import print_function
 
+from argparse import SUPPRESS
+
 import qpc_tools.install as install
 from qpc_tools import messages
 from qpc_tools.clicommand import CliCommand
@@ -36,6 +38,9 @@ class InstallCLICommand(CliCommand):
                                  default='false',
                                  help=_(messages.CLI_INSTALL_OFFLINE_HELP),
                                  required=False)
+        self.parser.add_argument('--offline-files', dest='offline_files',
+                                 help=_(messages.CLI_INSTALL_OFFLINE_FILES_HELP),
+                                 required=False)
         self.parser.add_argument('--version', dest='version',
                                  default='latest',
                                  help=_(messages.CLI_INSTALL_VERSION_HELP),
@@ -51,6 +56,9 @@ class InstallCLICommand(CliCommand):
         self.parser.add_argument('--server-port', dest='server_port',
                                  default='9443',
                                  help=_(messages.CLI_INSTALL_SERVER_PORT_HELP),
+                                 required=False)
+        self.parser.add_argument('--extra', dest='extra',
+                                 help=SUPPRESS,
                                  required=False)
 
     def _do_command(self):

@@ -33,7 +33,7 @@ class InstallCLICommand(CliCommand):
                             subparsers.add_parser(self.ACTION))
         self.parser.add_argument('--offline', dest='offline',
                                  choices=install.BOOLEAN_CHOICES,
-                                 default='true',
+                                 default='false',
                                  help=_(messages.CLI_INSTALL_OFFLINE_HELP),
                                  required=False)
         self.parser.add_argument('--version', dest='version',

@@ -47,7 +47,7 @@
     - is_rhel_centos_6|bool
     - not use_docker|bool
 
-- name: Create tools installation directory
+- name: Create the Quipucords installation directory
   file:
     path: "{{quipucords_home}}"
     state: directory

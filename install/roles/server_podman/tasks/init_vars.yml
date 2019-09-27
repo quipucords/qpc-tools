@@ -1,25 +1,5 @@
 ---
 
-- name: Create Quipucords server home directory
-  file:
-    path: "{{server_install_dir}}"
-    state: directory
-
-- name: Create Quipucords server directory for logs
-  file:
-    path: "{{server_install_dir}}/log"
-    state: directory
-
-- name: Create Quipucords server directory for ssh keys
-  file:
-    path: "{{server_install_dir}}/sshkeys"
-    state: directory
-
-- name: Create Quipucords server directory for data
-  file:
-    path: "{{server_install_dir}}/data"
-    state: directory
-
 - name: Open Quipucords server port in firewall on host machine
   iptables:
     chain: INPUT
@@ -84,12 +64,5 @@
 
 - name: Set path to Quipucords server container image file
   set_fact:
-    qpc_server_version_filename: "{{ pkg_install_dir }}{{ release_cache_server_filename }}"
+    qpc_server_version_filename: "{{ server_packages }}{{ release_cache_server_filename }}"
   when: qpc_server_version_filename is not defined
-
-- name: Create local packages directory if it does not exist
-  file:
-    path: "{{ pkg_install_dir }}"
-    state: directory
-  when:
-    - not quipucords_image_present

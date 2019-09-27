@@ -8,16 +8,9 @@
 
 - name: Set Quipucords server container image file path
   set_fact:
-    server_image_local_path: "{{ pkg_install_dir }}{{ server_image_filename }}"
+    server_image_local_path: "{{ server_packages }}{{ server_image_filename }}"
   when:
     - server_image_local_path is not defined
-
-- name: Check if Quipucords server container image file exists
-  stat:
-    path: "{{ server_image_local_path }}"
-  register: find_server_image_local
-  when:
-    - install_server|lower == 'true'
 
 - name: Set PostgreSQL container image file name
   set_fact:
@@ -27,9 +20,25 @@
 
 - name: Set PostgreSQL container image file path
   set_fact:
-    postgres_image_local_path: "{{ pkg_install_dir }}{{ postgres_image_filename }}"
+    postgres_image_local_path: "{{ server_packages }}{{ postgres_image_filename }}"
   when:
     - postgres_image_local_path is not defined
+
+- name: Copy offline files to server packages subdirectory
+  copy:
+    src: "{{offline_files}}/{{item.filename}}"
+    dest: "{{item.new_dest}}"
+  ignore_errors: true
+  with_items:
+    - {filename: "{{server_image_filename}}", new_dest: "{{server_image_local_path}}"}
+    - {filename: "{{postgres_image_filename}}", new_dest: "{{postgres_image_local_path}}"}
+
+- name: Check if Quipucords server container image file exists
+  stat:
+    path: "{{ server_image_local_path }}"
+  register: find_server_image_local
+  when:
+    - install_server|lower == 'true'
 
 - name: Check if local PostgreSQL container image exists
   stat:

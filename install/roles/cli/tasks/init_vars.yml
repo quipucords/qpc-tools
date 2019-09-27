@@ -1,22 +1,16 @@
 ---
 
-- name: Set the Quipucords CLI RPM package name for RHEL/CentOS 6
+- name: Set the Quipucords CLI RPM package name
   set_fact:
-    qpc_package_name: "qpc.el6.noarch.rpm"
+    qpc_package_name: "qpc.el{{ ansible_distribution_major_version }}.noarch.rpm"
   when:
-    - qpc_package_name is not defined
-    - is_rhel_centos_6|bool
+    qpc_package_name is not defined
 
-- name: Set the Quipucords CLI RPM package name for RHEL/CentOS 7
+- name: Set the {{quipucords_home}} CLI subdirectory paths
   set_fact:
-    qpc_package_name: "qpc.el7.noarch.rpm"
-  when:
-    - qpc_package_name is not defined
-    - is_rhel_centos_7|bool
+    cli_packages: "{{quipucords_home}}/cli/packages/"
 
-- name: Set the Quipucords CLI RPM package name for RHEL8/CentOS 8
-  set_fact:
-    qpc_package_name: "qpc.el8.noarch.rpm"
-  when:
-    - qpc_package_name is not defined
-    - is_rhel_centos_8|bool
+- name: Create the {{quipucords_home}} CLI subdirectories
+  file:
+    path: "{{ cli_packages }}"
+    state: directory

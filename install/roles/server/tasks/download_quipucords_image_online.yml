@@ -23,8 +23,8 @@
 - name: Download Quipucords server container image from GitHub
   get_url:
     url: "{{ quipucords_server_container_image_url }}"
-    dest: "{{ pkg_install_dir }}"
-    tmp_dest: "{{ pkg_install_dir }}"
+    dest: "{{ server_packages }}"
+    tmp_dest: "{{ server_packages }}"
     mode: 0644
     timeout: 300
   when:

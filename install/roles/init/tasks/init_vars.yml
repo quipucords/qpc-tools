@@ -18,10 +18,9 @@
   set_fact:
     have_yum: "{{ have_yum_raw.rc == 0 }}"
 
-- name: Get local package directory
+- name: Default offline_files variable
   set_fact:
-    pkg_install_dir: "{{ ansible_env['PWD'] + '/packages/' }}"
-  when: pkg_install_dir is not defined
+    offine_files: ""
 
 - name: Set installation to use Docker for RHEL 6 and CentOS 6
   set_fact:

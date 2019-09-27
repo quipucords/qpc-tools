@@ -41,13 +41,13 @@ class InstallServerCommand(CliCommand):
         self.parser.add_argument('--offline-files', dest='offline_files',
                                  help=_(messages.SERVER_INSTALL_OFFLINE_FILES_HELP),
                                  required=False)
-        self.parser.add_argument('--version', dest='version',
+        self.parser.add_argument('--version', dest='server_version',
                                  default='latest',
                                  help=_(messages.SERVER_INSTALL_VERSION_HELP),
                                  required=False)
         self.parser.add_argument('--home-dir', dest='home_dir',
                                  default='~/quipucords',
-                                 help=_(messages.INSTALL_HOME_DIR_HELP),
+                                 help=_(messages.ALL_INSTALL_HOME_DIR_HELP),
                                  required=False)
         self.parser.add_argument('--port', dest='port',
                                  default='9443',
@@ -72,7 +72,7 @@ class InstallServerCommand(CliCommand):
         self.parser.add_argument('--password', dest='password',
                                  help=_(messages.SERVER_INSTALL_PASSWORD_HELP),
                                  required=True)
-        self.parser.add_argument('--advanced', dest='advanced',
+        self.parser.add_argument('--advanced', dest='server_advanced',
                                  help=SUPPRESS,
                                  required=False)
 

@@ -13,10 +13,12 @@
 """QPC Tools messages for translation."""
 VERBOSITY_HELP = 'Verbose mode. Use up to -vvvv for more verbosity.'
 
-INSTALL_HOME_DIR_HELP = 'The home directory for the Quipucords applications '\
-    'to store data (defaults to ~/quipucords)'
 
 ALL_INSTALLATION_SUCCESSFUL = 'Installation of both server and CLI was successful'
+ALL_INSTALL_OFFLINE_HELP = 'Perform an offline CLI and server installation (defaults to false)'
+ALL_INSTALL_OFFLINE_FILES_HELP = 'Specify the path to the CLI and server offline files'
+ALL_INSTALL_HOME_DIR_HELP = 'The home directory for the Quipucords applications '\
+    'to store data (defaults to ~/quipucords)'
 
 SERVER_INSTALLATION_SUCCESSFUL = 'Installation of server was successful'
 SERVER_INSTALL_OFFLINE_HELP = 'Perform an offline Server installation (defaults to false)'

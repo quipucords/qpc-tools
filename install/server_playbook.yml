@@ -4,7 +4,6 @@
   hosts: localhost
   vars:
       install_server: 'true'
-      install_cli: 'true'
       install_offline: 'false'
       use_supervisord: 'true'
       open_port: 'true'
@@ -71,20 +70,4 @@
       when:
         - install_server|lower == 'true'
         - use_docker|lower == 'true'
-        - install_offline|lower == 'true'
-
-    - name: Install the CLI online
-      include_role:
-        name: cli
-        tasks_from: install_online
-      when:
-        - install_cli|lower == 'true'
-        - install_offline|lower == 'false'
-
-    - name: Install the CLI offline
-      include_role:
-        name: cli
-        tasks_from: install_offline
-      when:
-        - install_cli|lower == 'true'
         - install_offline|lower == 'true'

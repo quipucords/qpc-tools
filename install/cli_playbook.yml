@@ -1,0 +1,36 @@
+---
+
+- name: Install the Quipucords components
+  hosts: localhost
+  vars:
+      install_cli: 'true'
+      install_server: 'false'
+      install_offline: 'false'
+      quipucords_home: "{{ansible_env['HOME'] + '/quipucords'}}"
+
+  tasks:
+    - name: Setting default variable values for installation
+      include_role:
+        name: init
+        tasks_from: init_vars
+
+    - name: Validating params for installation
+      include_role:
+        name: init
+        tasks_from: validate_params
+
+    - name: Install the CLI online
+      include_role:
+        name: cli
+        tasks_from: install_online
+      when:
+        - install_cli|lower == 'true'
+        - install_offline|lower == 'false'
+
+    - name: Install the CLI offline
+      include_role:
+        name: cli
+        tasks_from: install_offline
+      when:
+        - install_cli|lower == 'true'
+        - install_offline|lower == 'true'

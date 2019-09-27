@@ -14,9 +14,12 @@
 export PATH=$PATH:$ANSIBLE_HOME/bin
 #Note: The playbook path will be sed replaced in the spec file
 # to match the location of where the package is being installed.
-PLAYBOOKFILE="qpc_playbook.yml"
+#PLAYBOOKFILE="qpc_playbook.yml"
+CLI_PLAYBOOK_FILE="cli_playbook.yml"
+SERVER_PLAYBOOK_FILE="server_playbook.yml"
 PLAYBOOKPATH=""
-PLAYBOOK=$PLAYBOOKPATH$PLAYBOOKFILE
+CLI_PLAYBOOK=$PLAYBOOKPATH$CLI_PLAYBOOK_FILE
+SERVER_PLAYBOOK=$PLAYBOOKPATH$SERVER_PLAYBOOK_FILE
 QPC_TOOLS_VERSION='BUILD_VERSION_PLACEHOLDER'
 
 config_usage() {
@@ -99,25 +102,43 @@ EOM
     exit 0
 }
 
-install() {
+install_cli() {
 shift
 # shift removes the $1 in the positional args
 if [[ $EUID -ne 0 ]]
 then
-  echo ansible-playbook $PLAYBOOK -vv -K $*
-  ansible-playbook $PLAYBOOK -vv -K $*
+  echo ansible-playbook $CLI_PLAYBOOK -vv -K $*
+  ansible-playbook $CLI_PLAYBOOK -vv -K $*
 else
-  echo ansible-playbook $PLAYBOOK -vv $@
-  ansible-playbook $PLAYBOOK -vv $*
+  echo ansible-playbook $CLI_PLAYBOOK -vv $*
+  ansible-playbook $CLI_PLAYBOOK -vv $*
 fi
-
-unset args
 if [ $? -eq 0 ]
 then
-  echo "Installation complete."
+  echo "CLI Install complete."
   exit 0
 else
-  echo "Installation failed. Review the install logs."
+  echo "CLI Install Failed."
+  exit 1
+fi
+}
+
+install_server() {
+shift
+if [[ $EUID -ne 0 ]]
+then
+  echo ansible-playbook $SERVER_PLAYBOOK -vv -K $*
+  ansible-playbook $SERVER_PLAYBOOK -vv -K $*
+else
+  echo ansible-playbook $SERVER_PLAYBOOK -vv $*
+  ansible-playbook $SERVER_PLAYBOOK -vv $*
+fi
+if [ $? -eq 0 ]
+then
+  echo "Quipucords Server Install complete."
+  exit 0
+else
+  echo "Quipucords Server Install Failed."
   exit 1
 fi
 }
@@ -130,7 +151,8 @@ then
   fi
   # pass the positional args for the script
   # to the function to prevent scoping issues.
-  install $*;
+  install_server $*;
+  install_cli $*;
 else
 config_usage;
 fi

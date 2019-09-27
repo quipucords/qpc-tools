@@ -17,8 +17,8 @@ VERBOSITY_HELP = 'Verbose mode. Use up to -vvvv for more verbosity.'
 ALL_INSTALLATION_SUCCESSFUL = 'Installation of both server and CLI was successful'
 ALL_INSTALL_OFFLINE_HELP = 'Perform an offline CLI and server installation (defaults to false)'
 ALL_INSTALL_OFFLINE_FILES_HELP = 'Specify the path to the CLI and server offline files'
-ALL_INSTALL_HOME_DIR_HELP = 'The home directory for the Quipucords applications '\
-    'to store data (defaults to ~/quipucords)'
+ALL_INSTALL_HOME_DIR_HELP = 'The home directory for the Quipucords application data '\
+    '(defaults to ~/quipucords)'
 
 SERVER_INSTALLATION_SUCCESSFUL = 'Installation of server was successful'
 SERVER_INSTALL_OFFLINE_HELP = 'Perform an offline Server installation (defaults to false)'
@@ -28,8 +28,8 @@ SERVER_INSTALL_VERSION_HELP = 'Specify the QPC Server version to install '\
 SERVER_INSTALL_PORT_HELP = 'Port number of the server (defaults to 9443)'
 SERVER_INSTALL_OPEN_PORT_HELP = "Indicate whether the host machine's port should be' \
     'opened (defaults to true)"
-SERVER_INSTALL_DBMS_USER_HELP = 'Set the PostgreSQL db user (defaults to postgres)'
-SERVER_INSTALL_DBMS_PASSWORD_HELP = 'Set the PostgreSQL db password'
+SERVER_INSTALL_DBMS_USER_HELP = 'Set the PostgreSQL DB username (defaults to postgres)'
+SERVER_INSTALL_DBMS_PASSWORD_HELP = 'Set the PostgreSQL DB password'
 SERVER_INSTALL_USERNAME_HELP = 'Set the server admin username (defaults to admin)'
 SERVER_INSTALL_PASSWORD_HELP = 'Set the server admin password'
 

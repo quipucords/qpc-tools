@@ -41,7 +41,7 @@ class InstallCLICommand(CliCommand):
                                  help=_(messages.CLI_INSTALL_VERSION_HELP),
                                  required=False)
         self.parser.add_argument('--home-dir', dest='home_dir',
-                                 default='latest',
+                                 default='~/quipucords',
                                  help=_(messages.INSTALL_HOME_DIR_HELP),
                                  required=False)
         self.parser.add_argument('--server-hostname', dest='server_host',

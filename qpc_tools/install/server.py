@@ -72,7 +72,7 @@ class InstallServerCommand(CliCommand):
         self.parser.add_argument('--password', dest='password',
                                  help=_(messages.SERVER_INSTALL_PASSWORD_HELP),
                                  required=True)
-        self.parser.add_argument('--extra', dest='extra',
+        self.parser.add_argument('--advanced', dest='advanced',
                                  help=SUPPRESS,
                                  required=False)
 

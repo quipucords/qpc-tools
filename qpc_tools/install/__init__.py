@@ -15,3 +15,5 @@ SUBCOMMAND = 'install'
 ALL = 'all'
 SERVER = 'server'
 CLI = 'cli'
+
+BOOLEAN_CHOICES = ['True', 'False', 'true', 'false']

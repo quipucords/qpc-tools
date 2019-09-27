@@ -1,0 +1,18 @@
+---
+
+- name: Fail if running on machines other than RHEL 6/7/8 and CentOS 6/7
+  fail:
+    msg: "This is not a supported system for installation. Must be RHEL 6/7/8 or CentOS 6/7."
+  when: not (is_rhel_centos_6 or is_rhel_centos_7 or is_rhel8)
+
+- name: Fail if yum command is not found
+  fail:
+    msg: "qpc-tools install requires the yum command.  Please install yum and retry."
+  when:
+    - not install_offline|lower == 'false'
+    - not have_yum
+
+- name: Create the Quipucords installation directory
+  file:
+    path: "{{quipucords_home}}"
+    state: directory

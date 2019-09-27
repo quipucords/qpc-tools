@@ -6,11 +6,11 @@
   when:
     qpc_package_name is not defined
 
-- name: Set the {{tools_install_dir}} CLI subdirectory paths
+- name: Set the {{quipucords_home}} CLI subdirectory paths
   set_fact:
-    cli_packages: "{{tools_install_dir}}/cli/packages/"
+    cli_packages: "{{quipucords_home}}/cli/packages/"
 
-- name: Create the {{tools_install_dir}} CLI subdirectories
+- name: Create the {{quipucords_home}} CLI subdirectories
   file:
     path: "{{ cli_packages }}"
     state: directory

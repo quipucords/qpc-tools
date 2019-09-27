@@ -49,5 +49,5 @@
 
 - name: Create tools installation directory
   file:
-    path: "{{tools_install_dir}}"
+    path: "{{quipucords_home}}"
     state: directory

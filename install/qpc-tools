@@ -83,7 +83,7 @@ install_usage() {
     * Controls whether to start the Quipucords server with supervisord (defaults to true):
          -e use_supervisord=false
     * Sets the fully qualified path to the installation directory for the Quipucords server (defaults to ~/quipucords):
-         -e quipucords_home=~/volumes
+         -e home_dir=~/volumes
     *  Sets the fully qualified path to the files needed to complete an offline installation.
          -e offline_files=~/offline
     * Sets the name of the quipucords server (defaults to quipucords):

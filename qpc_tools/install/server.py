@@ -33,7 +33,7 @@ class InstallServerCommand(CliCommand):
         # pylint: disable=no-member
         CliCommand.__init__(self, self.SUBCOMMAND, self.ACTION,
                             subparsers.add_parser(self.ACTION))
-        self.parser.add_argument('--offline', dest='offline',
+        self.parser.add_argument('--offline', dest='install_offline',
                                  choices=install.BOOLEAN_CHOICES,
                                  default='false',
                                  help=_(messages.SERVER_INSTALL_OFFLINE_HELP),

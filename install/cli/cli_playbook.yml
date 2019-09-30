@@ -4,10 +4,10 @@
   hosts: localhost
   vars:
       install_cli: 'true'
-      install_server: 'false'
+      install_server: 'true'
       install_offline: 'false'
       quipucords_home: "{{ansible_env['HOME'] + '/quipucords'}}"
-
+      server_port: '9443'
   tasks:
     - name: Setting default variable values for installation
       include_role:

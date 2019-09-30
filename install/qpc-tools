@@ -14,7 +14,6 @@
 export PATH=$PATH:$ANSIBLE_HOME/bin
 #Note: The playbook path will be sed replaced in the spec file
 # to match the location of where the package is being installed.
-#PLAYBOOKFILE="qpc_playbook.yml"
 CLI_PLAYBOOK_FILE="cli_playbook.yml"
 SERVER_PLAYBOOK_FILE="server_playbook.yml"
 PLAYBOOKPATH=""

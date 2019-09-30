@@ -4,6 +4,7 @@
   hosts: localhost
   vars:
       install_server: 'true'
+      install_cli: 'true'
       install_offline: 'false'
       use_supervisord: 'true'
       open_port: 'true'

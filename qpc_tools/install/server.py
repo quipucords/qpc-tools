@@ -64,14 +64,14 @@ class InstallServerCommand(CliCommand):
                                  required=False)
         self.parser.add_argument('--dbms-password', dest='dbms_password',
                                  help=_(messages.SERVER_INSTALL_DBMS_PASSWORD_HELP),
-                                 required=True)
+                                 required=False)
         self.parser.add_argument('--username', dest='username',
                                  default='admin',
                                  help=_(messages.SERVER_INSTALL_USERNAME_HELP),
                                  required=False)
         self.parser.add_argument('--password', dest='password',
                                  help=_(messages.SERVER_INSTALL_PASSWORD_HELP),
-                                 required=True)
+                                 required=False)
         self.parser.add_argument('--advanced', dest='server_advanced',
                                  help=SUPPRESS,
                                  required=False)

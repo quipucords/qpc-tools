@@ -116,10 +116,8 @@ fi
 if [ $? -eq 0 ]
 then
   echo "CLI Install complete."
-  exit 0
 else
   echo "CLI Install Failed."
-  exit 1
 fi
 }
 
@@ -136,10 +134,8 @@ fi
 if [ $? -eq 0 ]
 then
   echo "Quipucords Server Install complete."
-  exit 0
 else
   echo "Quipucords Server Install Failed."
-  exit 1
 fi
 }
 

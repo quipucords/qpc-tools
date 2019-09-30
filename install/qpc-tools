@@ -16,7 +16,7 @@ export PATH=$PATH:$ANSIBLE_HOME/bin
 # to match the location of where the package is being installed.
 CLI_PLAYBOOK_FILE="cli_playbook.yml"
 SERVER_PLAYBOOK_FILE="server_playbook.yml"
-PLAYBOOKPATH=""
+PLAYBOOKPATH="../qpc_tools/install/ansible/"
 CLI_PLAYBOOK=$PLAYBOOKPATH$CLI_PLAYBOOK_FILE
 SERVER_PLAYBOOK=$PLAYBOOKPATH$SERVER_PLAYBOOK_FILE
 QPC_TOOLS_VERSION='BUILD_VERSION_PLACEHOLDER'

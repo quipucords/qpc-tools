@@ -17,6 +17,7 @@ help:
 	@echo "           server_version=<x.x.x>                        @param - required"
 	@echo "           cli_version=<x.x.x>                           @param - required"
 	@echo "  clean                                              Remove docker containers and images.  Also, qpc cli."
+	@echo "  install-cli                                        Install the qpc-tools cli locally."
 
 
 install-help:
@@ -82,3 +83,10 @@ install-version: online-prep
 
 clean:
 	scripts/cleanup.sh
+
+install-cli: setup online-prep
+	yum install -y python3
+	python3 setup.py build
+	python3 setup.py install
+	echo "WARNING: you need to run:"
+	echo "export PATH=$$PATH:/usr/local/bin"

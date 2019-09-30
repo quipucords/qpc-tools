@@ -13,13 +13,19 @@
 
 from __future__ import print_function
 
+import os
+import sys
+import subprocess
+
 from argparse import SUPPRESS
 
 import qpc_tools.install as install
 from qpc_tools import messages
+from qpc_tools.release import PLAYBOOK_PATH
 from qpc_tools.clicommand import CliCommand
 from qpc_tools.translation import _
 
+NOT_ANSIBLE_KEYS = ["action","subcommand","verbosity"]
 
 # pylint: disable=too-few-public-methods
 class InstallCLICommand(CliCommand):
@@ -42,7 +48,6 @@ class InstallCLICommand(CliCommand):
                                  help=_(messages.CLI_INSTALL_OFFLINE_FILES_HELP),
                                  required=False)
         self.parser.add_argument('--version', dest='cli_version',
-                                 default='latest',
                                  help=_(messages.CLI_INSTALL_VERSION_HELP),
                                  required=False)
         self.parser.add_argument('--home-dir', dest='home_dir',
@@ -61,6 +66,33 @@ class InstallCLICommand(CliCommand):
                                  help=SUPPRESS,
                                  required=False)
 
+    def create_ansible_command(self):
+        extra_vars = self.args.__dict__
+        #Fitler not ansible keys
+        for key in NOT_ANSIBLE_KEYS:
+            if key in extra_vars.keys():
+                extra_vars.pop(key, None)
+        #Fitler none values out
+        extra_vars = {k: v for k, v in extra_vars.items() if v is not None}
+        cmd = 'ansible-playbook %s/cli/cli_playbook.yml -vv' % (PLAYBOOK_PATH)
+        extra_format = " -e %s=%s"
+        for key, value in extra_vars.items():
+            extra_var = extra_format % (key, value)
+            cmd = cmd + extra_var
+        return cmd
+
+    def _validate_args(self):
+        #Validate home dir is an ab path & exists
+        # if not os.path.isabs(self.args.home_dir):
+        #     print("TODO: Create a message about converting relative path to absolute path.")
+        #     self.args.home_dir = os.path.abspath(self.args.home_dir)
+        pass
+
     def _do_command(self):
         """Install the CLI."""
-        print(_(messages.CLI_INSTALLATION_SUCCESSFUL))
+        ansible_command = self.create_ansible_command()
+        completed = subprocess.run(ansible_command, shell=True)
+        if completed:
+            print(_(messages.CLI_INSTALLATION_SUCCESSFUL))
+        else:
+            print("error")

@@ -115,9 +115,9 @@ else
 fi
 if [ $? -eq 0 ]
 then
-  echo "CLI Install complete."
+  echo "CLI installation complete."
 else
-  echo "CLI Install Failed."
+  echo "CLI installation failed. Review the install logs."
 fi
 }
 
@@ -133,9 +133,9 @@ else
 fi
 if [ $? -eq 0 ]
 then
-  echo "Quipucords Server Install complete."
+  echo "Quipucords server installation complete."
 else
-  echo "Quipucords Server Install Failed."
+  echo "Quipucords server installation failed. Review the install logs."
 fi
 }
 

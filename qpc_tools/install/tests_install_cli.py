@@ -98,4 +98,20 @@ class InstallCLICommandTests(unittest.TestCase):
             call_list = subprocess.call_args_list[0]
             ansible_cmd_list = call_list[0][0]
             for cmd_part in ansible_cmd_list:
-                self.assertIn(cmd_part,success_online)
+                self.assertIn(cmd_part, success_online)
+
+    @patch('qpc_tools.install.cli.subprocess.Popen')
+    def test_value_error(self, subprocess):
+        """Testing a failed CLI installlation."""
+        subprocess.return_value.returncode = 1
+        subprocess.return_value.communicate.side_effect = ValueError()
+        mock_ansible_logs = 'test0\ntest1\n'
+        byte_ansible_logs = bytes(mock_ansible_logs, 'utf-8')
+        subprocess.return_value.stdout = io.BytesIO(byte_ansible_logs)
+        cred_out = io.StringIO()
+        cac = InstallCLICommand(SUBPARSER)
+        args = Namespace()
+        with redirect_stdout(cred_out):
+            cac.main(args)
+            expected = mock_ansible_logs + _(messages.CLI_INSTALLATION_FAILED)
+            self.assertEqual(cred_out.getvalue().strip(), expected)

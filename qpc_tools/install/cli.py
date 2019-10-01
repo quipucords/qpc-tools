@@ -94,7 +94,6 @@ class InstallCLICommand(CliCommand):
             process = subprocess.Popen(ansible_command,
                                        stderr=subprocess.PIPE,
                                        stdout=subprocess.PIPE)
-            # communicate executes a wait until playbook is finished.
             for line in iter(process.stdout.readline, b''):
                 format_line = line.decode('utf-8').strip('\n')
                 print(format_line)

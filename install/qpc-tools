@@ -106,11 +106,11 @@ shift
 # shift removes the $1 in the positional args
 if [[ $EUID -ne 0 ]]
 then
-  echo ansible-playbook cli/$CLI_PLAYBOOK -vv -K $*
-  ansible-playbook cli/$CLI_PLAYBOOK -vv -K $*
+  echo ansible-playbook $CLI_PLAYBOOK -vv -K $*
+  ansible-playbook $CLI_PLAYBOOK -vv -K $*
 else
-  echo ansible-playbook cli/$CLI_PLAYBOOK -vv $*
-  ansible-playbook cli/$CLI_PLAYBOOK -vv $*
+  echo ansible-playbook $CLI_PLAYBOOK -vv $*
+  ansible-playbook $CLI_PLAYBOOK -vv $*
 fi
 if [ $? -eq 0 ]
 then
@@ -124,11 +124,11 @@ install_server() {
 shift
 if [[ $EUID -ne 0 ]]
 then
-  echo ansible-playbook server/$SERVER_PLAYBOOK -vv -K $*
-  ansible-playbook server/$SERVER_PLAYBOOK -vv -K $*
+  echo ansible-playbook $SERVER_PLAYBOOK -vv -K $*
+  ansible-playbook $SERVER_PLAYBOOK -vv -K $*
 else
-  echo ansible-playbook server/$SERVER_PLAYBOOK -vv $*
-  ansible-playbook server/$SERVER_PLAYBOOK -vv $*
+  echo ansible-playbook $SERVER_PLAYBOOK -vv $*
+  ansible-playbook $SERVER_PLAYBOOK -vv $*
 fi
 if [ $? -eq 0 ]
 then

@@ -25,6 +25,7 @@ install-help:
 
 setup:
 	scripts/setup_repos.sh
+	sed -i "s?PLAYBOOKPATH = ''?PLAYBOOKPATH = '/qpc_tools/qpc_tools/install/ansible/'?g" install/qpc-tools
 
 offline-prep: setup
 	@if grep -q -i "release 7" /etc/redhat-release; then \
@@ -62,14 +63,18 @@ online-prep: setup
 		yum install -y libcgroup; \
 		yum install -y yum-utils; \
 		yum install -y ansible; \
+		yum install -y python3; \
 	elif grep -q -i "release 6" /etc/redhat-release; then \
 		echo "Running 6"; \
 		yum install -y libcgroup; \
 		yum install -y yum-utils; \
 		yum install -y ansible; \
+		yum install -y python34; \
+		yum install -y python34-setuptools; \
 	else \
 		echo "Running 8"; \
 		yum install -y ansible; \
+		yum install -y python36; \
 	fi
 
 install-offline:
@@ -84,9 +89,15 @@ install-version: online-prep
 clean:
 	scripts/cleanup.sh
 
-install-cli: setup online-prep
-	yum install -y python3
+install-cli: online-prep
+	sed -i "s?PLAYBOOK_PATH = ''?PLAYBOOK_PATH = '/qpc_tools/qpc_tools/install/ansible/'?g" qpc_tools/release.py
 	python3 setup.py build
-	python3 setup.py install
-	echo "WARNING: you need to run:"
-	echo "export PATH=$$PATH:/usr/local/bin"
+	@if grep -q -i "release 8" /etc/redhat-release; then \
+	python3 setup.py install --prefix /usr; \
+	else \
+		python3 setup.py install; \
+	fi
+	echo ""
+	echo "***************************"
+	echo "WARNING: you will need to run the following for centos/rhel 7"
+	echo "export PATH=$$PATH:/usr/local/bin" | xargs

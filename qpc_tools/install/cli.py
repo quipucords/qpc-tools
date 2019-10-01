@@ -67,32 +67,42 @@ class InstallCLICommand(CliCommand):
                                  required=False)
 
     def create_ansible_command(self):
+        # Initial command setup
+        cmd_list = ['ansible-playbook']
+        playbook_path = '%s/cli/cli_playbook.yml' % (PLAYBOOK_PATH)
+        cmd_list.append(playbook_path)
+        verbosity_lvl = '-vv'
+        cmd_list.append(verbosity_lvl)
+        # Fiter Extra Vars
         extra_vars = self.args.__dict__
-        #Fitler not ansible keys
         for key in NOT_ANSIBLE_KEYS:
             if key in extra_vars.keys():
                 extra_vars.pop(key, None)
-        #Fitler none values out
         extra_vars = {k: v for k, v in extra_vars.items() if v is not None}
-        cmd = 'ansible-playbook %s/cli/cli_playbook.yml -vv' % (PLAYBOOK_PATH)
-        extra_format = " -e %s=%s"
+        # Add extra vars to command
+        extra_format = "-e %s=%s"
         for key, value in extra_vars.items():
             extra_var = extra_format % (key, value)
-            cmd = cmd + extra_var
-        return cmd
-
-    def _validate_args(self):
-        #Validate home dir is an ab path & exists
-        # if not os.path.isabs(self.args.home_dir):
-        #     print("TODO: Create a message about converting relative path to absolute path.")
-        #     self.args.home_dir = os.path.abspath(self.args.home_dir)
-        pass
+            cmd_list.append(extra_var)
+        return cmd_list
 
     def _do_command(self):
         """Install the CLI."""
         ansible_command = self.create_ansible_command()
-        completed = subprocess.run(ansible_command, shell=True)
-        if completed:
-            print(_(messages.CLI_INSTALLATION_SUCCESSFUL))
-        else:
-            print("error")
+        # Can't use subprocess.run cause python > 3.5
+        try:
+            process = subprocess.Popen(ansible_command,
+                                    stderr=subprocess.PIPE,
+                                    stdout=subprocess.PIPE)
+            # communicate executes a wait until playbook is finished.
+            for line in iter(process.stdout.readline, b''):
+                format_line = line.decode('utf-8').strip('\n')
+                print(format_line)
+            info_tuple = process.communicate()
+            code = process.returncode
+            if code == 0:
+                print('CLI installation complete.')
+            else:
+                print('CLI installation failed. Review the install logs.')
+        except ValueError:
+            print('CLI installation failed. Review the install logs.')

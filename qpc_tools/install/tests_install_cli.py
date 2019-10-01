@@ -76,31 +76,6 @@ class InstallCLICommandTests(unittest.TestCase):
             self.assertEqual(cred_out.getvalue().strip(), expected)
 
     @patch('qpc_tools.install.cli.subprocess.Popen')
-    def test_ansible_command(self, subprocess):
-        """Testing ansible command creation."""
-        subprocess.return_value.returncode = 1
-        subprocess.return_value.communicate.side_effect = self.effect
-        subprocess.return_value.stdout = io.BytesIO(b'test0\ntest1\n')
-        base_online_install = Namespace(action='cli', cli_version=None,
-                                        home_dir='~/quipucords', install_offline='false',
-                                        offline_files=None, server_advanced=None,
-                                        server_host='127.0.0.1', server_port='9443',
-                                        subcommand='install', verbosity=0)
-        success_online = ['ansible-playbook',
-                          '/cli/cli_playbook.yml',
-                          '-vv', '-e home_dir=~/quipucords', '-e install_offline=false',
-                          '-e server_host=127.0.0.1', '-e server_port=9443']
-        cred_out = io.StringIO()
-        cac = InstallCLICommand(SUBPARSER)
-        args = base_online_install
-        with redirect_stdout(cred_out):
-            cac.main(args)
-            call_list = subprocess.call_args_list[0]
-            ansible_cmd_list = call_list[0][0]
-            for cmd_part in ansible_cmd_list:
-                self.assertIn(cmd_part, success_online)
-
-    @patch('qpc_tools.install.cli.subprocess.Popen')
     def test_value_error(self, subprocess):
         """Testing a failed CLI installlation."""
         subprocess.return_value.returncode = 1

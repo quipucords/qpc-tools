@@ -21,6 +21,7 @@ ALL_INSTALL_HOME_DIR_HELP = 'The home directory for the Quipucords application d
     '(defaults to ~/quipucords)'
 
 SERVER_INSTALLATION_SUCCESSFUL = 'Installation of server was successful'
+SERVER_INSTALLATION_FAILED = 'Server installation failed. Review the install logs'
 SERVER_INSTALL_OFFLINE_HELP = 'Perform an offline server installation (defaults to false)'
 SERVER_INSTALL_OFFLINE_FILES_HELP = 'Specify the path to the server offline files'
 SERVER_INSTALL_VERSION_HELP = 'Specify the server version to install '\

@@ -13,21 +13,20 @@
 
 from __future__ import print_function
 
-import os
-import sys
 import subprocess
-
 from argparse import SUPPRESS
 
 import qpc_tools.install as install
 from qpc_tools import messages
-from qpc_tools.release import PLAYBOOK_PATH
 from qpc_tools.clicommand import CliCommand
+from qpc_tools.release import PLAYBOOK_PATH
 from qpc_tools.translation import _
 
-NOT_ANSIBLE_KEYS = ["action","subcommand","verbosity"]
+NOT_ANSIBLE_KEYS = ['action', 'subcommand', 'verbosity']
 
 # pylint: disable=too-few-public-methods
+
+
 class InstallCLICommand(CliCommand):
     """Defines the install CLI command."""
 
@@ -67,6 +66,7 @@ class InstallCLICommand(CliCommand):
                                  required=False)
 
     def create_ansible_command(self):
+        """Build Ansible Command."""
         # Initial command setup
         cmd_list = ['ansible-playbook']
         playbook_path = '%s/cli/cli_playbook.yml' % (PLAYBOOK_PATH)
@@ -80,7 +80,7 @@ class InstallCLICommand(CliCommand):
                 extra_vars.pop(key, None)
         extra_vars = {k: v for k, v in extra_vars.items() if v is not None}
         # Add extra vars to command
-        extra_format = "-e %s=%s"
+        extra_format = '-e %s=%s'
         for key, value in extra_vars.items():
             extra_var = extra_format % (key, value)
             cmd_list.append(extra_var)
@@ -92,17 +92,18 @@ class InstallCLICommand(CliCommand):
         # Can't use subprocess.run cause python > 3.5
         try:
             process = subprocess.Popen(ansible_command,
-                                    stderr=subprocess.PIPE,
-                                    stdout=subprocess.PIPE)
+                                       stderr=subprocess.PIPE,
+                                       stdout=subprocess.PIPE)
             # communicate executes a wait until playbook is finished.
             for line in iter(process.stdout.readline, b''):
                 format_line = line.decode('utf-8').strip('\n')
                 print(format_line)
-            info_tuple = process.communicate()
+            # process.communicate performs a wait until playbooks is done
+            process.communicate()
             code = process.returncode
             if code == 0:
-                print('CLI installation complete.')
+                print(_(messages.CLI_INSTALLATION_SUCCESSFUL))
             else:
-                print('CLI installation failed. Review the install logs.')
+                print(_(messages.CLI_INSTALLATION_FAILED))
         except ValueError:
-            print('CLI installation failed. Review the install logs.')
+            print(_(messages.CLI_INSTALLATION_FAILED))

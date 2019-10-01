@@ -25,7 +25,6 @@ install-help:
 
 setup:
 	scripts/setup_repos.sh
-	sed -i "s?PLAYBOOKPATH = ''?PLAYBOOKPATH = '/qpc_tools/qpc_tools/install/ansible/'?g" install/qpc-tools
 
 offline-prep: setup
 	@if grep -q -i "release 7" /etc/redhat-release; then \

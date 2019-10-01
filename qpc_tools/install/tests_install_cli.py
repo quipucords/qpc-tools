@@ -97,4 +97,5 @@ class InstallCLICommandTests(unittest.TestCase):
             cac.main(args)
             call_list = subprocess.call_args_list[0]
             ansible_cmd_list = call_list[0][0]
-            self.assertEqual(ansible_cmd_list, success_online)
+            for cmd_part in ansible_cmd_list:
+                self.assertIn(cmd_part,success_online)

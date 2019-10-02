@@ -45,6 +45,7 @@ A tool for discovery and inspection of an IT environment. The %{src_name} provid
 
 %install
 rm -rf $RPM_BUILD_ROOT
+sed -i "s?PYTHON_SRC_PATH = ''?PYTHON_SRC_PATH ='%{python3_sitelib}/%{egg_name}/%{egg_name}/'?g" %{egg_name}/release.py
 %{__python3} setup.py install --skip-build --root $RPM_BUILD_ROOT
 
 %if "%{dist}" == ".el8"
@@ -54,7 +55,6 @@ make manpage pandoc=~/bin/pandoc
 %else
 make manpage
 %endif
-sed -i "s?PYTHON_SRC_PATH = ''?PYTHON_SRC_PATY ='%{python3_sitelib}/%{egg_name}/%{egg_name}/'?g" %{egg_name}/release.py
 
 %files
 %defattr(-,root,root,-)

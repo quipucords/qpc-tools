@@ -191,31 +191,6 @@ Copyright
 
 Copyright 2019 Red Hat, Inc. Licensed under the GNU Public License version 3.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-OFFLINE CLI STUFF
-
-*qpc tools command line interface*
-
-#. Go to the following URL: https://github.com/quipucords/qpc/releases
-
-#. Download the package that is applicable to the operating system version:
-   - Red Hat Enterprise Linux 6 and CentOS 6: ``qpc.el6.noarch.rpm``
-   - Red Hat Enterprise Linux 7 and CentOS 7: ``qpc.el7.noarch.rpm``
+.. _Red Hat Enterprise Linux 6 and CentOS 6 https://github.com/quipucords/qpc/releases/latest/download/qpc.el6.noarch.rpm
+.. _Red Hat Enterprise Linux 7 and CentOS 7 https://github.com/quipucords/qpc/releases/latest/download/qpc.el7.noarch.rpm
+.. _Red Hat Enterprise Linux 8 https://github.com/quipucords/qpc/releases/latest/download/qpc.el8.noarch.rpm

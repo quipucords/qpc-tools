@@ -14,9 +14,9 @@
 export PATH=$PATH:$ANSIBLE_HOME/bin
 #Note: The playbook path will be sed replaced in the spec file
 # to match the location of where the package is being installed.
-CLI_PLAYBOOK_FILE="cli_playbook.yml"
-SERVER_PLAYBOOK_FILE="server_playbook.yml"
-PLAYBOOKPATH=""
+CLI_PLAYBOOK_FILE="cli/cli_playbook.yml"
+SERVER_PLAYBOOK_FILE="server/server_playbook.yml"
+PLAYBOOKPATH='/qpc_tools/qpc_tools/install/ansible/'
 CLI_PLAYBOOK=$PLAYBOOKPATH$CLI_PLAYBOOK_FILE
 SERVER_PLAYBOOK=$PLAYBOOKPATH$SERVER_PLAYBOOK_FILE
 QPC_TOOLS_VERSION='BUILD_VERSION_PLACEHOLDER'
@@ -83,7 +83,7 @@ install_usage() {
     * Controls whether to start the Quipucords server with supervisord (defaults to true):
          -e use_supervisord=false
     * Sets the fully qualified path to the installation directory for the Quipucords server (defaults to ~/quipucords):
-         -e quipucords_home=~/volumes
+         -e home_dir=~/volumes
     *  Sets the fully qualified path to the files needed to complete an offline installation.
          -e offline_files=~/offline
     * Sets the name of the quipucords server (defaults to quipucords):
@@ -106,11 +106,11 @@ shift
 # shift removes the $1 in the positional args
 if [[ $EUID -ne 0 ]]
 then
-  echo ansible-playbook cli/$CLI_PLAYBOOK -vv -K $*
-  ansible-playbook cli/$CLI_PLAYBOOK -vv -K $*
+  echo ansible-playbook $CLI_PLAYBOOK -vv -K $*
+  ansible-playbook $CLI_PLAYBOOK -vv -K $*
 else
-  echo ansible-playbook cli/$CLI_PLAYBOOK -vv $*
-  ansible-playbook cli/$CLI_PLAYBOOK -vv $*
+  echo ansible-playbook $CLI_PLAYBOOK -vv $*
+  ansible-playbook $CLI_PLAYBOOK -vv $*
 fi
 if [ $? -eq 0 ]
 then
@@ -124,11 +124,11 @@ install_server() {
 shift
 if [[ $EUID -ne 0 ]]
 then
-  echo ansible-playbook server/$SERVER_PLAYBOOK -vv -K $*
-  ansible-playbook server/$SERVER_PLAYBOOK -vv -K $*
+  echo ansible-playbook $SERVER_PLAYBOOK -vv -K $*
+  ansible-playbook $SERVER_PLAYBOOK -vv -K $*
 else
-  echo ansible-playbook server/$SERVER_PLAYBOOK -vv $*
-  ansible-playbook server/$SERVER_PLAYBOOK -vv $*
+  echo ansible-playbook $SERVER_PLAYBOOK -vv $*
+  ansible-playbook $SERVER_PLAYBOOK -vv $*
 fi
 if [ $? -eq 0 ]
 then

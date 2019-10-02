@@ -8,19 +8,8 @@ help:
 	@echo "  setup                                              Sets up yum repos"
 	@echo "  offline-prep                                       Install required dependencies for offline install"
 	@echo "  online-prep                                        Install required dependencies for online install. Required if not using make commands."
-	@echo "  install-help                                       Runs qpc-tools help"
-	@echo "  install                                            Install with defaults"
-	@echo "  install-offline                                    Perform an offline installation"
-	@echo "           server_version=<x.x.x>                        @param - required"
-	@echo "           cli_version=<x.x.x>                           @param - required"
-	@echo "  install-version                                    Install a specific version of the server and the client"
-	@echo "           server_version=<x.x.x>                        @param - required"
-	@echo "           cli_version=<x.x.x>                           @param - required"
 	@echo "  clean                                              Remove docker containers and images.  Also, qpc cli."
-
-
-install-help:
-	./install/qpc-tools --help
+	@echo "  install-local-tools                                Install the qpc-tools cli locally."
 
 setup:
 	scripts/setup_repos.sh
@@ -61,24 +50,32 @@ online-prep: setup
 		yum install -y libcgroup; \
 		yum install -y yum-utils; \
 		yum install -y ansible; \
+		yum install -y python3; \
 	elif grep -q -i "release 6" /etc/redhat-release; then \
 		echo "Running 6"; \
 		yum install -y libcgroup; \
 		yum install -y yum-utils; \
 		yum install -y ansible; \
+		yum install -y python34; \
+		yum install -y python34-setuptools; \
 	else \
 		echo "Running 8"; \
 		yum install -y ansible; \
+		yum install -y python36; \
 	fi
-
-install-offline:
-	cd install;./qpc-tools install -e install_offline=true -e server_version=$(server_version) -e cli_version=$(cli_version) -e offline_files=/qpc_tools/install/packages
-
-install: online-prep
-	cd install;./qpc-tools install
-
-install-version: online-prep
-	cd install;./qpc-tools install -e server_version=$(server_version) -e cli_version=$(cli_version)
 
 clean:
 	scripts/cleanup.sh
+
+install-local-tools: online-prep
+	sed -i "s?PYTHON_SRC_PATH = ''?PYTHON_SRC_PATH = '/qpc_tools/qpc_tools/'?g" qpc_tools/release.py
+	python3 setup.py build
+	@if grep -q -i "release 8" /etc/redhat-release; then \
+	python3 setup.py install --prefix /usr; \
+	else \
+		python3 setup.py install; \
+	fi
+	echo ""
+	echo "***************************"
+	echo "WARNING: you will need to run the following for centos/rhel 7"
+	echo "export PATH=$$PATH:/usr/local/bin" | xargs

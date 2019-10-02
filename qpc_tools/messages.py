@@ -21,6 +21,7 @@ ALL_INSTALL_HOME_DIR_HELP = 'The home directory for the Quipucords application d
     '(defaults to ~/quipucords)'
 
 SERVER_INSTALLATION_SUCCESSFUL = 'Installation of server was successful'
+SERVER_INSTALLATION_FAILED = 'Server installation failed. Review the install logs'
 SERVER_INSTALL_OFFLINE_HELP = 'Perform an offline server installation (defaults to false)'
 SERVER_INSTALL_OFFLINE_FILES_HELP = 'Specify the path to the server offline files'
 SERVER_INSTALL_VERSION_HELP = 'Specify the server version to install '\
@@ -34,6 +35,7 @@ SERVER_INSTALL_USERNAME_HELP = 'Set the server admin username (defaults to admin
 SERVER_INSTALL_PASSWORD_HELP = 'Set the server admin password (defaults to qpcpassw0rd)'
 
 CLI_INSTALLATION_SUCCESSFUL = 'Installation of CLI was successful'
+CLI_INSTALLATION_FAILED = 'CLI installation failed. Review the install logs'
 CLI_INSTALL_OFFLINE_HELP = 'Perform an offline CLI installation (defaults to false)'
 CLI_INSTALL_OFFLINE_FILES_HELP = 'Specify the path to the CLI offline files'
 CLI_INSTALL_VERSION_HELP = 'Specify the QPC CLI version to install (defaults to latest release)'

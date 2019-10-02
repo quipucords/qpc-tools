@@ -16,6 +16,7 @@ from __future__ import print_function
 import logging
 import os
 
+from qpc_tools.release import PYTHON_SRC_PATH
 
 QPC_PATH = 'qpc_tools'
 CONFIG_HOME_PATH = '~/.config/'
@@ -28,6 +29,9 @@ QPC_LOG = os.path.join(DATA_DIR, 'qpc-tools.log')
 QPC_SERVER_CONFIG = os.path.join(CONFIG_DIR, 'qpc-tools.config')
 
 LOG_LEVEL_INFO = 0
+
+BOOLEAN_CHOICES = ['True', 'False', 'true', 'false']
+NOT_ANSIBLE_KEYS = ['action', 'subcommand', 'verbosity']
 
 # pylint: disable=invalid-name
 logging.captureWarnings(True)
@@ -81,3 +85,25 @@ def log_args(args):
     """
     message = 'Args: "%s"'
     log.info(message, args)
+
+
+def create_ansible_command(namespace_args, playbook):
+    """Build Ansible Command."""
+    # Initial command setup
+    cmd_list = ['ansible-playbook']
+    playbook_path = '%s/%s' % (PYTHON_SRC_PATH, playbook)
+    cmd_list.append(playbook_path)
+    verbosity_lvl = '-vv'
+    cmd_list.append(verbosity_lvl)
+    # Fiter Extra Vars
+    extra_vars = namespace_args.__dict__
+    for key in NOT_ANSIBLE_KEYS:
+        if key in extra_vars.keys():
+            extra_vars.pop(key, None)
+    extra_vars = {k: v for k, v in extra_vars.items() if v is not None}
+    # Add extra vars to command
+    extra_format = '-e %s=%s'
+    for key, value in extra_vars.items():
+        extra_var = extra_format % (key, value)
+        cmd_list.append(extra_var)
+    return cmd_list

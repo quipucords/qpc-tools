@@ -31,6 +31,7 @@ help:
 	@echo "  unit-test                                      Run the python unit tests"
 	@echo "  test-coverage                                  Run the unit tests and measure test coverage"
 	@echo "  clean                                          Cleanup configure files and destroy VMs"
+	@echo "  clean-iterm                                    Cleanup configure files and destroy VMs and exit all iTerm windows"
 
 # Internal subcommands that the user should not call
 create-test-dirs:
@@ -67,8 +68,14 @@ copy-packages:
 	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf test/packages/ test/$$os/install/packages/ ; done
 
 # Internal subcommands that the user should not call
-copy-install:
+copy-install: copy-qpc-tools
 	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf install test/$$os; done
+
+copy-qpc-tools:
+	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf qpc_tools test/$$os; done
+	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf setup.py test/$$os; done
+	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf bin test/$$os; done
+
 
 # Internal subcommands that the user should not call
 local-server-image: download-postgres
@@ -173,10 +180,15 @@ test-centos-6:
 test-centos-7:
 	vagrant up vcentos7;vagrant ssh vcentos7
 
-clean:
+clean-local-cli:
 	rm -rf dist/ build/ qpc_tools.egg-info/
+
+clean: clean-local-cli
 	vagrant destroy -f
 	rm -rf test
+
+clean-iterm: clean
+	osascript -e 'quit app "iTerm"' | true
 
 manpage:
 	$(pandoc) docs/man.rst \

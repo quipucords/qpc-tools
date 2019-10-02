@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #
 # Copyright (c) 2019 Red Hat, Inc.
 #
@@ -8,10 +9,9 @@
 # along with this software; if not, see
 # https://www.gnu.org/licenses/gpl-3.0.txt.
 #
+"""Constants for the install commands."""
 
-"""Commands for installation."""
-# flake8: noqa
-# pylint: disable=unused-import
-from qpc_tools.install.all import InstallAllCommand
-from qpc_tools.install.server import InstallServerCommand
-from qpc_tools.install.cli import InstallCLICommand
+SUBCOMMAND = 'cli'
+INSTALL = 'install'
+
+CLI_INSTALL_PLAYBOOK = 'cli/ansible/install/playbook.yml'

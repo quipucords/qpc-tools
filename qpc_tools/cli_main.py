@@ -16,11 +16,10 @@ from __future__ import print_function
 from argparse import ArgumentParser
 
 
-from qpc_tools import install, messages
-from qpc_tools.install.commands import (InstallAllCommand,
-                                        InstallCLICommand,
-                                        InstallServerCommand)
-from qpc_tools.release import (VERSION)
+from qpc_tools import cli, messages, server
+from qpc_tools.cli.commands import InstallCLICommand
+from qpc_tools.release import VERSION
+from qpc_tools.server.commands import InstallServerCommand
 from qpc_tools.translation import _
 from qpc_tools.utils import (ensure_config_dir_exists,
                              ensure_data_dir_exists,
@@ -35,7 +34,7 @@ class CLI():
     to the valid set of commands supported by qpc-tools.
     """
 
-    def __init__(self, name='cli', usage=None, shortdesc=None,
+    def __init__(self, name='cli_main', usage=None, shortdesc=None,
                  description=None):
         """Create main command line handler."""
         self.shortdesc = shortdesc
@@ -50,10 +49,10 @@ class CLI():
         self.name = name
         self.args = None
         self.subcommands = {}
-        self._add_subcommand(install.SUBCOMMAND,
-                             [InstallAllCommand,
-                              InstallServerCommand,
-                              InstallCLICommand])
+        self._add_subcommand(cli.SUBCOMMAND,
+                             [InstallCLICommand])
+        self._add_subcommand(server.SUBCOMMAND,
+                             [InstallServerCommand])
         ensure_data_dir_exists()
         ensure_config_dir_exists()
 

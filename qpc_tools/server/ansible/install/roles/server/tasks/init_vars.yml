@@ -35,14 +35,14 @@
   when:
     - have_selinux_raw.rc == 0
 
-- name: Set the {{quipucords_home}} server subdirectory paths
+- name: Set the {{home_dir}} server subdirectory paths
   set_fact:
-    server_log_volume: "{{quipucords_home}}/server/volumes/log/"
-    server_sshkeys_volume: "{{quipucords_home}}/server/volumes/sshkeys/"
-    server_data_volume: "{{quipucords_home}}/server/volumes/data/"
-    server_packages: "{{quipucords_home}}/server/packages/"
+    server_log_volume: "{{home_dir}}/server/volumes/log/"
+    server_sshkeys_volume: "{{home_dir}}/server/volumes/sshkeys/"
+    server_data_volume: "{{home_dir}}/server/volumes/data/"
+    server_packages: "{{home_dir}}/server/packages/"
 
-- name: Create the {{quipucords_home}} server subdirectories
+- name: Create the {{home_dir}} server subdirectories
   file:
     path: "{{ item }}"
     state: directory

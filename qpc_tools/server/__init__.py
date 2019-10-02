@@ -11,9 +11,7 @@
 #
 """Constants for the install commands."""
 
-SUBCOMMAND = 'install'
-ALL = 'all'
-SERVER = 'server'
-CLI = 'cli'
+SUBCOMMAND = 'server'
+INSTALL = 'install'
 
-BOOLEAN_CHOICES = ['True', 'False', 'true', 'false']
+SERVER_INSTALL_PLAYBOOK = 'server/ansible/install/playbook.yml'

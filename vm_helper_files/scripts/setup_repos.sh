@@ -20,3 +20,5 @@ then
         sudo cp -rf config/rhel8/*.repo /etc/yum.repos.d/
     fi
 fi
+
+set +x

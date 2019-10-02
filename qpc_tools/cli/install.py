@@ -13,20 +13,23 @@
 
 from __future__ import print_function
 
+import subprocess
 from argparse import SUPPRESS
 
-import qpc_tools.install as install
+import qpc_tools.cli as cli
 from qpc_tools import messages
 from qpc_tools.clicommand import CliCommand
 from qpc_tools.translation import _
-
+from qpc_tools.utils import create_ansible_command
 
 # pylint: disable=too-few-public-methods
+
+
 class InstallCLICommand(CliCommand):
     """Defines the install CLI command."""
 
-    SUBCOMMAND = install.SUBCOMMAND
-    ACTION = install.CLI
+    SUBCOMMAND = cli.SUBCOMMAND
+    ACTION = cli.INSTALL
 
     def __init__(self, subparsers):
         """Create command."""
@@ -34,15 +37,13 @@ class InstallCLICommand(CliCommand):
         CliCommand.__init__(self, self.SUBCOMMAND, self.ACTION,
                             subparsers.add_parser(self.ACTION))
         self.parser.add_argument('--offline', dest='install_offline',
-                                 choices=install.BOOLEAN_CHOICES,
-                                 default='false',
+                                 action='store_true',
                                  help=_(messages.CLI_INSTALL_OFFLINE_HELP),
                                  required=False)
         self.parser.add_argument('--offline-files', dest='offline_files',
                                  help=_(messages.CLI_INSTALL_OFFLINE_FILES_HELP),
                                  required=False)
         self.parser.add_argument('--version', dest='cli_version',
-                                 default='latest',
                                  help=_(messages.CLI_INSTALL_VERSION_HELP),
                                  required=False)
         self.parser.add_argument('--home-dir', dest='home_dir',
@@ -63,4 +64,21 @@ class InstallCLICommand(CliCommand):
 
     def _do_command(self):
         """Install the CLI."""
-        print(_(messages.CLI_INSTALLATION_SUCCESSFUL))
+        ansible_command = create_ansible_command(self.args, cli.CLI_INSTALL_PLAYBOOK)
+        # Can't use subprocess.run cause python > 3.5
+        try:
+            process = subprocess.Popen(ansible_command,
+                                       stderr=subprocess.PIPE,
+                                       stdout=subprocess.PIPE)
+            for line in iter(process.stdout.readline, b''):
+                format_line = line.decode('utf-8').strip('\n')
+                print(format_line)
+            # process.communicate performs a wait until playbooks is done
+            process.communicate()
+            code = process.returncode
+            if code == 0:
+                print(_(messages.CLI_INSTALLATION_SUCCESSFUL))
+            else:
+                print(_(messages.CLI_INSTALLATION_FAILED))
+        except ValueError:
+            print(_(messages.CLI_INSTALLATION_FAILED))

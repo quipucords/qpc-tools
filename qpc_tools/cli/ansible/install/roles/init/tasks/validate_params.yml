@@ -14,5 +14,5 @@
 
 - name: Create the Quipucords installation directory
   file:
-    path: "{{quipucords_home}}"
+    path: "{{home_dir}}"
     state: directory

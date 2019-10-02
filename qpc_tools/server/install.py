@@ -13,20 +13,22 @@
 
 from __future__ import print_function
 
+import subprocess
 from argparse import SUPPRESS
 
-import qpc_tools.install as install
+import qpc_tools.server as server
 from qpc_tools import messages
 from qpc_tools.clicommand import CliCommand
 from qpc_tools.translation import _
+from qpc_tools.utils import BOOLEAN_CHOICES, create_ansible_command
 
 
 # pylint: disable=too-few-public-methods
 class InstallServerCommand(CliCommand):
     """Defines the install server command."""
 
-    SUBCOMMAND = install.SUBCOMMAND
-    ACTION = install.SERVER
+    SUBCOMMAND = server.SUBCOMMAND
+    ACTION = server.INSTALL
 
     def __init__(self, subparsers):
         """Create command."""
@@ -34,27 +36,25 @@ class InstallServerCommand(CliCommand):
         CliCommand.__init__(self, self.SUBCOMMAND, self.ACTION,
                             subparsers.add_parser(self.ACTION))
         self.parser.add_argument('--offline', dest='install_offline',
-                                 choices=install.BOOLEAN_CHOICES,
-                                 default='false',
+                                 action='store_true',
                                  help=_(messages.SERVER_INSTALL_OFFLINE_HELP),
                                  required=False)
         self.parser.add_argument('--offline-files', dest='offline_files',
                                  help=_(messages.SERVER_INSTALL_OFFLINE_FILES_HELP),
                                  required=False)
         self.parser.add_argument('--version', dest='server_version',
-                                 default='latest',
                                  help=_(messages.SERVER_INSTALL_VERSION_HELP),
                                  required=False)
         self.parser.add_argument('--home-dir', dest='home_dir',
                                  default='~/quipucords',
                                  help=_(messages.ALL_INSTALL_HOME_DIR_HELP),
                                  required=False)
-        self.parser.add_argument('--port', dest='port',
+        self.parser.add_argument('--port', dest='server_port',
                                  default='9443',
                                  help=_(messages.SERVER_INSTALL_PORT_HELP),
                                  required=False)
         self.parser.add_argument('--open-port', dest='open_port',
-                                 choices=install.BOOLEAN_CHOICES,
+                                 choices=BOOLEAN_CHOICES,
                                  default='true',
                                  help=_(messages.SERVER_INSTALL_OPEN_PORT_HELP),
                                  required=False)
@@ -65,11 +65,11 @@ class InstallServerCommand(CliCommand):
         self.parser.add_argument('--dbms-password', dest='dbms_password',
                                  help=_(messages.SERVER_INSTALL_DBMS_PASSWORD_HELP),
                                  required=False)
-        self.parser.add_argument('--username', dest='username',
+        self.parser.add_argument('--username', dest='server_username',
                                  default='admin',
                                  help=_(messages.SERVER_INSTALL_USERNAME_HELP),
                                  required=False)
-        self.parser.add_argument('--password', dest='password',
+        self.parser.add_argument('--password', dest='server_password',
                                  help=_(messages.SERVER_INSTALL_PASSWORD_HELP),
                                  required=False)
         self.parser.add_argument('--advanced', dest='server_advanced',
@@ -78,4 +78,21 @@ class InstallServerCommand(CliCommand):
 
     def _do_command(self):
         """Install the server."""
-        print(_(messages.SERVER_INSTALLATION_SUCCESSFUL))
+        ansible_command = create_ansible_command(self.args, server.SERVER_INSTALL_PLAYBOOK)
+        # Can't use subprocess.run cause python > 3.5
+        try:
+            process = subprocess.Popen(ansible_command,
+                                       stderr=subprocess.PIPE,
+                                       stdout=subprocess.PIPE)
+            for line in iter(process.stdout.readline, b''):
+                format_line = line.decode('utf-8').strip('\n')
+                print(format_line)
+            # process.communicate performs a wait until playbooks is done
+            process.communicate()
+            code = process.returncode
+            if code == 0:
+                print(_(messages.SERVER_INSTALLATION_SUCCESSFUL))
+            else:
+                print(_(messages.SERVER_INSTALLATION_FAILED))
+        except ValueError:
+            print(_(messages.SERVER_INSTALLATION_FAILED))

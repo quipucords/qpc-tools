@@ -61,7 +61,7 @@ sed -i "s?PYTHON_SRC_PATH = ''?PYTHON_SRC_PATY ='%{python3_sitelib}/%{src_name}/
 %doc README.md AUTHORS.md
 %license LICENSE
 %{_bindir}/%{src_name}
-%{python3_sitelib}/%{src_name}/
+%{python3_sitelib}/*
 %{python3_sitelib}/%{egg_name}-%{version}-py3.?.egg-info/
 
 %changelog

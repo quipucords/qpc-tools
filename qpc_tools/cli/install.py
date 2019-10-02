@@ -66,6 +66,7 @@ class InstallCLICommand(CliCommand):
         """Install the CLI."""
         ansible_command = create_ansible_command(self.args, cli.CLI_INSTALL_PLAYBOOK)
         # Can't use subprocess.run cause python > 3.5
+        print(" ".join(ansible_command))
         try:
             process = subprocess.Popen(ansible_command,
                                        stderr=subprocess.PIPE,

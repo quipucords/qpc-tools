@@ -41,12 +41,11 @@ A tool for discovery and inspection of an IT environment. The %{src_name} provid
 %setup -q
 
 %build
-sed -i "s?PYTHON_SRC_PATH = ''?PYTHON_SRC_PATH ='%{python3_sitelib}/%{egg_name}/%{egg_name}/'?g" %{egg_name}/release.py
+sed -i "s?PYTHON_SRC_PATH = ''?PYTHON_SRC_PATH ='%{python3_sitelib}/%{egg_name}/'?g" %{egg_name}/release.py
 %{__python3} setup.py build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-%{__python3} setup.py install --skip-build --root $RPM_BUILD_ROOT
+%{__python3} setup.py install
 
 %if "%{dist}" == ".el8"
 curl -k -SL https://github.com/jgm/pandoc/releases/download/2.7.3/pandoc-2.7.3-linux.tar.gz -o pandoc.tar.gz

@@ -8,20 +8,8 @@ help:
 	@echo "  setup                                              Sets up yum repos"
 	@echo "  offline-prep                                       Install required dependencies for offline install"
 	@echo "  online-prep                                        Install required dependencies for online install. Required if not using make commands."
-	@echo "  install-help                                       Runs qpc-tools help"
-	@echo "  install                                            Install with defaults"
-	@echo "  install-offline                                    Perform an offline installation"
-	@echo "           server_version=<x.x.x>                        @param - required"
-	@echo "           cli_version=<x.x.x>                           @param - required"
-	@echo "  install-version                                    Install a specific version of the server and the client"
-	@echo "           server_version=<x.x.x>                        @param - required"
-	@echo "           cli_version=<x.x.x>                           @param - required"
 	@echo "  clean                                              Remove docker containers and images.  Also, qpc cli."
-	@echo "  install-cli                                        Install the qpc-tools cli locally."
-
-
-install-help:
-	./install/qpc-tools --help
+	@echo "  install-local-tools                                Install the qpc-tools cli locally."
 
 setup:
 	scripts/setup_repos.sh
@@ -76,19 +64,10 @@ online-prep: setup
 		yum install -y python36; \
 	fi
 
-install-offline:
-	cd install;./qpc-tools install -e install_offline=true -e server_version=$(server_version) -e cli_version=$(cli_version) -e offline_files=/qpc_tools/install/packages
-
-install: online-prep
-	cd install;./qpc-tools install
-
-install-version: online-prep
-	cd install;./qpc-tools install -e server_version=$(server_version) -e cli_version=$(cli_version)
-
 clean:
 	scripts/cleanup.sh
 
-install-cli: online-prep
+install-local-tools: online-prep
 	sed -i "s?PLAYBOOK_PATH = ''?PLAYBOOK_PATH = '/qpc_tools/qpc_tools/install/ansible/'?g" qpc_tools/release.py
 	python3 setup.py build
 	@if grep -q -i "release 8" /etc/redhat-release; then \

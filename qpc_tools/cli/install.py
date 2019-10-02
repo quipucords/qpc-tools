@@ -9,28 +9,27 @@
 # along with this software; if not, see
 # https://www.gnu.org/licenses/gpl-3.0.txt.
 #
-"""InstallServerCommand is used to install the server."""
+"""InstallCLICommand is used to install the CLI."""
 
 from __future__ import print_function
 
 import subprocess
 from argparse import SUPPRESS
 
-import qpc_tools.install as install
+import qpc_tools.cli as cli
 from qpc_tools import messages
 from qpc_tools.clicommand import CliCommand
-from qpc_tools.install.utils import create_ansible_command
 from qpc_tools.translation import _
-
-PLAYBOOK = 'server/server_playbook.yml'
-
+from qpc_tools.utils import create_ansible_command
 
 # pylint: disable=too-few-public-methods
-class InstallServerCommand(CliCommand):
-    """Defines the install server command."""
 
-    SUBCOMMAND = install.SUBCOMMAND
-    ACTION = install.SERVER
+
+class InstallCLICommand(CliCommand):
+    """Defines the install CLI command."""
+
+    SUBCOMMAND = cli.SUBCOMMAND
+    ACTION = cli.INSTALL
 
     def __init__(self, subparsers):
         """Create command."""
@@ -39,48 +38,33 @@ class InstallServerCommand(CliCommand):
                             subparsers.add_parser(self.ACTION))
         self.parser.add_argument('--offline', dest='install_offline',
                                  action='store_true',
-                                 help=_(messages.SERVER_INSTALL_OFFLINE_HELP),
+                                 help=_(messages.CLI_INSTALL_OFFLINE_HELP),
                                  required=False)
         self.parser.add_argument('--offline-files', dest='offline_files',
-                                 help=_(messages.SERVER_INSTALL_OFFLINE_FILES_HELP),
+                                 help=_(messages.CLI_INSTALL_OFFLINE_FILES_HELP),
                                  required=False)
-        self.parser.add_argument('--version', dest='server_version',
-                                 help=_(messages.SERVER_INSTALL_VERSION_HELP),
+        self.parser.add_argument('--version', dest='cli_version',
+                                 help=_(messages.CLI_INSTALL_VERSION_HELP),
                                  required=False)
         self.parser.add_argument('--home-dir', dest='home_dir',
                                  default='~/quipucords',
                                  help=_(messages.ALL_INSTALL_HOME_DIR_HELP),
                                  required=False)
-        self.parser.add_argument('--port', dest='server_port',
+        self.parser.add_argument('--server-host', dest='server_host',
+                                 default='127.0.0.1',
+                                 help=_(messages.CLI_INSTALL_SERVER_HELP),
+                                 required=False)
+        self.parser.add_argument('--server-port', dest='server_port',
                                  default='9443',
                                  help=_(messages.SERVER_INSTALL_PORT_HELP),
-                                 required=False)
-        self.parser.add_argument('--open-port', dest='open_port',
-                                 choices=install.BOOLEAN_CHOICES,
-                                 default='true',
-                                 help=_(messages.SERVER_INSTALL_OPEN_PORT_HELP),
-                                 required=False)
-        self.parser.add_argument('--dbms-user', dest='dbms_user',
-                                 default='postgres',
-                                 help=_(messages.SERVER_INSTALL_DBMS_USER_HELP),
-                                 required=False)
-        self.parser.add_argument('--dbms-password', dest='dbms_password',
-                                 help=_(messages.SERVER_INSTALL_DBMS_PASSWORD_HELP),
-                                 required=False)
-        self.parser.add_argument('--username', dest='server_username',
-                                 default='admin',
-                                 help=_(messages.SERVER_INSTALL_USERNAME_HELP),
-                                 required=False)
-        self.parser.add_argument('--password', dest='server_password',
-                                 help=_(messages.SERVER_INSTALL_PASSWORD_HELP),
                                  required=False)
         self.parser.add_argument('--advanced', dest='server_advanced',
                                  help=SUPPRESS,
                                  required=False)
 
     def _do_command(self):
-        """Install the server."""
-        ansible_command = create_ansible_command(self.args, PLAYBOOK)
+        """Install the CLI."""
+        ansible_command = create_ansible_command(self.args, cli.CLI_INSTALL_PLAYBOOK)
         # Can't use subprocess.run cause python > 3.5
         try:
             process = subprocess.Popen(ansible_command,
@@ -93,8 +77,8 @@ class InstallServerCommand(CliCommand):
             process.communicate()
             code = process.returncode
             if code == 0:
-                print(_(messages.SERVER_INSTALLATION_SUCCESSFUL))
+                print(_(messages.CLI_INSTALLATION_SUCCESSFUL))
             else:
-                print(_(messages.SERVER_INSTALLATION_FAILED))
+                print(_(messages.CLI_INSTALLATION_FAILED))
         except ValueError:
-            print(_(messages.SERVER_INSTALLATION_FAILED))
+            print(_(messages.CLI_INSTALLATION_FAILED))

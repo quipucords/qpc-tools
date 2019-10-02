@@ -8,7 +8,7 @@
 # along with this software; if not, see
 # https://www.gnu.org/licenses/gpl-3.0.txt.
 #
-"""Test the Install CLI module."""
+"""Test the Install Server module."""
 
 import io
 import sys
@@ -17,7 +17,7 @@ from unittest.mock import patch
 from argparse import ArgumentParser, Namespace  # noqa: I100
 
 from qpc_tools import messages
-from qpc_tools.install.cli import InstallCLICommand
+from qpc_tools.server.install import InstallServerCommand
 from qpc_tools.tests_utilities import HushUpStderr, redirect_stdout
 from qpc_tools.translation import _
 
@@ -26,8 +26,8 @@ PARSER = ArgumentParser()
 SUBPARSER = PARSER.add_subparsers(dest='subcommand')
 
 
-class InstallCLICommandTests(unittest.TestCase):
-    """Class for testing the install CLI commands."""
+class InstallServerCommandTests(unittest.TestCase):
+    """Class for testing the install server commands."""
 
     def setUp(self):
         """Create test setup."""
@@ -43,50 +43,50 @@ class InstallCLICommandTests(unittest.TestCase):
         # Restore stderr
         sys.stderr = self.orig_stderr
 
-    @patch('qpc_tools.install.cli.subprocess.Popen')
-    def test_install_cli_success(self, subprocess):
-        """Testing the installation of CLI command was successful."""
+    @patch('qpc_tools.server.install.subprocess.Popen')
+    def test_install_server_success(self, subprocess):
+        """Testing the installation of server command was successful."""
         subprocess.return_value.returncode = 0
         subprocess.return_value.communicate.side_effect = self.effect
         mock_ansible_logs = 'test0\ntest1\n'
         byte_ansible_logs = bytes(mock_ansible_logs, 'utf-8')
         subprocess.return_value.stdout = io.BytesIO(byte_ansible_logs)
         cred_out = io.StringIO()
-        cac = InstallCLICommand(SUBPARSER)
+        cac = InstallServerCommand(SUBPARSER)
         args = Namespace()
         with redirect_stdout(cred_out):
             cac.main(args)
-            expected = mock_ansible_logs + _(messages.CLI_INSTALLATION_SUCCESSFUL)
+            expected = mock_ansible_logs + _(messages.SERVER_INSTALLATION_SUCCESSFUL)
             self.assertEqual(cred_out.getvalue().strip(), expected)
 
-    @patch('qpc_tools.install.cli.subprocess.Popen')
-    def test_install_cli_failure(self, subprocess):
-        """Testing a failed CLI installlation."""
+    @patch('qpc_tools.server.install.subprocess.Popen')
+    def test_install_server_failure(self, subprocess):
+        """Testing a failed server installlation."""
         subprocess.return_value.returncode = 1
         subprocess.return_value.communicate.side_effect = self.effect
         mock_ansible_logs = 'test0\ntest1\n'
         byte_ansible_logs = bytes(mock_ansible_logs, 'utf-8')
         subprocess.return_value.stdout = io.BytesIO(byte_ansible_logs)
         cred_out = io.StringIO()
-        cac = InstallCLICommand(SUBPARSER)
+        cac = InstallServerCommand(SUBPARSER)
         args = Namespace()
         with redirect_stdout(cred_out):
             cac.main(args)
-            expected = mock_ansible_logs + _(messages.CLI_INSTALLATION_FAILED)
+            expected = mock_ansible_logs + _(messages.SERVER_INSTALLATION_FAILED)
             self.assertEqual(cred_out.getvalue().strip(), expected)
 
-    @patch('qpc_tools.install.cli.subprocess.Popen')
+    @patch('qpc_tools.server.install.subprocess.Popen')
     def test_value_error(self, subprocess):
-        """Testing a failed CLI installlation."""
+        """Testing a failed server installlation."""
         subprocess.return_value.returncode = 1
         subprocess.return_value.communicate.side_effect = ValueError()
         mock_ansible_logs = 'test0\ntest1\n'
         byte_ansible_logs = bytes(mock_ansible_logs, 'utf-8')
         subprocess.return_value.stdout = io.BytesIO(byte_ansible_logs)
         cred_out = io.StringIO()
-        cac = InstallCLICommand(SUBPARSER)
+        cac = InstallServerCommand(SUBPARSER)
         args = Namespace()
         with redirect_stdout(cred_out):
             cac.main(args)
-            expected = mock_ansible_logs + _(messages.CLI_INSTALLATION_FAILED)
+            expected = mock_ansible_logs + _(messages.SERVER_INSTALLATION_FAILED)
             self.assertEqual(cred_out.getvalue().strip(), expected)

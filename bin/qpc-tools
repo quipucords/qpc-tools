@@ -30,7 +30,7 @@ QPC_PATH = os.path.join(BASE_QPC_DIR, 'qpc_tools')
 sys.path.insert(0, QPC_PATH)
 
 # pylint: disable=wrong-import-position
-from qpc_tools.cli import CLI  # noqa
+from qpc_tools.cli_main import CLI  # noqa
 
 gettext.install('qpc_tools')
 

@@ -9,7 +9,7 @@ Summary: A tool for discovery and inspection of an IT environment. The %{src_nam
 Group: Applications/Internet
 License: GNU
 URL: http://github.com/quipucords/qpc-tools
-Source0: %{src_name}-%{version}.tar.gz
+Source0: http://github.com/quipucords/qpc-tools/archive/copr.tar.gz
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch: noarch

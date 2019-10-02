@@ -33,19 +33,19 @@ Server Installation
 ^^^^^^^^^^^^^^^^^^^
 The ``qpc-tools server install`` command with no options performs a basic installation with the preset defaults. However, it is recommended the ``qpc-tools server install`` command with options to change default username and passwords. The most common scenarios where you might use options to change the basic installation process are explained in the `Installing the server offline`_ and  `Installing a specific version of the server`_ sections.
 
-Note that in log information for the ``qpc-tools server install`` command, references to ``quipucords server`` are relevant to the Quipucords server, and references to ``qpc CLI`` are relevant to the Quipucords command line interface client.
+Note that in log information for the ``qpc-tools server install`` command, references to ``quipucords server`` are relevant to the Quipucords server, and references to ``qpc CLI`` are relevant to the Quipucords command line interface client.  Command usage::
 
-**qpc-tools server install** [**-h**]
-                         [**--offline**]
-                         [**--offline-files** *OFFLINE_FILES*]
-                         [**--version** *SERVER_VERSION*]
-                         [**--home-dir** *HOME_DIR*]
-                         [**--port** *SERVER_PORT*]
-                         [**--open-port** *OPEN_PORT*]
-                         [**--dbms-user** *DBMS_USER*]
-                         [**--dbms-password** *DBMS_PASSWORD*]
-                         [**--username** *SERVER_USERNAME*]
-                         [**--password** *SERVER_PASSWORD*]
+    **qpc-tools server install** [**-h**]
+                            [**--offline**]
+                            [**--offline-files** *OFFLINE_FILES*]
+                            [**--version** *SERVER_VERSION*]
+                            [**--home-dir** *HOME_DIR*]
+                            [**--port** *SERVER_PORT*]
+                            [**--open-port** *OPEN_PORT*]
+                            [**--dbms-user** *DBMS_USER*]
+                            [**--dbms-password** *DBMS_PASSWORD*]
+                            [**--username** *SERVER_USERNAME*]
+                            [**--password** *SERVER_PASSWORD*]
 
 ``--offline``
 

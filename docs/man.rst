@@ -93,8 +93,7 @@ Installing the server offline
 If you choose the offline option to run the install command, you must do the following steps:
 
 #. Obtain the installation packages on a machine with internet connectivity.
-  - Go to the following URL: https://github.com/quipucords/quipucords/releases
-  - Download the ``quipucords_server_image.tar.gz`` package.
+  - Download the following server image: https://github.com/quipucords/quipucords/releases/latest/download/quipucords_server_image.tar.gz
   - Create the PostgreSQL image TAR file with Docker. Use the the following command, where the package name is ``postgres.9.6.10.tar``::
 
       docker pull postgres:9.6.10 && docker save -o postgres.9.6.10.tar postgres:9.6.10
@@ -156,12 +155,10 @@ Installing the CLI offline
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 If you choose the offline option to run the install command, you must do the following steps:
 
-#. Obtain the installation packages on a machine with internet connectivity.
-  - Go to the following URL: https://github.com/quipucords/qpc/releases
-  - Download the package that is applicable to the operating system version:
-    - Red Hat Enterprise Linux 6 and CentOS 6: ``qpc.el6.noarch.rpm``
-    - Red Hat Enterprise Linux 7 and CentOS 7: ``qpc.el7.noarch.rpm``
-    - Red Hat Enterprise Linux 8: ``qpc.el8.noarch.rpm``
+#. Obtain the installation packages on a machine with internet connectivity.  Select the appropriate RPM for your operating system.
+    - `Red Hat Enterprise Linux 6 and CentOS 6<https://github.com/quipucords/qpc/releases/latest/download/qpc.el6.noarch.rpm>`_
+    - `Red Hat Enterprise Linux 7 and CentOS 7<https://github.com/quipucords/qpc/releases/latest/download/qpc.el7.noarch.rpm>`_
+    - `Red Hat Enterprise Linux 8<https://github.com/quipucords/qpc/releases/latest/download/qpc.el8.noarch.rpm>`_
 #. Create a location for the packages on the machine where Quipucords will be installed and move the packages to that location.
 #. Run the qpc-tools with the required options to complete an offline installation.  For example::
 

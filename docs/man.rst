@@ -51,7 +51,7 @@ Note that in log information for the ``qpc-tools server install`` command, refer
 
   Controls whether the installation runs as an offlien (disconnected) installation.
 
-``--offline_files=OFFLINE_FILES``
+``--offline-files=OFFLINE_FILES``
 
   Sets the fully qualified path to the files needed to complete an offline installation. Required if ``offline`` specified.
 
@@ -59,31 +59,31 @@ Note that in log information for the ``qpc-tools server install`` command, refer
 
   Enables the installation of a specific Quipucords server version. Contains the semantic versioning format (version.release.patch, such as 0.9.0) of the Quipucords server that you want to install. Required if ``offline`` is specified.
 
-``--home_dir=HOME_DIR``
+``--home-dir=HOME_DIR``
 
   Sets the fully qualified path to the installation directory for the Quipucords server. Defaults to ``~/quipucords/``.
 
-``--server_port=SERVER_PORT``
+``--port=SERVER_PORT``
 
   Sets the port number for the Quipucords server. Defaults to ``9443``.
 
-``--open_port=OPEN_PORT``
+``--open-port=OPEN_PORT``
 
-  Determines whether to open the ``server_port`` in the firewall during the installation. This option enables communication between the Quipucords server and any remote clients over the port defined in ``server_port``. Contains a true or false value. Defaults to ``true``. Supply ``false`` to install without opening the server port in the firewall. The installation script must run with elevated privileges to open the server port.
+  Determines whether to open the ``port`` in the firewall during the installation. This option enables communication between the Quipucords server and any remote clients over the port defined in ``port``. Contains a true or false value. Defaults to ``true``. Supply ``false`` to install without opening the server port in the firewall. The installation script must run with elevated privileges to open the server port.
 
-``--dbms_user=DBMS_USER``
+``--dbms-user=DBMS_USER``
 
   Specifies the database user for PostgreSQL. Defaults to ``postgres``.
 
-``--dbms_password=DBMS_PASSWORD``
+``--dbms-password=DBMS_PASSWORD``
 
   Specifies the database password for PostgreSQL. Defaults to ``password``.
 
-``--server_username=SERVER_USERNAME``
+``--username=SERVER_USERNAME``
 
   Sets the Quipucords server user name. Defaults to ``admin``.
 
-``--server_password=SERVER_PASSWORD``
+``--password=SERVER_PASSWORD``
 
   Sets the Quipucords server password. Defaults to ``qpcpassw0rd``.
 
@@ -131,7 +131,7 @@ Note that in log information for the ``qpc-tools cli install`` command, referenc
 
   Controls whether the installation runs as an offlien (disconnected) installation.
 
-``--offline_files=OFFLINE_FILES``
+``--offline-files=OFFLINE_FILES``
 
   Sets the fully qualified path to the files needed to complete an offline installation. Required if ``offline`` specified.
 
@@ -139,15 +139,15 @@ Note that in log information for the ``qpc-tools cli install`` command, referenc
 
   Enables the installation of a specific Quipucords CLI version. Contains the semantic versioning format (version.release.patch, such as 0.9.0) of the Quipucords CLI that you want to install.
 
-``--home_dir=HOME_DIR``
+``--home-dir=HOME_DIR``
 
   Sets the fully qualified path to the installation directory for the Quipucords CLI. Defaults to ``~/quipucords/``.
 
-``--server_host=SERVER_HOST``
+``--server-host=SERVER_HOST``
 
   Sets the host for the Quipucords server. Defaults to ``127.0.0.1``.
 
-``--server_port=SERVER_PORT``
+``--server-port=SERVER_PORT``
 
   Sets the port number for the Quipucords server. Defaults to ``9443``.
 

@@ -80,6 +80,7 @@ class InstallCLICommand(CliCommand):
             if code == 0:
                 print(_(messages.CLI_INSTALLATION_SUCCESSFUL))
             else:
+                print(process.stdout.decode('utf-8'))
                 print(_(messages.CLI_INSTALLATION_FAILED))
         except ValueError:
             print(_(messages.CLI_INSTALLATION_FAILED))

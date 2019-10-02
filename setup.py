@@ -9,10 +9,10 @@ from setuptools import find_packages, setup
 from qpc_tools.release import (VERSION, AUTHOR, AUTHOR_EMAIL,
                                PKG_NAME, BIN_SCRIPT, URL)
 
-# BASE_QPC_DIR = os.path.abspath(
-#     os.path.normpath(
-#         os.path.join(os.path.dirname(sys.argv[0]), '.')))
-# sys.path.insert(0, os.path.join(BASE_QPC_DIR, 'qpc_tools'))
+BASE_QPC_DIR = os.path.abspath(
+    os.path.normpath(
+        os.path.join(os.path.dirname(sys.argv[0]), '.')))
+sys.path.insert(0, os.path.join(BASE_QPC_DIR, 'qpc_tools'))
 
 setup(
     name=PKG_NAME,

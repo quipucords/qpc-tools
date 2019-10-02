@@ -91,6 +91,8 @@ def create_ansible_command(namespace_args, playbook):
     """Build Ansible Command."""
     # Initial command setup
     cmd_list = ['ansible-playbook']
+    print(PYTHON_SRC_PATH)
+    print(playbook)
     playbook_path = '%s/%s' % (PYTHON_SRC_PATH, playbook)
     cmd_list.append(playbook_path)
     verbosity_lvl = '-vv'

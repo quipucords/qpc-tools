@@ -156,9 +156,12 @@ Installing the CLI offline
 If you choose the offline option to run the install command, you must do the following steps:
 
 #. Obtain the installation packages on a machine with internet connectivity.  Select the appropriate RPM for your operating system.
-    - `Red Hat Enterprise Linux 6 and CentOS 6`_
-    - `Red Hat Enterprise Linux 7 and CentOS 7`_
-    - `Red Hat Enterprise Linux 8`_
+    - Red Hat Enterprise Linux 6 and CentOS 6
+      - https://github.com/quipucords/qpc/releases/latest/download/qpc.el6.noarch.rpm
+    - Red Hat Enterprise Linux 7 and CentOS 7
+      - https://github.com/quipucords/qpc/releases/latest/download/qpc.el7.noarch.rpm
+    - Red Hat Enterprise Linux 8
+      - https://github.com/quipucords/qpc/releases/latest/download/qpc.el8.noarch.rpm
 #. Create a location for the packages on the machine where Quipucords will be installed and move the packages to that location.
 #. Run the qpc-tools with the required options to complete an offline installation.  For example::
 
@@ -190,7 +193,3 @@ Copyright
 ---------
 
 Copyright 2019 Red Hat, Inc. Licensed under the GNU Public License version 3.
-
-.. _Red Hat Enterprise Linux 6 and CentOS 6 https://github.com/quipucords/qpc/releases/latest/download/qpc.el6.noarch.rpm
-.. _Red Hat Enterprise Linux 7 and CentOS 7 https://github.com/quipucords/qpc/releases/latest/download/qpc.el7.noarch.rpm
-.. _Red Hat Enterprise Linux 8 https://github.com/quipucords/qpc/releases/latest/download/qpc.el8.noarch.rpm

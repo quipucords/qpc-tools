@@ -38,8 +38,7 @@ class InstallCLICommand(CliCommand):
         CliCommand.__init__(self, self.SUBCOMMAND, self.ACTION,
                             subparsers.add_parser(self.ACTION))
         self.parser.add_argument('--offline', dest='install_offline',
-                                 choices=install.BOOLEAN_CHOICES,
-                                 default='false',
+                                 action='store_true',
                                  help=_(messages.CLI_INSTALL_OFFLINE_HELP),
                                  required=False)
         self.parser.add_argument('--offline-files', dest='offline_files',

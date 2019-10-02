@@ -14,4 +14,4 @@
 SUBCOMMAND = 'cli'
 INSTALL = 'install'
 
-CLI_INSTALL_PLAYBOOK = 'cli/ansible/install/playbook.yml'
+CLI_INSTALL_PLAYBOOK = 'ansible/install/playbook.yml'

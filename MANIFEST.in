@@ -1,0 +1,2 @@
+recursive-include qpc_tools/cli/ansible/ *
+recursive-include qpc_tools/server/ansible/ *

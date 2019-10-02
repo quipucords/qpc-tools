@@ -54,14 +54,14 @@ make manpage pandoc=~/bin/pandoc
 %else
 make manpage
 %endif
-sed -i "s?PYTHON_SRC_PATH = ''?PYTHON_SRC_PATY ='%{python3_sitelib}/%{src_name}/%{egg_name}/'?g" %{egg_name}/release.py
+sed -i "s?PYTHON_SRC_PATH = ''?PYTHON_SRC_PATY ='%{python3_sitelib}/%{egg_name}/%{egg_name}/'?g" %{egg_name}/release.py
 
 %files
 %defattr(-,root,root,-)
 %doc README.md AUTHORS.md
 %license LICENSE
 %{_bindir}/%{src_name}
-%{python3_sitelib}/*
+%{python3_sitelib}/%{egg_name}
 %{python3_sitelib}/%{egg_name}-%{version}-py3.?.egg-info/
 
 %changelog

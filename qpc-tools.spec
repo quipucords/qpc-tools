@@ -41,7 +41,6 @@ A tool for discovery and inspection of an IT environment. The %{src_name} provid
 %setup -q
 
 %build
-sed -i "s?PYTHON_SRC_PATH = ''?PYTHON_SRC_PATH ='%{python3_sitelib}/%{egg_name}/'?g" %{egg_name}/release.py
 %{__python3} setup.py build
 
 %install

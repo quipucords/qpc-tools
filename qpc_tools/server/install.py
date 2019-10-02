@@ -13,6 +13,7 @@
 
 from __future__ import print_function
 
+import os
 import subprocess
 from argparse import SUPPRESS
 
@@ -78,8 +79,13 @@ class InstallServerCommand(CliCommand):
 
     def _do_command(self):
         """Install the server."""
-        ansible_command = create_ansible_command(self.args, server.SERVER_INSTALL_PLAYBOOK)
         # Can't use subprocess.run cause python > 3.5
+        # TODO: Remove
+        cwd_abs_path = os.path.abspath(os.path.dirname(__file__))
+        playbook_abs_path = os.path.join(cwd_abs_path, server.SERVER_INSTALL_PLAYBOOK)
+        print(playbook_abs_path)
+        ansible_command = create_ansible_command(self.args, playbook_abs_path)
+        print(" ".join(ansible_command))
         try:
             process = subprocess.Popen(ansible_command,
                                        stderr=subprocess.PIPE,

@@ -38,13 +38,15 @@ Requires: python%{pyver}
 A tool for discovery and inspection of an IT environment. The %{src_name} provides a server base infrastructure to process tasks that discover and inspect remote systems.
 
 %prep
-%setup -q -n %{src_name}
+%setup -q
 
-%buildroot
+%build
 %{__python3} setup.py build
 
 %install
-%{__python3} setup.py install
+rm -rf $RPM_BUILD_ROOT
+%{__python3} setup.py install --skip-build --root $RPM_BUILD_ROOT
+
 %if "%{dist}" == ".el8"
 curl -k -SL https://github.com/jgm/pandoc/releases/download/2.7.3/pandoc-2.7.3-linux.tar.gz -o pandoc.tar.gz
 tar xvzf pandoc.tar.gz --strip-components 1 -C ~/

@@ -168,11 +168,11 @@ If you choose the offline option to run the install command, you must do the fol
     qpc-tools cli install --offline --offline-files='/PATH_TO_OFFLINE_FILES'
 
 
-Installing a specific version of the server
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-By default, the ``qpc-tools server install`` command installs the latest release unless an earlier version is specified in the command. For example, if the previous version of Quipucords that you want to install is 0.9.0., you would enter the following command::
+Installing a specific version of the CLI
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+By default, the ``qpc-tools cli install`` command installs the latest release unless an earlier version is specified in the command. For example, if the previous version of Quipucords that you want to install is 0.9.0., you would enter the following command::
 
-    qpc-tools server install --version=0.9.0
+    qpc-tools cli install --version=0.9.0
 
 
 Options for All Commands

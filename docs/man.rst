@@ -98,7 +98,7 @@ If you choose the offline option to run the install command, you must do the fol
 
 #. Run the qpc-tools with the required options to complete an offline installation.  For example::
 
-  qpc-tools server install --offline --offline-files='/PATH' --version=0.9.1
+    qpc-tools server install --offline --offline-files='/PATH' --version=0.9.1
 
 
 Obtaining the server packages
@@ -115,31 +115,31 @@ Download the following packages to the machine with internet connectivity. Make 
 
 #. Create the PostgreSQL image TAR file with Docker. Use the the following command, where the package name is ``postgres.9.6.10.tar``::
 
-  docker pull postgres:9.6.10 && docker save -o postgres.9.6.10.tar postgres:9.6.10
+    docker pull postgres:9.6.10 && docker save -o postgres.9.6.10.tar postgres:9.6.10
 
 
 Setting the package location
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#. Create a packages directory the following paths. For the variable marked as ``{lib}``, enter the library version, either lib or lib64. For the variable marked as ``{x.y.z}``, enter the version of the qpc-tools:
+#. Create a packages directory the following paths. For the variable marked as ``{lib}``, enter the library version, either lib or lib64. For the variable marked as ``{x.y.z}``, enter the version of the qpc-tools::
 
-   ``mkdir -p /usr/{lib}/qpc-tools-{x.y.z}/install/packages``
+    mkdir -p /usr/{lib}/qpc-tools-{x.y.z}/install/packages
 
-#. Move the packages to the following directory so that the install command can find them:
+#. Move the packages to the following directory so that the install command can find them::
 
-   ``mv path/to/quipucords_server_image.tar.gz /usr/{lib}/qpc-tools-{x.y.z}/install/packages``
+    mv path/to/quipucords_server_image.tar.gz /usr/{lib}/qpc-tools-{x.y.z}/install/packages
 
 Running the offline installation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 To complete an installation on a machine without internet connectivity, also known as an offline installation, run the ``qpc-tools server install`` command with the appropriate options. For example, if you are installing version 0.9.1 of the Quipucords server and command line interface, you would enter the following command::
 
-  qpc-tools server install --offline --offline-files='/PATH' --version=0.9.1
+    qpc-tools server install --offline --offline-files='/PATH' --version=0.9.1
 
 Installing a specific version of the server
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 By default, the ``qpc-tools server install`` command installs the latest release unless an earlier version is specified in the command. For example, if the previous version of Quipucords that you want to install is 0.9.0., you would enter the following command::
 
-  qpc-tools server install --version=0.9.0
+    qpc-tools server install --version=0.9.0
 
 Options for All Commands
 ^^^^^^^^^^^^^^^^^^^^^^^^

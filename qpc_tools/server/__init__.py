@@ -14,4 +14,4 @@
 SUBCOMMAND = 'server'
 INSTALL = 'install'
 
-SERVER_INSTALL_PLAYBOOK = 'server/ansible/install/playbook.yml'
+SERVER_INSTALL_PLAYBOOK = 'ansible/install/playbook.yml'

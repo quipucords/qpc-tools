@@ -74,6 +74,7 @@ copy-install: copy-qpc-tools
 copy-qpc-tools:
 	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf qpc_tools test/$$os; done
 	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf setup.py test/$$os; done
+	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf MANIFEST.in test/$$os; done
 	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf bin test/$$os; done
 
 

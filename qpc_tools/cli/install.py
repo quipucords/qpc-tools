@@ -69,6 +69,7 @@ class InstallCLICommand(CliCommand):
         # TODO: Remove
         cwd_abs_path = os.path.abspath(os.path.dirname(__file__))
         playbook_abs_path = os.path.join(cwd_abs_path, cli.CLI_INSTALL_PLAYBOOK)
+        print(playbook_abs_path)
         ansible_command = create_ansible_command(self.args, playbook_abs_path)
         print(" ".join(ansible_command))
         try:
@@ -84,8 +85,6 @@ class InstallCLICommand(CliCommand):
             if code == 0:
                 print(_(messages.CLI_INSTALLATION_SUCCESSFUL))
             else:
-                # TODO: Remove
-                print(process.stdout.decode('utf-8'))
                 print(_(messages.CLI_INSTALLATION_FAILED))
         except ValueError:
             print(_(messages.CLI_INSTALLATION_FAILED))

@@ -68,7 +68,6 @@ clean:
 	scripts/cleanup.sh
 
 install-local-tools: online-prep
-	sed -i "s?PYTHON_SRC_PATH = ''?PYTHON_SRC_PATH = '/qpc_tools/qpc_tools/'?g" qpc_tools/release.py
 	python3 setup.py build
 	@if grep -q -i "release 8" /etc/redhat-release; then \
 	python3 setup.py install --prefix /usr; \

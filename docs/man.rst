@@ -10,7 +10,7 @@ qpc-tools - Configuration tools for the Quipucords server and command line inter
 Synopsis
 --------
 
-``qpc-tools command [options]``
+``qpc-tools command subcommand [options]``
 
 Description
 -----------
@@ -26,115 +26,83 @@ To install the Quipucords server and command line interfaced (CLI) client:
 
 The following sections describe these commands, their subcommands, and their options in more detail. They also describe additional tasks that are not highlighted in the previous list of major workflow tasks.
 
-Installation
-------------
-The ``qpc-tools install`` command with no options performs a basic installation with the preset defaults. However, it is recommended the ``qpc-tools install`` command with options to change default username and passwords. The most common scenarios where you might use options to change the basic installation process are explained in the `Installing offline`_, `Installing a specific version`_, and `Installing the server and command line interface separately`_ sections.
+Server
+------
 
-Note that in log information for the ``qpc-tools install`` command, references to ``quipucords server`` are relevant to the Quipucords server, and references to ``qpc CLI`` are relevant to the Quipucords command line interface client.
+Server Installation
+^^^^^^^^^^^^^^^^^^^
+The ``qpc-tools server install`` command with no options performs a basic installation with the preset defaults. However, it is recommended the ``qpc-tools server install`` command with options to change default username and passwords. The most common scenarios where you might use options to change the basic installation process are explained in the `Installing the server offline`_ and  `Installing a specific version of the server`_ sections.
 
-  ``qpc-tools install [options]``
+Note that in log information for the ``qpc-tools server install`` command, references to ``quipucords server`` are relevant to the Quipucords server, and references to ``qpc CLI`` are relevant to the Quipucords command line interface client.
 
-Options
-~~~~~~~
+**qpc-tools server install** [**-h**]
+                         [**--offline**]
+                         [**--offline-files** *OFFLINE_FILES*]
+                         [**--version** *SERVER_VERSION*]
+                         [**--home-dir** *HOME_DIR*]
+                         [**--port** *SERVER_PORT*]
+                         [**--open-port** *OPEN_PORT*]
+                         [**--dbms-user** *DBMS_USER*]
+                         [**--dbms-password** *DBMS_PASSWORD*]
+                         [**--username** *SERVER_USERNAME*]
+                         [**--password** *SERVER_PASSWORD*]
 
-The ``extra-vars`` options set values that are passed to the Ansible playbook that runs during installation.
+``--offline``
 
-**qpc-tools install (-e | --extra-vars) option=** *value*
+  Controls whether the installation runs as an offlien (disconnected) installation.
 
-The following list contains the available ``--extra-vars`` options.
+``--offline_files=OFFLINE_FILES``
 
-``-e install_server=false``
+  Sets the fully qualified path to the files needed to complete an offline installation. Required if ``offline`` specified.
 
-  Controls the installation of the Quipucords server. Contains a true or false value. Defaults to ``true``. Supply ``false`` to skip the installation of the server.
-
-``-e install_cli=false``
-
-  Controls the installation of the Quipucords CLI. Contains a true or false value. Defaults to ``true``. Supply ``false`` to skip the installation of the CLI.
-
-``-e install_offline=true``
-
-  Controls whether the installation runs as an online (connected) installation or an offline (disconnected) installation. Contains a true or false value. Defaults to ``false``. Supply ``true`` to start an offline installation.
-
-``-e server_version=0.9.0``
+``--version=VERSION``
 
   Enables the installation of a specific Quipucords server version. Contains the semantic versioning format (version.release.patch, such as 0.9.0) of the Quipucords server that you want to install. Required if ``install_offline=true`` and ``install_server=true``.
 
-``-e cli_version=0.9.0``
-
-  Enables the installation of a specific Quipucords CLI version. Contains the semantic versioning format (version.release.patch, such as 0.9.0) of the Quipucords CLI that you want to install. Required if ``install_offline=true`` and ``install_cli=true``.
-
-``-e server_port=8443``
-
-  Sets the port number for the Quipucords server. Defaults to ``9443``.
-
-``-e open_port=false``
-
-  Determines whether to open the ``server_port`` in the firewall during the installation. This option enables communication between the Quipucords server and any remote clients over the port defined in ``server_port``. Contains a true or false value. Defaults to ``true``. Supply ``false`` to install without opening the server port in the firewall. The installation script must run with elevated privileges to open the server port.
-
-``-e  dbms_user=postgres``
-
-  Specifies the database user for PostgreSQL. Defaults to ``postgres``.
-
-``-e dbms_password=pass123``
-
-  Specifies the database password for PostgreSQL. Defaults to ``password``.
-
-``-e server_username=adminid1``
-
-  Sets the Quipucords server user name. Defaults to ``admin``.
-
-``-e server_password=adminpw1``
-
-  Sets the Quipucords server password. Defaults to ``qpcpassw0rd``.
-
-``-e server_user_email=adminid1@example.com``
-
-  Sets the Quipucords server user email address. Defaults to ``admin@example.com``.
-
-``-e use_supervisord=false``
-
-  Controls whether to start the Quipucords server with supervisord. Contains a true or false value. Defaults to ``true``. Supply ``false`` to start the server without supervisord.
-
-``-e home_dir=~/home_dir``
+``--home_dir=HOME_DIR``
 
   Sets the fully qualified path to the installation directory for the Quipucords server. Defaults to ``~/quipucords/``.
 
-``-e offline_files=~/offline``
+``--server_port=SERVER_PORT``
 
-  Sets the fully qualified path to the files needed to complete an offline installation. Required if ``install_offline=true``.
+  Sets the port number for the Quipucords server. Defaults to ``9443``.
 
-``-e server_name=quipucords2``
+``--open_port=OPEN_PORT``
 
-  Sets the name for the Quipucords server. Defaults to ``quipucords``.
+  Determines whether to open the ``server_port`` in the firewall during the installation. This option enables communication between the Quipucords server and any remote clients over the port defined in ``server_port``. Contains a true or false value. Defaults to ``true``. Supply ``false`` to install without opening the server port in the firewall. The installation script must run with elevated privileges to open the server port.
 
-``-e server_http_timeout=90``
+``--dbms_user=DBMS_USER``
 
-  Sets the HTTP timeout length for the Quipucords server. Defaults to ``120``.
+  Specifies the database user for PostgreSQL. Defaults to ``postgres``.
 
-``-e inspect_job_timeout=10700``
+``--dbms_password=DBMS_PASSWORD``
 
-  Sets the network inspection scan timeout in seconds. Defaults to ``10800`` (3 hours).
+  Specifies the database password for PostgreSQL. Defaults to ``password``.
 
-``-e connect_job_timeout=500``
+``--server_username=SERVER_USERNAME``
 
-  Sets the network connection scan timeout in seconds. Defaults to ``600`` (10 minutes).
+  Sets the Quipucords server user name. Defaults to ``admin``.
 
-``-e ansible_log_level=10``
+``--server_password=SERVER_PASSWORD``
 
-  Sets the level of log output by Ansible during network scans. Defaults to ``0``, which is the value for no extended logs.
+  Sets the Quipucords server password. Defaults to ``qpcpassw0rd``.
 
-Installing offline
-------------------
+
+Installing the server offline
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 If you choose the offline option to run the install command, you must do the following steps:
 
 #. Obtain the installation packages on a machine with internet connectivity.
 
 #. Create a location for the packages on the machine where Quipucords will be installed and move the packages to that location.
 
-#. Run the qpc-tools with the required options to complete an offline installation.
+#. Run the qpc-tools with the required options to complete an offline installation.  For example::
 
-Obtaining packages
-~~~~~~~~~~~~~~~~~~
+  qpc-tools server install --offline --offline-files='/PATH' --version=0.9.1
+
+
+Obtaining the server packages
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Download the following packages to the machine with internet connectivity. Make sure that the package names match the default names in the following instructions.
 
 *Quipucords server*
@@ -145,17 +113,10 @@ Download the following packages to the machine with internet connectivity. Make 
 
 *PostgreSQL*
 
-#. Create the PostgreSQL image TAR file with Docker. Use the the following command, where the package name is ``postgres.9.6.10.tar``:
+#. Create the PostgreSQL image TAR file with Docker. Use the the following command, where the package name is ``postgres.9.6.10.tar``::
 
-   ``docker pull postgres:9.6.10 && docker save -o postgres.9.6.10.tar postgres:9.6.10``
+  docker pull postgres:9.6.10 && docker save -o postgres.9.6.10.tar postgres:9.6.10
 
-*qpc tools command line interface*
-
-#. Go to the following URL: https://github.com/quipucords/qpc/releases
-
-#. Download the package that is applicable to the operating system version:
-   - Red Hat Enterprise Linux 6 and CentOS 6: ``qpc.el6.noarch.rpm``
-   - Red Hat Enterprise Linux 7 and CentOS 7: ``qpc.el7.noarch.rpm``
 
 Setting the package location
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -170,34 +131,18 @@ Setting the package location
 
 Running the offline installation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-To complete an installation on a machine without internet connectivity, also known as an offline installation, run the ``qpc-tools`` command with the appropriate options. For example, if you are installing version 0.9.0 of the Quipucords server and command line interface, you would enter the following command:
+To complete an installation on a machine without internet connectivity, also known as an offline installation, run the ``qpc-tools server install`` command with the appropriate options. For example, if you are installing version 0.9.1 of the Quipucords server and command line interface, you would enter the following command::
 
-``qpc-tools install -e install_offline=true -e server_version=0.9.0  -e cli_version=0.9.0``
+  qpc-tools server install --offline --offline-files='/PATH' --version=0.9.1
 
-Installing a specific version
------------------------------
-By default, the ``qpc-tools`` command installs the latest release unless an earlier version is specified in the command. For example, if the previous version of Quipucords that you want to install is 0.9.0., you would enter the following command:
+Installing a specific version of the server
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+By default, the ``qpc-tools server install`` command installs the latest release unless an earlier version is specified in the command. For example, if the previous version of Quipucords that you want to install is 0.9.0., you would enter the following command::
 
-``qpc-tools install -e server_version=0.9.0  -e cli_version=0.9.0``
-
-Installing the server and command line interface separately
------------------------------------------------------------
-The default installation process installs the Quipucords server and command line interface at the same time. However, you can choose to install the server and command line interface on seperate machines, as described in the following sections.
-
-Installing the server without the command line interface
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-The following example command installs the Quipucords server but does not install the command line interface.
-
-``qpc-tools install -e install_cli=false``
-
-Installing the command line interface without the server
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-The following example command installs the Quipucords command line interface but does not install the server.
-
-``qpc-tools install -e install_server=false``
+  qpc-tools server install --version=0.9.0
 
 Options for All Commands
-------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 The following options are available for every Quipucords command.
 
@@ -214,3 +159,32 @@ Copyright
 ---------
 
 Copyright 2019 Red Hat, Inc. Licensed under the GNU Public License version 3.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+OFFLINE CLI STUFF
+
+*qpc tools command line interface*
+
+#. Go to the following URL: https://github.com/quipucords/qpc/releases
+
+#. Download the package that is applicable to the operating system version:
+   - Red Hat Enterprise Linux 6 and CentOS 6: ``qpc.el6.noarch.rpm``
+   - Red Hat Enterprise Linux 7 and CentOS 7: ``qpc.el7.noarch.rpm``

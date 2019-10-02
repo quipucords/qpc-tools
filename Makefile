@@ -3,7 +3,6 @@ PYTHON = $(shell which python)
 TOPDIR = $(shell pwd)
 # Required for a work around in the spec file
 pandoc = pandoc
-stream = qpc
 .PHONY: install
 
 help:
@@ -193,11 +192,11 @@ clean-iterm: clean
 
 manpage:
 	$(pandoc) docs/man.rst \
-	  --standalone -t man -o docs/$(stream)-tools.1 \
+	  --standalone -t man -o docs/qpc-tools.1 \
 	  --variable=section:1 \
 	  --variable=date:'June 6, 2019' \
 	  --variable=footer:'version 0.9.1' \
-	  --variable=header:'$(stream)-tools'
+	  --variable=header:'qpc-tools'
 
 # Install python egg
 OMIT_PATTERNS = */test*.py,*/.virtualenvs/*.py,*/virtualenvs/*.py,.tox/*.py

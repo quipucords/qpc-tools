@@ -38,7 +38,7 @@ Requires: python%{pyver}
 A tool for discovery and inspection of an IT environment. The %{src_name} provides a server base infrastructure to process tasks that discover and inspect remote systems.
 
 %prep
-%setup -qc
+%setup -q -n %{src_name}
 
 %buildroot
 %{__python3} setup.py build

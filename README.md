@@ -135,11 +135,12 @@ To test online installation, do the following:
 ```
 clear;cd /qpc_tools;sudo su
 make setup
-make install
+make install-local-tools --or-- make install-release-tools
+qpc-tools server install
+qpc-tools cli install
 ```
 Note:
  - Optionally run any secret post install scripts you included in `tools_config.tar.gz`
- - You can replace `make install` with other commands or `cd install;./qpc-tools install -e other_flags`
 
 ## Vagrant: Testing Offline Installation
 
@@ -149,13 +150,14 @@ To test offline installation for RHEL 6/7/8 or CentOS 6/7, do the following (wit
 clear;cd /qpc_tools;sudo su
 make setup
 make offline-prep
+make install-local-tools --or-- make install-release-tools
 # Disconnect from the network
-make install-offline server_version=<server_version> cli_version=<cli_version>
+qpc-tools server install --offline --offline-files /qpc_tools/install/packages
+qpc-tools cli install --offline --ofline-files /qpc_tools/install/packages
 ```
 
 Note:
  - Optionally run any secret post install scripts you included in `tools_config.tar.gz`
- - You can replace `make install` with other commands or `cd install;./qpc-tools install -e other_flags`
 
  ## Creating the man page
  After installing [pandoc](https://pandoc.org/installing.html) locally, run the following command:

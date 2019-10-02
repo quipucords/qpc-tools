@@ -45,7 +45,7 @@ sed -i "s?PYTHON_SRC_PATH = ''?PYTHON_SRC_PATH ='%{python3_sitelib}/%{egg_name}/
 %{__python3} setup.py build
 
 %install
-%{__python3} setup.py install --skip-build --root $RPM_BUILD_ROOT
+%{__python3} setup.py install --skip-build --root %{buildroot}
 
 %if "%{dist}" == ".el8"
 curl -k -SL https://github.com/jgm/pandoc/releases/download/2.7.3/pandoc-2.7.3-linux.tar.gz -o pandoc.tar.gz

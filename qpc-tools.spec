@@ -1,3 +1,4 @@
+%{!?python3_sitelib: %define python3_sitelib %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 %global src_name qpc-tools
 %global egg_name qpc_tools
 Name: %{src_name}
@@ -9,6 +10,7 @@ Group: Applications/Internet
 License: GNU
 URL: http://github.com/quipucords/qpc-tools
 Source0: %{src_name}-%{version}.tar.gz
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch: noarch
 

@@ -31,6 +31,7 @@ help:
 	@echo "  unit-test                                      Run the python unit tests"
 	@echo "  test-coverage                                  Run the unit tests and measure test coverage"
 	@echo "  clean                                          Cleanup configure files and destroy VMs"
+	@echo "  clean-iterm                                    Cleanup configure files and destroy VMs and exit all iTerm windows"
 
 # Internal subcommands that the user should not call
 create-test-dirs:
@@ -185,6 +186,9 @@ clean-local-cli:
 clean: clean-local-cli
 	vagrant destroy -f
 	rm -rf test
+
+clean-iterm: clean
+	osascript -e 'quit app "iTerm"' | true
 
 manpage:
 	$(pandoc) docs/man.rst \

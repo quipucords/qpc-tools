@@ -59,9 +59,6 @@ sed -i "s?PYTHON_SRC_PATH = ''?PYTHON_SRC_PATY ='%{python3_sitelib}/%{src_name}/
 %{_bindir}/%{src_name}
 %{python3_sitelib}/%{src_name}/
 %{python3_sitelib}/%{egg_name}-%{version}-py3.?.egg-info/
-# /%{_libdir}/%{src_name}-%{version}
-# %{_mandir}/man1/%{src_name}.1.gz
-
 
 %changelog
 * Thu Jun 27 2019 Cody Myers <cmyers@redhat.com> 0.1.2

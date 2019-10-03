@@ -212,7 +212,7 @@ test-coverage:
 	coverage report -m --omit $(OMIT_PATTERNS)
 	echo $(OMIT_PATTERNS)
 
-# Manifest are use to tell setuptools to package files that are not python modules in the egg.
+# Manifest are used to tell setuptools to package files that are not python modules in the egg.
 # This target was created by RHEL6 doesn't allow for recusive includes such as:
 # recursive-include qpc_tools/cli/ansible/ *
 # recursive-include qpc_tools/server/ansible/ *

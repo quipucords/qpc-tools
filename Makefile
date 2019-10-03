@@ -217,4 +217,4 @@ test-coverage:
 # recursive-include qpc_tools/cli/ansible/ *
 # recursive-include qpc_tools/server/ansible/ *
 manifest:
-	find qpc_tools/cli/ansible qpc_tools/server/ansible -name *.yml -exec echo "include {}" \; > MANIFEST.in
+	find qpc_tools -name *.yml -exec echo "include {}" \; > MANIFEST.in

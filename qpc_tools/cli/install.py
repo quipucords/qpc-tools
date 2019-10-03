@@ -66,7 +66,6 @@ class InstallCLICommand(CliCommand):
     def _do_command(self):
         """Install the CLI."""
         # Can't use subprocess.run cause python > 3.5
-        # TODO: Remove
         cwd_abs_path = os.path.abspath(os.path.dirname(__file__))
         playbook_abs_path = os.path.join(cwd_abs_path, cli.CLI_INSTALL_PLAYBOOK)
         ansible_command = create_ansible_command(self.args, playbook_abs_path)

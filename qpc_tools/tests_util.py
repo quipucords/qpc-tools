@@ -11,13 +11,13 @@
 """Test the Utils module."""
 
 import logging
+import os
 import unittest
 from argparse import Namespace  # noqa: I100
 
 from qpc_tools import utils
 from qpc_tools.cli import CLI_INSTALL_PLAYBOOK
 from qpc_tools.server import SERVER_INSTALL_PLAYBOOK
-import os
 
 
 class UtilsTests(unittest.TestCase):

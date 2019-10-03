@@ -197,7 +197,7 @@ manpage:
 # Install python egg
 OMIT_PATTERNS = */test*.py,*/.virtualenvs/*.py,*/virtualenvs/*.py,.tox/*.py
 
-install:
+install: manifest
 	$(PYTHON) setup.py build -f
 	$(PYTHON) setup.py install -f
 

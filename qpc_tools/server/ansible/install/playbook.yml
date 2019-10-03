@@ -3,8 +3,6 @@
 - name: Install the Quipucords components
   hosts: localhost
   vars:
-      install_server: 'true'
-      install_cli: 'true'
       install_offline: 'false'
       use_supervisord: 'true'
       open_port: 'true'
@@ -42,7 +40,6 @@
         name: server_podman
         tasks_from: install_online
       when:
-        - install_server|lower == 'true'
         - use_docker|lower == 'false'
         - install_offline|lower == 'false'
 
@@ -51,7 +48,6 @@
         name: server_podman
         tasks_from: install_offline
       when:
-        - install_server|lower == 'true'
         - use_docker|lower == 'false'
         - install_offline|lower == 'true'
 
@@ -60,7 +56,6 @@
         name: server_docker
         tasks_from: install_online
       when:
-        - install_server|lower == 'true'
         - use_docker|lower == 'true'
         - install_offline|lower == 'false'
 
@@ -69,6 +64,5 @@
         name: server_docker
         tasks_from: install_offline
       when:
-        - install_server|lower == 'true'
         - use_docker|lower == 'true'
         - install_offline|lower == 'true'

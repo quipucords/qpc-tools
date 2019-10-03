@@ -191,11 +191,11 @@ clean-iterm: clean
 	osascript -e 'quit app "iTerm"' | true
 
 manpage:
-	$(pandoc) docs/man.rst \
+	$(pandoc) docs/man.md \
 	  --standalone -t man -o docs/qpc-tools.1 \
 	  --variable=section:1 \
 	  --variable=date:'June 6, 2019' \
-	  --variable=footer:'version 0.9.1' \
+	  --variable=footer:'version 0.1.2' \
 	  --variable=header:'qpc-tools'
 
 # Install python egg

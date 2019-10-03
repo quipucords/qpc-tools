@@ -16,8 +16,6 @@ from __future__ import print_function
 import logging
 import os
 
-from qpc_tools.release import PYTHON_SRC_PATH
-
 QPC_PATH = 'qpc_tools'
 CONFIG_HOME_PATH = '~/.config/'
 DATA_HOME_PATH = '~/.local/share/'
@@ -91,8 +89,7 @@ def create_ansible_command(namespace_args, playbook):
     """Build Ansible Command."""
     # Initial command setup
     cmd_list = ['ansible-playbook']
-    playbook_path = '%s/%s' % (PYTHON_SRC_PATH, playbook)
-    cmd_list.append(playbook_path)
+    cmd_list.append(playbook)
     verbosity_lvl = '-vv'
     cmd_list.append(verbosity_lvl)
     # Fiter Extra Vars

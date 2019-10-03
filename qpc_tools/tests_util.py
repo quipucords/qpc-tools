@@ -11,6 +11,7 @@
 """Test the Utils module."""
 
 import logging
+import os
 import unittest
 from argparse import Namespace  # noqa: I100
 
@@ -36,20 +37,23 @@ class UtilsTests(unittest.TestCase):
 
     def test_ansible_command_cli(self):
         """Testing ansible command creation."""
-        playbook = CLI_INSTALL_PLAYBOOK
+        cwd_abs_path = os.path.abspath(os.path.dirname(__file__))
+        cli_path = os.path.join(cwd_abs_path, 'cli/')
+        server_path = os.path.join(cwd_abs_path, 'server/')
+        playbook = os.path.join(cli_path, CLI_INSTALL_PLAYBOOK)
         base_online_install = Namespace(action='cli', cli_version=None,
                                         home_dir='~/quipucords', install_offline='false',
                                         offline_files=None, server_advanced=None,
                                         server_host='127.0.0.1', server_port='9443',
                                         subcommand='install', verbosity=0)
-        success_online = ['ansible-playbook', '/%s' % CLI_INSTALL_PLAYBOOK,
+        success_online = ['ansible-playbook', playbook,
                           '-vv', '-e home_dir=~/quipucords', '-e install_offline=false',
                           '-e server_host=127.0.0.1', '-e server_port=9443']
 
         cmd_list = utils.create_ansible_command(base_online_install, playbook)
         for cmd_part in cmd_list:
             self.assertIn(cmd_part, success_online)
-        playbook = SERVER_INSTALL_PLAYBOOK
+        playbook = os.path.join(server_path, SERVER_INSTALL_PLAYBOOK)
         base_online_install = Namespace(action='server', dbms_password=None,
                                         dbms_user='postgres', home_dir='~/quipucords',
                                         install_offline='false', offline_files=None,
@@ -57,7 +61,7 @@ class UtilsTests(unittest.TestCase):
                                         server_password=None, server_port='9443',
                                         server_username='admin', server_version=None,
                                         subcommand='install', verbosity=0)
-        success_online = ['ansible-playbook', '/%s' % SERVER_INSTALL_PLAYBOOK,
+        success_online = ['ansible-playbook', playbook,
                           '-vv', '-e install_offline=false', '-e home_dir=~/quipucords',
                           '-e server_port=9443', '-e open_port=true', '-e dbms_user=postgres',
                           '-e server_username=admin']

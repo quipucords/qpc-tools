@@ -67,15 +67,11 @@ copy-config:
 copy-packages:
 	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf test/packages/ test/$$os/install/packages/ ; done
 
-# Internal subcommands that the user should not call
-copy-install: copy-qpc-tools
-	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf install test/$$os; done
-
-copy-qpc-tools:
+copy-qpc-tools: manifest
 	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf qpc_tools test/$$os; done
 	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf setup.py test/$$os; done
+	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf MANIFEST.in test/$$os; done
 	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf bin test/$$os; done
-
 
 # Internal subcommands that the user should not call
 local-server-image: download-postgres
@@ -129,9 +125,9 @@ download-postgres:
 	docker pull postgres:9.6.10
 	cd test/packages;docker save -o postgres.9.6.10.tar postgres:9.6.10
 
-setup-local-online: create-test-dirs copy-install copy-vm-helper-files copy-config
+setup-local-online: create-test-dirs copy-qpc-tools copy-vm-helper-files copy-config
 
-setup-local-offline: create-test-dirs copy-install copy-vm-helper-files copy-config
+setup-local-offline: create-test-dirs copy-qpc-tools copy-vm-helper-files copy-config
 ifeq ($(server_source),local)
 ifeq ($(server_version),)
 	@echo "Server version is not provided. Exiting...";
@@ -160,7 +156,7 @@ setup-release-offline: create-test-dirs copy-vm-helper-files copy-config copy-pa
 	$(MAKE) download-client
 	$(MAKE) copy-packages
 
-refresh: create-test-dirs copy-vm-helper-files copy-config copy-install copy-packages
+refresh: create-test-dirs copy-vm-helper-files copy-config copy-qpc-tools copy-packages
 
 test-all:
 	./launch_vms.sh
@@ -201,7 +197,7 @@ manpage:
 # Install python egg
 OMIT_PATTERNS = */test*.py,*/.virtualenvs/*.py,*/virtualenvs/*.py,.tox/*.py
 
-install:
+install: manifest
 	$(PYTHON) setup.py build -f
 	$(PYTHON) setup.py install -f
 
@@ -215,3 +211,10 @@ test-coverage:
 	coverage run -m unittest discover qpc_tools/ -v
 	coverage report -m --omit $(OMIT_PATTERNS)
 	echo $(OMIT_PATTERNS)
+
+# Manifest are used to tell setuptools to package files that are not python modules in the egg.
+# This target was created by RHEL6 doesn't allow for recusive includes such as:
+# recursive-include qpc_tools/cli/ansible/ *
+# recursive-include qpc_tools/server/ansible/ *
+manifest:
+	find qpc_tools -name *.yml -exec echo "include {}" \; > MANIFEST.in

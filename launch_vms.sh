@@ -43,5 +43,5 @@ EOF
 
 for i in "${arr[@]}"
 do
-  iterm $@ $SCRIPT_HOME/install "vagrant up v$i" "vagrant ssh v$i" &
+  iterm $@ $SCRIPT_HOME "vagrant up v$i" "vagrant ssh v$i" &
 done

@@ -4,5 +4,4 @@
   fail:
     msg: "{{ qpc_rpm_local_path }} file not found and required for an offline installation"
   when:
-    - install_cli|lower == 'true'
     - not find_qpc_rpm_local.stat.exists

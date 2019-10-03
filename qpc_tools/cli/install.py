@@ -15,6 +15,7 @@ from __future__ import print_function
 
 import os
 import subprocess
+import sys
 from argparse import SUPPRESS
 
 import qpc_tools.cli as cli
@@ -52,16 +53,22 @@ class InstallCLICommand(CliCommand):
                                  help=_(messages.ALL_INSTALL_HOME_DIR_HELP),
                                  required=False)
         self.parser.add_argument('--server-host', dest='server_host',
-                                 default='127.0.0.1',
                                  help=_(messages.CLI_INSTALL_SERVER_HELP),
                                  required=False)
         self.parser.add_argument('--server-port', dest='server_port',
-                                 default='9443',
-                                 help=_(messages.SERVER_INSTALL_PORT_HELP),
+                                 help=_(messages.CLI_INSTALL_PORT_HELP),
                                  required=False)
         self.parser.add_argument('--advanced', dest='server_advanced',
                                  help=SUPPRESS,
                                  required=False)
+
+    def _validate_args(self):
+        """Sub-commands can override."""
+        if (self.args.server_host or self.args.server_port):
+            if not (self.args.server_host and self.args.server_port):
+                print(_(messages.CLI_INSTALL_MUST_SPECIFY_PORT_AND_HOST))
+                sys.exit(1)
+            self.args.configure_server = 'true'
 
     def _do_command(self):
         """Install the CLI."""

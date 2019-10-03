@@ -37,12 +37,8 @@
   stat:
     path: "{{ server_image_local_path }}"
   register: find_server_image_local
-  when:
-    - install_server|lower == 'true'
 
 - name: Check if local PostgreSQL container image exists
   stat:
     path: "{{ postgres_image_local_path }}"
   register: find_postgres_image_local
-  when:
-    - install_server|lower == 'true'

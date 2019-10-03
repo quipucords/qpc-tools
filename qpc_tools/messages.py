@@ -39,4 +39,7 @@ CLI_INSTALLATION_FAILED = 'CLI installation failed. Review the install logs'
 CLI_INSTALL_OFFLINE_HELP = 'Perform an offline CLI installation (defaults to false)'
 CLI_INSTALL_OFFLINE_FILES_HELP = 'Specify the path to the CLI offline files'
 CLI_INSTALL_VERSION_HELP = 'Specify the QPC CLI version to install (defaults to latest release)'
-CLI_INSTALL_SERVER_HELP = 'Host or IP address for the server (defaults to 127.0.0.1)'
+CLI_INSTALL_SERVER_HELP = 'Host or IP address for the server'
+CLI_INSTALL_PORT_HELP = 'Port number of the server'
+CLI_INSTALL_MUST_SPECIFY_PORT_AND_HOST = \
+    'If either server-host or server-port are specified, both are required'

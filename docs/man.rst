@@ -31,9 +31,9 @@ Server
 
 Server Installation
 ^^^^^^^^^^^^^^^^^^^
-The ``qpc-tools server install`` command with no options performs a basic installation with the preset defaults. However, it is recommended the ``qpc-tools server install`` command with options to change default username and passwords. The most common scenarios where you might use options to change the basic installation process are explained in the `Installing the server offline`_ and  `Installing a specific version of the server`_ sections.
+The ``qpc-tools server install`` command with no options performs a basic installation with the preset defaults. However, it is recommended to run the ``qpc-tools server install`` command with options to change default username and passwords. The most common scenarios where you might use options to change the basic installation process are explained in the `Installing the server offline`_ and  `Installing a specific version of the server`_ sections.
 
-Note that in log information for the ``qpc-tools server install`` command, references to ``quipucords server`` are relevant to the Quipucords server, and references to ``qpc CLI`` are relevant to the Quipucords command line interface client.
+Note that in the log information for the ``qpc-tools server install`` command, references to ``quipucords server`` are relevant to the Quipucords server, and references to ``QPC CLI`` are relevant to the Quipucords command line interface client.
 
 **qpc-tools server install** [**-h**]
                          [**--offline**]
@@ -49,7 +49,7 @@ Note that in log information for the ``qpc-tools server install`` command, refer
 
 ``--offline``
 
-  Controls whether the installation runs as an offlien (disconnected) installation.
+  Controls whether the installation runs as an offline (disconnected) installation.
 
 ``--offline-files=OFFLINE_FILES``
 
@@ -90,15 +90,19 @@ Note that in log information for the ``qpc-tools server install`` command, refer
 
 Installing the server offline
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-If you choose the offline option to run the install command, you must do the following steps:
+If you choose the offline option to run the install command, you must do the following steps.
 
-#. Obtain the installation packages on a machine with internet connectivity.
+1. Obtain the installation packages on a machine with internet connectivity.
+
   - Download the following server image: https://github.com/quipucords/quipucords/releases/latest/download/quipucords_server_image.tar.gz
-  - Create the PostgreSQL image TAR file with Docker. Use the the following command, where the package name is ``postgres.9.6.10.tar``::
+
+  - Create the PostgreSQL image TAR file with Docker. Use the the following command, where the package name is ``postgres.9.6.10.tar``:
 
       docker pull postgres:9.6.10 && docker save -o postgres.9.6.10.tar postgres:9.6.10
-#. Create a location for the packages on the machine where Quipucords will be installed and move the packages to that location.
-#. Run the qpc-tools with the required options to complete an offline installation.  For example::
+
+2. Create a location for the packages on the machine where Quipucords will be installed and move the packages to that location.
+
+3. Run qpc-tools with the required options to complete an offline installation.  For example::
 
     qpc-tools server install --offline --offline-files='/PATH_TO_OFFLINE_FILES' --version=0.9.1
 
@@ -116,7 +120,7 @@ CLI Installation
 ^^^^^^^^^^^^^^^^
 The ``qpc-tools cli install`` command with no options performs a basic installation with the preset defaults.
 
-Note that in log information for the ``qpc-tools cli install`` command, references to ``quipucords server`` are relevant to the Quipucords server, and references to ``qpc CLI`` are relevant to the Quipucords command line interface client.
+Note that in the log information for the ``qpc-tools cli install`` command, references to ``quipucords server`` are relevant to the Quipucords server, and references to ``QPC CLI`` are relevant to the Quipucords command line interface client.
 
 **qpc-tools cli install** [**-h**]
                          [**--offline**]
@@ -128,7 +132,7 @@ Note that in log information for the ``qpc-tools cli install`` command, referenc
 
 ``--offline``
 
-  Controls whether the installation runs as an offlien (disconnected) installation.
+  Controls whether the installation runs as an offline (disconnected) installation.
 
 ``--offline-files=OFFLINE_FILES``
 
@@ -156,11 +160,15 @@ Installing the CLI offline
 If you choose the offline option to run the install command, you must do the following steps:
 
 #. Obtain the installation packages on a machine with internet connectivity.  Select the appropriate RPM for your operating system.
+
     - Red Hat Enterprise Linux 6 and CentOS 6: https://github.com/quipucords/qpc/releases/latest/download/qpc.el6.noarch.rpm
+
     - Red Hat Enterprise Linux 7 and CentOS 7: https://github.com/quipucords/qpc/releases/latest/download/qpc.el7.noarch.rpm
+
     - Red Hat Enterprise Linux 8: https://github.com/quipucords/qpc/releases/latest/download/qpc.el8.noarch.rpm
+
 #. Create a location for the packages on the machine where Quipucords will be installed and move the packages to that location.
-#. Run the qpc-tools with the required options to complete an offline installation.  For example::
+#. Run qpc-tools with the required options to complete an offline installation.  For example::
 
     qpc-tools cli install --offline --offline-files='/PATH_TO_OFFLINE_FILES'
 

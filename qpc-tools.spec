@@ -54,6 +54,7 @@ make manpage pandoc=~/bin/pandoc
 %else
 make manpage
 %endif
+install -D -p -m 644 docs/qpc-tools.1 %{buildroot}%{_mandir}/man1/qpc-tools.1
 
 %files
 %defattr(-,root,root,-)

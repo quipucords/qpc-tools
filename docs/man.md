@@ -21,7 +21,7 @@ The following sections describe these commands, their subcommands, and their opt
 This section describes various `qpc-tools` commands for installing and configuring the Quipucrods server.
 
 ### Server Install Command
-The `qpc-tools server install` command with no options performs a basic installation with the preset defaults. However, it is recommended to run the `qpc-tools server install` command with options to change default username and passwords. The most common scenarios where you might use options to change the basic installation process are explained in the `Installing the server offline`_ and  `Installing a specific version of the server`_ sections.
+The `qpc-tools server install` command with no options performs a basic installation with the preset defaults. However, it is recommended to run the `qpc-tools server install` command with options to change default username and passwords.
 
 Note that in the log information for the `qpc-tools server install` command, references to `quipucords server` are relevant to the Quipucords server, and references to `QPC CLI` are relevant to thqqe Quipucords command line interface client.
 

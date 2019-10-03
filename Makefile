@@ -125,9 +125,9 @@ download-postgres:
 	docker pull postgres:9.6.10
 	cd test/packages;docker save -o postgres.9.6.10.tar postgres:9.6.10
 
-setup-local-online: create-test-dirs copy-install copy-vm-helper-files copy-config
+setup-local-online: create-test-dirs copy-qpc-tools copy-vm-helper-files copy-config
 
-setup-local-offline: create-test-dirs copy-install copy-vm-helper-files copy-config
+setup-local-offline: create-test-dirs copy-qpc-tools copy-vm-helper-files copy-config
 ifeq ($(server_source),local)
 ifeq ($(server_version),)
 	@echo "Server version is not provided. Exiting...";
@@ -156,7 +156,7 @@ setup-release-offline: create-test-dirs copy-vm-helper-files copy-config copy-pa
 	$(MAKE) download-client
 	$(MAKE) copy-packages
 
-refresh: create-test-dirs copy-vm-helper-files copy-config copy-install copy-packages
+refresh: create-test-dirs copy-vm-helper-files copy-config copy-qpc-tools copy-packages
 
 test-all:
 	./launch_vms.sh
@@ -212,8 +212,9 @@ test-coverage:
 	coverage report -m --omit $(OMIT_PATTERNS)
 	echo $(OMIT_PATTERNS)
 
-manifest:
-# RHEL6 Doesn't allow for recursive includes such as:
+# Manifest are use to tell setuptools to package files that are not python modules in the egg.
+# This target was created by RHEL6 doesn't allow for recusive includes such as:
 # recursive-include qpc_tools/cli/ansible/ *
 # recursive-include qpc_tools/server/ansible/ *
+manifest:
 	find qpc_tools/cli/ansible qpc_tools/server/ansible -name *.yml -exec echo "include {}" \; > MANIFEST.in

@@ -67,16 +67,11 @@ copy-config:
 copy-packages:
 	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf test/packages/ test/$$os/install/packages/ ; done
 
-# Internal subcommands that the user should not call
-copy-install: copy-qpc-tools
-	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf install test/$$os; done
-
-copy-qpc-tools:
+copy-qpc-tools: manifest
 	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf qpc_tools test/$$os; done
 	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf setup.py test/$$os; done
 	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf MANIFEST.in test/$$os; done
 	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf bin test/$$os; done
-
 
 # Internal subcommands that the user should not call
 local-server-image: download-postgres
@@ -216,3 +211,9 @@ test-coverage:
 	coverage run -m unittest discover qpc_tools/ -v
 	coverage report -m --omit $(OMIT_PATTERNS)
 	echo $(OMIT_PATTERNS)
+
+manifest:
+# RHEL6 Doesn't allow for recursive includes such as:
+# recursive-include qpc_tools/cli/ansible/ *
+# recursive-include qpc_tools/server/ansible/ *
+	find qpc_tools/cli/ansible qpc_tools/server/ansible -name *.yml -exec echo "include {}" \; > MANIFEST.in

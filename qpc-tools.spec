@@ -41,6 +41,7 @@ A tool for discovery and inspection of an IT environment. The %{src_name} provid
 %setup -q
 
 %build
+make manifest
 %{__python3} setup.py build
 
 %install

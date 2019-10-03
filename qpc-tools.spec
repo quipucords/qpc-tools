@@ -63,6 +63,7 @@ install -D -p -m 644 docs/qpc-tools.1 %{buildroot}%{_mandir}/man1/qpc-tools.1
 %{_bindir}/%{src_name}
 %{python3_sitelib}/%{egg_name}
 %{python3_sitelib}/%{egg_name}-%{version}-py3.?.egg-info/
+%{_mandir}/man1/%{src_name}.1.gz
 
 %changelog
 * Thu Jun 27 2019 Cody Myers <cmyers@redhat.com> 0.1.2

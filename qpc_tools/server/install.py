@@ -79,11 +79,11 @@ class InstallServerCommand(CliCommand):
                                  required=False)
         if DOWNSTREAM:
             self.parser.add_argument('--registry-user', dest='rh_registry_username',
-                                    help=_(messages.SERVER_INSTALL_REGISTRY_UN_HELP),
-                                    required=True)
+                                     help=_(messages.SERVER_INSTALL_REGISTRY_UN_HELP),
+                                     required=True)
             self.parser.add_argument('--registry-password', dest='rh_registry_password',
-                                    help=_(messages.SERVER_INSTALL_REGISTRY_PASS_HELP),
-                                    required=True)
+                                     help=_(messages.SERVER_INSTALL_REGISTRY_PASS_HELP),
+                                     required=True)
 
     def _do_command(self):
         """Install the server."""

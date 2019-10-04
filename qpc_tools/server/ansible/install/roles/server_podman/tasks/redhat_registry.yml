@@ -3,7 +3,9 @@
 - name: Login to redhat registry with podman
   shell: "podman login -u '{{rh_registry_username}}' -p '{{rh_registry_password}}' registry.redhat.io"
   register: rh_registry_login_attempt
+  private: yes
 
-- name: Debugging
-  debug:
-    var: rh_registry_login_attempt
+- fail:
+  msg: "We failed to login for you, you should log in with `podman login registry.redhat.io`"
+  when:
+    - rh_registry_login_attempt.rc != 0

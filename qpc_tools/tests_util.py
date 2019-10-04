@@ -68,3 +68,41 @@ class UtilsTests(unittest.TestCase):
         cmd_list = utils.create_ansible_command(base_online_install, playbook)
         for cmd_part in cmd_list:
             self.assertIn(cmd_part, success_online)
+
+    def test_abs_path_to_abs(self):
+        """Test conversion of abs path to abs."""
+        test_path = '/foo/bar'
+        abs_path = utils.make_path_absolute(test_path)
+        self.assertEqual(test_path, abs_path)
+
+    def test_rel_path_to_abs(self):
+        """Test conversion of rel path to abs."""
+        test_path = './foo/bar'
+        abs_path = utils.make_path_absolute(test_path)
+        self.assertNotEqual(test_path, abs_path)
+        self.assertNotIn('.', abs_path)
+
+    def test_user_rel_path_to_abs(self):
+        """Test conversion of user rel path to abs."""
+        test_path = '~/foo/bar'
+        abs_path = utils.make_path_absolute(test_path)
+        self.assertNotEqual(test_path, abs_path)
+        self.assertNotIn('~', abs_path)
+
+    def test_validate_dir_does_not_exist(self):
+        """Test offline validation when file doesn't exist."""
+        test_path = '~/foo/bar'
+        args = Namespace(offline_files=test_path)
+        with self.assertRaises(SystemExit):
+            utils.check_abs_paths(args)
+
+    def test_validate_dir_does_exist(self):
+        """Test offline validation when file doesn't exist."""
+        test_path = '~'
+        args = Namespace(offline_files=test_path, home_dir=test_path)
+        utils.check_abs_paths(args)
+        # pylint: disable=no-member
+        self.assertNotEqual(test_path, args.offline_files)
+        self.assertNotEqual(test_path, args.offline_files)
+        self.assertNotIn('~', args.home_dir)
+        self.assertNotIn('~', args.home_dir)

@@ -22,7 +22,8 @@ import qpc_tools.cli as cli
 from qpc_tools import messages
 from qpc_tools.clicommand import CliCommand
 from qpc_tools.translation import _
-from qpc_tools.utils import create_ansible_command
+from qpc_tools.utils import (create_ansible_command,
+                             validate_and_update_paths)
 
 # pylint: disable=too-few-public-methods
 
@@ -49,7 +50,6 @@ class InstallCLICommand(CliCommand):
                                  help=_(messages.CLI_INSTALL_VERSION_HELP),
                                  required=False)
         self.parser.add_argument('--home-dir', dest='home_dir',
-                                 default='~/quipucords',
                                  help=_(messages.ALL_INSTALL_HOME_DIR_HELP),
                                  required=False)
         self.parser.add_argument('--server-host', dest='server_host',
@@ -69,6 +69,7 @@ class InstallCLICommand(CliCommand):
                 print(_(messages.CLI_INSTALL_MUST_SPECIFY_PORT_AND_HOST))
                 sys.exit(1)
             self.args.configure_server = 'true'
+        validate_and_update_paths(self.args)
 
     def _do_command(self):
         """Install the CLI."""

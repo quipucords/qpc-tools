@@ -94,13 +94,13 @@ class UtilsTests(unittest.TestCase):
         test_path = '~/foo/bar'
         args = Namespace(offline_files=test_path)
         with self.assertRaises(SystemExit):
-            utils.validate_and_update_paths(args)
+            utils.check_abs_paths(args)
 
     def test_validate_dir_does_exist(self):
         """Test offline validation when file doesn't exist."""
         test_path = '~'
         args = Namespace(offline_files=test_path, home_dir=test_path)
-        utils.validate_and_update_paths(args)
+        utils.check_abs_paths(args)
         # pylint: disable=no-member
         self.assertNotEqual(test_path, args.offline_files)
         self.assertNotEqual(test_path, args.offline_files)

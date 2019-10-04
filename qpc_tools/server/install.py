@@ -22,8 +22,8 @@ from qpc_tools import messages
 from qpc_tools.clicommand import CliCommand
 from qpc_tools.translation import _
 from qpc_tools.utils import (BOOLEAN_CHOICES,
-                             create_ansible_command,
-                             validate_and_update_paths)
+                             check_abs_paths,
+                             create_ansible_command)
 
 
 # pylint: disable=too-few-public-methods
@@ -80,7 +80,7 @@ class InstallServerCommand(CliCommand):
 
     def _validate_args(self):
         """Sub-commands can override."""
-        validate_and_update_paths(self.args)
+        check_abs_paths(self.args)
 
     def _do_command(self):
         """Install the server."""

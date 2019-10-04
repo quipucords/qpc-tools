@@ -129,7 +129,7 @@ def make_path_absolute(path):
     return abs_path
 
 
-def validate_and_update_paths(args):
+def check_abs_paths(args):
     """Check and convert all paths to an absolute path.
 
     :param path: (args) commands arguments

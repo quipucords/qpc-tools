@@ -22,8 +22,8 @@ import qpc_tools.cli as cli
 from qpc_tools import messages
 from qpc_tools.clicommand import CliCommand
 from qpc_tools.translation import _
-from qpc_tools.utils import (create_ansible_command,
-                             validate_and_update_paths)
+from qpc_tools.utils import (check_abs_paths,
+                             create_ansible_command)
 
 # pylint: disable=too-few-public-methods
 
@@ -69,7 +69,7 @@ class InstallCLICommand(CliCommand):
                 print(_(messages.CLI_INSTALL_MUST_SPECIFY_PORT_AND_HOST))
                 sys.exit(1)
             self.args.configure_server = 'true'
-        validate_and_update_paths(self.args)
+        check_abs_paths(self.args)
 
     def _do_command(self):
         """Install the CLI."""

@@ -64,19 +64,23 @@ class InstallServerCommand(CliCommand):
                                  default='postgres',
                                  help=_(messages.SERVER_INSTALL_DBMS_USER_HELP),
                                  required=False)
-        self.parser.add_argument('--dbms-password', dest='dbms_password',
-                                 help=_(messages.SERVER_INSTALL_DBMS_PASSWORD_HELP),
-                                 required=False)
         self.parser.add_argument('--username', dest='server_username',
                                  default='admin',
                                  help=_(messages.SERVER_INSTALL_USERNAME_HELP),
                                  required=False)
-        self.parser.add_argument('--password', dest='server_password',
-                                 help=_(messages.SERVER_INSTALL_PASSWORD_HELP),
-                                 required=False)
         self.parser.add_argument('--advanced', dest='server_advanced',
                                  help=SUPPRESS,
                                  required=False)
+        # add a group for the required arguments
+        required_args = self.parser.add_argument_group('required arguments')
+        required_args.add_argument('--password', dest='server_password',
+                                   action='store_true',
+                                   help=_(messages.SERVER_INSTALL_PASSWORD_HELP),
+                                   required=True)
+        required_args.add_argument('--dbms-password', dest='dbms_password',
+                                   action='store_true',
+                                   help=_(messages.SERVER_INSTALL_DBMS_PASSWORD_HELP),
+                                   required=True)
 
     def _validate_args(self):
         """Sub-commands can override."""

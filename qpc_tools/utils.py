@@ -16,6 +16,7 @@ from __future__ import print_function
 import logging
 import os
 import sys
+from getpass import getpass
 
 from qpc_tools import messages
 from qpc_tools.translation import _
@@ -102,8 +103,8 @@ def create_ansible_command(namespace_args, playbook):
     cmd_list.append(playbook)
     verbosity_lvl = '-vv'
     cmd_list.append(verbosity_lvl)
-    # Fiter Extra Vars
-    extra_vars = namespace_args.__dict__
+    # Filter Extra Vars
+    extra_vars = get_password(namespace_args, namespace_args.__dict__)
     for key in NOT_ANSIBLE_KEYS:
         if key in extra_vars.keys():
             extra_vars.pop(key, None)
@@ -144,3 +145,20 @@ def check_abs_paths(args):
         args.offline_files = abs_offline_files
     if args.home_dir:
         args.home_dir = make_path_absolute(args.home_dir)
+
+
+def get_password(args, args_dictionary):
+    """Collect the password value and place in credential dictionary.
+
+    :param args: the command line arguments
+    :param args_dictionary: the dictionary containing the args and values
+    :returns: the dictionary with updated passwords
+    """
+    if 'server_password' in args and args.server_password:
+        pass_prompt = getpass(prompt='Enter server password:')
+        args_dictionary['server_password'] = pass_prompt or None
+    if 'dbms_password' in args and args.dbms_password:
+        pass_prompt = getpass(prompt='Enter DBMS password:')
+        args_dictionary['dbms_password'] = pass_prompt or None
+
+    return args_dictionary

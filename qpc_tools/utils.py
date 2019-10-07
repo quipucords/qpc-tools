@@ -15,6 +15,11 @@ from __future__ import print_function
 
 import logging
 import os
+import sys
+
+from qpc_tools import messages
+from qpc_tools.translation import _
+
 
 QPC_PATH = 'qpc_tools'
 CONFIG_HOME_PATH = '~/.config/'
@@ -86,7 +91,12 @@ def log_args(args):
 
 
 def create_ansible_command(namespace_args, playbook):
-    """Build Ansible Command."""
+    """Build Ansible Command.
+
+    :param namespace_args: arguments passed in by the user
+    :param playbook: name of the playbook
+    :returns:  The ansible command that will be run
+    """
     # Initial command setup
     cmd_list = ['ansible-playbook']
     cmd_list.append(playbook)
@@ -104,3 +114,33 @@ def create_ansible_command(namespace_args, playbook):
         extra_var = extra_format % (key, value)
         cmd_list.append(extra_var)
     return cmd_list
+
+
+def make_path_absolute(path):
+    """Check and convert all paths to an absolute path.
+
+    :param path: (str) path that may be relative or absolute
+    :returns: (str) path that will be absolute
+    """
+    abs_path = path
+    if '~' in abs_path:
+        abs_path = os.path.expanduser(abs_path)
+    abs_path = os.path.abspath(abs_path)
+    return abs_path
+
+
+def check_abs_paths(args):
+    """Check and convert all paths to an absolute path.
+
+    :param path: (args) commands arguments
+    :returns: None
+    """
+    if args.offline_files:
+        abs_offline_files = make_path_absolute(args.offline_files)
+        if not os.path.exists(abs_offline_files):
+            print(_(messages.ALL_DIRECTORY_DOES_NOT_EXIST %
+                    ('offline-files', abs_offline_files)))
+            sys.exit(1)
+        args.offline_files = abs_offline_files
+    if args.home_dir:
+        args.home_dir = make_path_absolute(args.home_dir)

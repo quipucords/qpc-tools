@@ -37,7 +37,7 @@ class InstallCLICommandTests(unittest.TestCase):
         sys.stderr = HushUpStderr()
         # pylint:disable=line-too-long
         self.effect = [(b'', b" [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'\n [WARNING]: Consider using the yum, dnf or zypper module rather than running 'rpm'.  If you need to use command because yum, dnf or zypper is insufficient you can add 'warn: false' to this command task or set 'command_warnings=False' in\nansible.cfg to get rid of this message.\n")]  # noqa: E501
-        self.args = Namespace(server_port=None, server_host=None)
+        self.args = Namespace(server_port=None, server_host=None, offline_files=None, home_dir=None)
 
     def tearDown(self):
         """Remove test setup."""
@@ -99,7 +99,10 @@ class InstallCLICommandTests(unittest.TestCase):
         subprocess.return_value.stdout = io.BytesIO(byte_ansible_logs)
         cred_out = io.StringIO()
         cac = InstallCLICommand(SUBPARSER)
-        args = Namespace(server_port='9433', server_host='127.0.0.1')
+        args = Namespace(server_port='9433',
+                         server_host='127.0.0.1',
+                         offline_files=None,
+                         home_dir=None)
         with redirect_stdout(cred_out):
             cac.main(args)
             expected = mock_ansible_logs + _(messages.CLI_INSTALLATION_FAILED)
@@ -109,7 +112,10 @@ class InstallCLICommandTests(unittest.TestCase):
         """Testing option to configure server missing port."""
         cred_out = io.StringIO()
         cac = InstallCLICommand(SUBPARSER)
-        args = Namespace(server_host='127.0.0.1', server_port=None)
+        args = Namespace(server_host='127.0.0.1',
+                         server_port=None,
+                         offline_files=None,
+                         home_dir=None)
         with redirect_stdout(cred_out):
             with self.assertRaises(SystemExit):
                 cac.main(args)
@@ -120,7 +126,10 @@ class InstallCLICommandTests(unittest.TestCase):
         """Testing option to configure server missing host."""
         cred_out = io.StringIO()
         cac = InstallCLICommand(SUBPARSER)
-        args = Namespace(server_host=None, server_port=9433)
+        args = Namespace(server_host=None,
+                         server_port=9433,
+                         offline_files=None,
+                         home_dir=None)
         with redirect_stdout(cred_out):
             with self.assertRaises(SystemExit):
                 cac.main(args)

@@ -22,7 +22,9 @@ from qpc_tools import messages
 from qpc_tools.clicommand import CliCommand
 from qpc_tools.release import DOWNSTREAM
 from qpc_tools.translation import _
-from qpc_tools.utils import BOOLEAN_CHOICES, create_ansible_command
+from qpc_tools.utils import (BOOLEAN_CHOICES,
+                             check_abs_paths,
+                             create_ansible_command)
 
 
 # pylint: disable=too-few-public-methods
@@ -48,7 +50,6 @@ class InstallServerCommand(CliCommand):
                                  help=_(messages.SERVER_INSTALL_VERSION_HELP),
                                  required=False)
         self.parser.add_argument('--home-dir', dest='home_dir',
-                                 default='~/quipucords',
                                  help=_(messages.ALL_INSTALL_HOME_DIR_HELP),
                                  required=False)
         self.parser.add_argument('--port', dest='server_port',
@@ -84,6 +85,10 @@ class InstallServerCommand(CliCommand):
             self.parser.add_argument('--registry-password', dest='rh_registry_password',
                                      help=_(messages.SERVER_INSTALL_REGISTRY_PASS_HELP),
                                      required=True)
+
+    def _validate_args(self):
+        """Sub-commands can override."""
+        check_abs_paths(self.args)
 
     def _do_command(self):
         """Install the server."""

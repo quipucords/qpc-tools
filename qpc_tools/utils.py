@@ -155,12 +155,12 @@ def get_password(args_dictionary):
     """
     password_prompt = {
         'server_password': 'Enter server password:',
-        'dbms_password': 'Enter DBMS password:',
+        'db_password': 'Enter database password:',
         'rh_registry_password': 'Enter redhat.registry.com password:'
     }
 
     for password, prompt in password_prompt.items():
         if password in args_dictionary and args_dictionary[password] is not None:
-            args_dictionary[password] = getpass(prompt=password_prompt[password])
+            args_dictionary[password] = getpass(prompt=prompt)
 
     return args_dictionary

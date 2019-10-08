@@ -15,8 +15,8 @@
       server_user_email: 'admin@example.com'
       home_dir: "{{ansible_env['HOME'] + '/quipucords'}}"
       server_http_timeout: 120
-      dbms_user: 'postgres'
-      dbms_password: 'password'
+      db_user: 'postgres'
+      db_password: 'password'
       use_docker: 'false' # logic elsewhere will change this to docker for RHEL 6
       connect_job_timeout: 600
       inspect_job_timeout: 10800

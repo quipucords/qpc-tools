@@ -23,7 +23,7 @@ This section describes various `qpc-tools` commands for installing and configuri
 ### Server Install Command
 Use the `qpc-tools server install` command to install and configure the Quipucords server. When running the `qpc-tools server install` command, both the server admin password and the database password are required, and it is recommended to run the command with options to change default usernames.
 
-**qpc-tools server install** **--password** **--dbms-password**
+**qpc-tools server install** **--password** **--db-password**
                          [**-h**]
                          [**--offline**]
                          [**--offline-files** *OFFLINE_FILES*]
@@ -31,7 +31,7 @@ Use the `qpc-tools server install` command to install and configure the Quipucor
                          [**--home-dir** *HOME_DIR*]
                          [**--port** *SERVER_PORT*]
                          [**--open-port** *OPEN_PORT*]
-                         [**--dbms-user** *DBMS_USER*]
+                         [**--db-user** *DB_USER*]
                          [**--username** *SERVER_USERNAME*]
 
 `--offline`
@@ -58,11 +58,11 @@ Use the `qpc-tools server install` command to install and configure the Quipucor
 
   Determines whether to open the `port` in the firewall during the installation. This option enables communication between the Quipucords server and any remote clients over the port defined in `port`. Contains a true or false value. Defaults to `true`. Supply `false` to install without opening the server port in the firewall. The installation script must run with elevated privileges to open the server port.
 
-`--dbms-user=DBMS_USER`
+`--db-user=DB_USER`
 
   Specifies the database user for PostgreSQL. Defaults to `postgres`.
 
-`--dbms-password`
+`--db-password`
 
   Required. Prompts for the database password for PostgreSQL.
 
@@ -90,7 +90,7 @@ If you choose the offline option to run the install command, you must do the fol
 1. Run qpc-tools with the required options to complete an offline installation.  For example:
 
     ```
-    qpc-tools server install --password --dbms-password --offline --offline-files='/PATH' --version=0.9.1
+    qpc-tools server install --password --db-password --offline --offline-files='/PATH' --version=0.9.1
     ```
 
 #### Installing a specific version of the server

@@ -30,8 +30,8 @@ SERVER_INSTALL_VERSION_HELP = 'Specify the server version to install '\
 SERVER_INSTALL_PORT_HELP = 'Port number of the server (defaults to 9443)'
 SERVER_INSTALL_OPEN_PORT_HELP = "Indicate whether the host machine's port should be' \
     'opened (defaults to true)"
-SERVER_INSTALL_DBMS_USER_HELP = 'Set the PostgreSQL DB username (defaults to postgres)'
-SERVER_INSTALL_DBMS_PASSWORD_HELP = 'Set the PostgreSQL DB password'
+SERVER_INSTALL_DB_USER_HELP = 'Set the PostgreSQL DB username (defaults to postgres)'
+SERVER_INSTALL_DB_PASSWORD_HELP = 'Set the PostgreSQL DB password'
 SERVER_INSTALL_USERNAME_HELP = 'Set the server admin username (defaults to admin)'
 SERVER_INSTALL_PASSWORD_HELP = 'Set the server admin password'
 SERVER_INSTALL_REGISTRY_UN_HELP = 'Set the redhat.registry.com username'

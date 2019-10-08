@@ -55,8 +55,8 @@ class UtilsTests(unittest.TestCase):
         for cmd_part in cmd_list:
             self.assertIn(cmd_part, success_online)
         playbook = os.path.join(server_path, SERVER_INSTALL_PLAYBOOK)
-        base_online_install = Namespace(action='server', dbms_password=None,
-                                        dbms_user='postgres', home_dir='~/quipucords',
+        base_online_install = Namespace(action='server', db_password=None,
+                                        db_user='postgres', home_dir='~/quipucords',
                                         install_offline='false', offline_files=None,
                                         open_port='true', server_advanced=None,
                                         server_password=None, server_port='9443',
@@ -64,7 +64,7 @@ class UtilsTests(unittest.TestCase):
                                         subcommand='install', verbosity=0)
         success_online = ['ansible-playbook', playbook,
                           '-vv', '-e install_offline=false', '-e home_dir=~/quipucords',
-                          '-e server_port=9443', '-e open_port=true', '-e dbms_user=postgres',
+                          '-e server_port=9443', '-e open_port=true', '-e db_user=postgres',
                           '-e server_username=admin']
         cmd_list = utils.create_ansible_command(base_online_install, playbook)
         for cmd_part in cmd_list:

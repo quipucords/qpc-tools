@@ -7,6 +7,6 @@
   no_log: True
 
 - fail:
-    msg: "We failed to login for you, you should log in with `podman login registry.redhat.io`"
+    msg: "Login attempt failed. Log in manually with `podman login registry.redhat.io`"
   when:
     - rh_registry_login_attempt.rc != 0

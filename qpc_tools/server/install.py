@@ -20,6 +20,7 @@ from argparse import SUPPRESS
 import qpc_tools.server as server
 from qpc_tools import messages
 from qpc_tools.clicommand import CliCommand
+from qpc_tools.release import DOWNSTREAM
 from qpc_tools.translation import _
 from qpc_tools.utils import (BOOLEAN_CHOICES,
                              check_abs_paths,
@@ -81,6 +82,14 @@ class InstallServerCommand(CliCommand):
                                    action='store_true',
                                    help=_(messages.SERVER_INSTALL_DBMS_PASSWORD_HELP),
                                    required=True)
+        if DOWNSTREAM:
+            required_args.add_argument('--registry-user', dest='rh_registry_username',
+                                       help=_(messages.SERVER_INSTALL_REGISTRY_UN_HELP),
+                                       required=True)
+            required_args.add_argument('--registry-password', dest='rh_registry_password',
+                                       help=_(messages.SERVER_INSTALL_REGISTRY_PASS_HELP),
+                                       action='store_true',
+                                       required=True)
 
     def _validate_args(self):
         """Sub-commands can override."""

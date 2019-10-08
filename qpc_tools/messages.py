@@ -34,7 +34,8 @@ SERVER_INSTALL_DBMS_USER_HELP = 'Set the PostgreSQL DB username (defaults to pos
 SERVER_INSTALL_DBMS_PASSWORD_HELP = 'Set the PostgreSQL DB password'
 SERVER_INSTALL_USERNAME_HELP = 'Set the server admin username (defaults to admin)'
 SERVER_INSTALL_PASSWORD_HELP = 'Set the server admin password'
-
+SERVER_INSTALL_REGISTRY_UN_HELP = 'Set the redhat.registry.com username'
+SERVER_INSTALL_REGISTRY_PASS_HELP = 'Set the rehat.registry.com password'
 CLI_INSTALLATION_SUCCESSFUL = 'Installation of CLI was successful'
 CLI_INSTALLATION_FAILED = 'CLI installation failed. Review the install logs'
 CLI_INSTALL_OFFLINE_HELP = 'Perform an offline CLI installation (defaults to false)'

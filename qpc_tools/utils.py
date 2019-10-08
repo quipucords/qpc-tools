@@ -156,7 +156,8 @@ def get_password(args_dictionary):
     """
     password_prompt = {
         'server_password': 'Enter server password:',
-        'dbms_password': 'Enter DBMS password:'
+        'dbms_password': 'Enter DBMS password:',
+        'rh_registry_password': 'Enter redhat.registry.com password:'
     }
 
     for password, prompt in password_prompt.items():

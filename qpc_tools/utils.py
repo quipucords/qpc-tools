@@ -161,6 +161,9 @@ def get_password(args_dictionary):
 
     for password, prompt in password_prompt.items():
         if password in args_dictionary and args_dictionary[password] is not None:
-            args_dictionary[password] = getpass(prompt=prompt)
+            new_password = None
+            while new_password in [None, '']:
+                new_password = getpass(prompt=prompt)
+            args_dictionary[password] = new_password
 
     return args_dictionary

@@ -150,7 +150,6 @@ def check_abs_paths(args):
 def get_password(args_dictionary):
     """Collect the password value and place in the args dictionary.
 
-    :param args: the command line arguments
     :param args_dictionary: the dictionary containing the args and values
     :returns: the dictionary with updated passwords
     """

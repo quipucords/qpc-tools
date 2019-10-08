@@ -104,7 +104,7 @@ def create_ansible_command(namespace_args, playbook):
     verbosity_lvl = '-vv'
     cmd_list.append(verbosity_lvl)
     # Filter Extra Vars
-    extra_vars = get_password(namespace_args, namespace_args.__dict__)
+    extra_vars = get_password(namespace_args.__dict__)
     for key in NOT_ANSIBLE_KEYS:
         if key in extra_vars.keys():
             extra_vars.pop(key, None)
@@ -147,18 +147,20 @@ def check_abs_paths(args):
         args.home_dir = make_path_absolute(args.home_dir)
 
 
-def get_password(args, args_dictionary):
-    """Collect the password value and place in credential dictionary.
+def get_password(args_dictionary):
+    """Collect the password value and place in the args dictionary.
 
     :param args: the command line arguments
     :param args_dictionary: the dictionary containing the args and values
     :returns: the dictionary with updated passwords
     """
-    if 'server_password' in args and args.server_password:
-        pass_prompt = getpass(prompt='Enter server password:')
-        args_dictionary['server_password'] = pass_prompt or None
-    if 'dbms_password' in args and args.dbms_password:
-        pass_prompt = getpass(prompt='Enter DBMS password:')
-        args_dictionary['dbms_password'] = pass_prompt or None
+    password_prompt = {
+        'server_password': 'Enter server password:',
+        'dbms_password': 'Enter DBMS password:'
+    }
+
+    for password, prompt in password_prompt.items():
+        if password in args_dictionary and args_dictionary[password] is not None:
+            args_dictionary[password] = getpass(prompt=password_prompt[password])
 
     return args_dictionary

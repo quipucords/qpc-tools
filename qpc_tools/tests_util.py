@@ -13,6 +13,7 @@
 import logging
 import os
 import unittest
+from unittest import mock
 from argparse import Namespace  # noqa: I100
 
 from qpc_tools import utils
@@ -106,3 +107,12 @@ class UtilsTests(unittest.TestCase):
         self.assertNotEqual(test_path, args.offline_files)
         self.assertNotIn('~', args.home_dir)
         self.assertNotIn('~', args.home_dir)
+
+    @mock.patch('qpc_tools.utils.getpass')
+    def test_get_passwords(self, getpass):
+        """Test replacing passwords with prompt."""
+        getpass.return_value = 'pass'
+        args_dictionary = {'foo': 'bar',
+                           'server_password': True}
+        updated_dictionary = utils.get_password(args_dictionary)
+        self.assertEqual(updated_dictionary['server_password'], 'pass')

@@ -39,6 +39,14 @@
     name: server_podman
     tasks_from: load_podman_rpm_online
 
+- name: Authenticate with Redhat Registry
+  include_role:
+    name: server_podman
+    tasks_from: redhat_registry
+  when:
+    - rh_registry_username is defined
+    - rh_registry_password is defined
+
 - name: Download server image from GitHub
   include_role:
     name: server

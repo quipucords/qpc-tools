@@ -88,3 +88,20 @@ class InstallServerCommandTests(unittest.TestCase):
             cac.main(self.args)
             expected = mock_ansible_logs + _(messages.SERVER_INSTALLATION_FAILED)
             self.assertEqual(cred_out.getvalue().strip(), expected)
+
+    @patch('qpc_tools.server.install.DOWNSTREAM')
+    @patch('qpc_tools.server.install.subprocess.Popen')
+    def test_downstream_vars(self, subprocess, downstream):
+        """Test that args are included if downstream is set to true."""
+        downstream.return_value = True
+        subprocess.return_value.returncode = 0
+        subprocess.return_value.communicate.side_effect = self.effect
+        mock_ansible_logs = 'test0\ntest1\n'
+        byte_ansible_logs = bytes(mock_ansible_logs, 'utf-8')
+        subprocess.return_value.stdout = io.BytesIO(byte_ansible_logs)
+        cred_out = io.StringIO()
+        cac = InstallServerCommand(SUBPARSER)
+        with redirect_stdout(cred_out):
+            cac.main(self.args)
+            expected = mock_ansible_logs + _(messages.SERVER_INSTALLATION_SUCCESSFUL)
+            self.assertEqual(cred_out.getvalue().strip(), expected)

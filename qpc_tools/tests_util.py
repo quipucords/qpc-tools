@@ -131,3 +131,12 @@ class UtilsTests(unittest.TestCase):
                            'server_password': 'qpcpass'}
         updated_dictionary = utils.get_password(args_dictionary)
         self.assertEqual(updated_dictionary['server_password'], 'qpcpass')
+
+    @mock.patch('qpc_tools.utils.getpass')
+    def test_get_passwords_fail_empty(self, getpass):
+        """Test that we don't replace pre-existing passwords."""
+        getpass.side_effect = ['', '', '']
+        args_dictionary = {'foo': 'bar',
+                           'server_password': None}
+        with self.assertRaises(SystemExit):
+            updated_dictionary = utils.get_password(args_dictionary)

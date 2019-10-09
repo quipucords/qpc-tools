@@ -46,26 +46,32 @@ class UtilsTests(unittest.TestCase):
                                         home_dir='~/quipucords', install_offline='false',
                                         offline_files=None, server_advanced=None,
                                         server_host='127.0.0.1', server_port='9443',
-                                        subcommand='install', verbosity=0)
+                                        subcommand='install', verbosity=0,
+                                        server_password='qpcpassw0rd',
+                                        db_password='password')
         success_online = ['ansible-playbook', playbook,
                           '-vv', '-e home_dir=~/quipucords', '-e install_offline=false',
-                          '-e server_host=127.0.0.1', '-e server_port=9443']
+                          '-e server_host=127.0.0.1', '-e server_port=9443',
+                          '-e server_password=qpcpassw0rd', '-e db_password=password']
 
         cmd_list = utils.create_ansible_command(base_online_install, playbook)
         for cmd_part in cmd_list:
             self.assertIn(cmd_part, success_online)
         playbook = os.path.join(server_path, SERVER_INSTALL_PLAYBOOK)
-        base_online_install = Namespace(action='server', db_password=None,
+        base_online_install = Namespace(action='server',
                                         db_user='postgres', home_dir='~/quipucords',
                                         install_offline='false', offline_files=None,
                                         open_port='true', server_advanced=None,
-                                        server_password=None, server_port='9443',
-                                        server_username='admin', server_version=None,
-                                        subcommand='install', verbosity=0)
+                                        server_port='9443', server_username='admin',
+                                        server_version=None,
+                                        subcommand='install', verbosity=0,
+                                        server_password='qpcpassw0rd',
+                                        db_password='password')
         success_online = ['ansible-playbook', playbook,
                           '-vv', '-e install_offline=false', '-e home_dir=~/quipucords',
                           '-e server_port=9443', '-e open_port=true', '-e db_user=postgres',
-                          '-e server_username=admin']
+                          '-e server_username=admin',
+                          '-e server_password=qpcpassw0rd', '-e db_password=password']
         cmd_list = utils.create_ansible_command(base_online_install, playbook)
         for cmd_part in cmd_list:
             self.assertIn(cmd_part, success_online)
@@ -109,10 +115,19 @@ class UtilsTests(unittest.TestCase):
         self.assertNotIn('~', args.home_dir)
 
     @mock.patch('qpc_tools.utils.getpass')
-    def test_get_passwords(self, getpass):
+    def test_get_passwords_none(self, getpass):
         """Test replacing passwords with prompt."""
         getpass.return_value = 'pass'
         args_dictionary = {'foo': 'bar',
-                           'server_password': True}
+                           'server_password': None}
         updated_dictionary = utils.get_password(args_dictionary)
         self.assertEqual(updated_dictionary['server_password'], 'pass')
+
+    @mock.patch('qpc_tools.utils.getpass')
+    def test_get_passwords(self, getpass):
+        """Test that we don't replace pre-existing passwords."""
+        getpass.return_value = 'pass'
+        args_dictionary = {'foo': 'bar',
+                           'server_password': 'qpcpass'}
+        updated_dictionary = utils.get_password(args_dictionary)
+        self.assertEqual(updated_dictionary['server_password'], 'qpcpass')

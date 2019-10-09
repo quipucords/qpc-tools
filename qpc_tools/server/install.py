@@ -39,24 +39,15 @@ class InstallServerCommand(CliCommand):
         # pylint: disable=no-member
         CliCommand.__init__(self, self.SUBCOMMAND, self.ACTION,
                             subparsers.add_parser(self.ACTION))
-        # add a group for the required arguments
-        required_args = self.parser.add_argument_group('required arguments')
-        required_args.add_argument('--db-password', dest='db_password',
-                                   action='store_true',
-                                   help=_(messages.SERVER_INSTALL_DB_PASSWORD_HELP),
-                                   required=True)
-        required_args.add_argument('--password', dest='server_password',
-                                   action='store_true',
-                                   help=_(messages.SERVER_INSTALL_PASSWORD_HELP),
-                                   required=True)
         if DOWNSTREAM:
+            # add a group for the required arguments
+            required_args = self.parser.add_argument_group('required arguments')
             required_args.add_argument('--registry-user', dest='rh_registry_username',
                                        help=_(messages.SERVER_INSTALL_REGISTRY_UN_HELP),
                                        required=True)
-            required_args.add_argument('--registry-password', dest='rh_registry_password',
-                                       help=_(messages.SERVER_INSTALL_REGISTRY_PASS_HELP),
-                                       action='store_true',
-                                       required=True)
+            self.parser.add_argument('--registry-password', dest='rh_registry_password',
+                                     help=_(messages.SERVER_INSTALL_REGISTRY_PASS_HELP),
+                                     required=False)
 
         self.parser.add_argument('--offline', dest='install_offline',
                                  action='store_true',
@@ -84,9 +75,15 @@ class InstallServerCommand(CliCommand):
                                  default='postgres',
                                  help=_(messages.SERVER_INSTALL_DB_USER_HELP),
                                  required=False)
+        self.parser.add_argument('--db-password', dest='db_password',
+                                 help=_(messages.SERVER_INSTALL_DB_PASSWORD_HELP),
+                                 required=False)
         self.parser.add_argument('--username', dest='server_username',
                                  default='admin',
                                  help=_(messages.SERVER_INSTALL_USERNAME_HELP),
+                                 required=False)
+        self.parser.add_argument('--password', dest='server_password',
+                                 help=_(messages.SERVER_INSTALL_PASSWORD_HELP),
                                  required=False)
         self.parser.add_argument('--advanced', dest='server_advanced',
                                  help=SUPPRESS,

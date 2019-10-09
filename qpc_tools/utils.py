@@ -158,12 +158,15 @@ def get_password(args_dictionary):
         'db_password': 'Enter database password:',
         'rh_registry_password': 'Enter redhat.registry.com password:'
     }
-
     for password, prompt in password_prompt.items():
-        if password in args_dictionary and args_dictionary[password] is not None:
+        if password in args_dictionary and args_dictionary[password] is None:
             new_password = None
-            while new_password in [None, '']:
+            count = 0
+            while new_password in [None, ''] and count < 3:
                 new_password = getpass(prompt=prompt)
+                count += 1
+            if count >= 3:
+                sys.exit('Exiting due to failure to enter password.')
             args_dictionary[password] = new_password
 
     return args_dictionary

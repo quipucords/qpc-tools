@@ -21,10 +21,9 @@ The following sections describe these commands, their subcommands, and their opt
 This section describes various `qpc-tools` commands for installing and configuring the Quipucords server.
 
 ### Server Install Command
-Use the `qpc-tools server install` command to install and configure the Quipucords server. When running the `qpc-tools server install` command, both the server admin password and the database password are required, and it is recommended to run the command with options to change default usernames.
+Use the `qpc-tools server install` command to install and configure the Quipucords server. When running the `qpc-tools server install` command, the user can optionally specify both the server admin password and the database password, but if they fail to specify, they will be prompted. Additionally, it is recommended to run the command with options to change default usernames.
 
-**qpc-tools server install** **--password** **--db-password**
-                         [**-h**]
+**qpc-tools server install** [**-h**]
                          [**--offline**]
                          [**--offline-files** *OFFLINE_FILES*]
                          [**--version** *SERVER_VERSION*]
@@ -32,7 +31,9 @@ Use the `qpc-tools server install` command to install and configure the Quipucor
                          [**--port** *SERVER_PORT*]
                          [**--open-port** *OPEN_PORT*]
                          [**--db-user** *DB_USER*]
+                         [**--db-password** *DB_PASSWORD*]
                          [**--username** *SERVER_USERNAME*]
+                         [**--password** *SERVER_PASSWORD*]
 
 `--offline`
 
@@ -64,7 +65,7 @@ Use the `qpc-tools server install` command to install and configure the Quipucor
 
 `--db-password`
 
-  Required. Prompts for the database password for PostgreSQL.
+  Specifies the database password for PostgreSQL.
 
 `--username=SERVER_USERNAME`
 
@@ -72,7 +73,7 @@ Use the `qpc-tools server install` command to install and configure the Quipucor
 
 `--password`
 
-  Required. Prompts for the Quipucords server password.
+  Sets the Quipucords server password.
 
 
 #### Installing the server offline

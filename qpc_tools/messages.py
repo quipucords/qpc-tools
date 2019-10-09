@@ -31,11 +31,14 @@ SERVER_INSTALL_PORT_HELP = 'Port number of the server (defaults to 9443)'
 SERVER_INSTALL_OPEN_PORT_HELP = "Indicate whether the host machine's port should be' \
     'opened (defaults to true)"
 SERVER_INSTALL_DB_USER_HELP = 'Set the PostgreSQL DB username (defaults to postgres)'
-SERVER_INSTALL_DB_PASSWORD_HELP = 'Set the PostgreSQL DB password'
+SERVER_INSTALL_DB_PASSWORD_HELP = 'Set the PostgreSQL DB password. If not provided, '\
+    'user will be prompted.'
 SERVER_INSTALL_USERNAME_HELP = 'Set the server admin username (defaults to admin)'
-SERVER_INSTALL_PASSWORD_HELP = 'Set the server admin password'
+SERVER_INSTALL_PASSWORD_HELP = 'Set the server admin password. If not provided, '\
+    'user will be prompted.'
 SERVER_INSTALL_REGISTRY_UN_HELP = 'Set the redhat.registry.com username'
-SERVER_INSTALL_REGISTRY_PASS_HELP = 'Set the rehat.registry.com password'
+SERVER_INSTALL_REGISTRY_PASS_HELP = 'Set the rehat.registry.com password. '\
+    'If not provided, user will be prompted.'
 CLI_INSTALLATION_SUCCESSFUL = 'Installation of CLI was successful'
 CLI_INSTALLATION_FAILED = 'CLI installation failed. Review the install logs'
 CLI_INSTALL_OFFLINE_HELP = 'Perform an offline CLI installation (defaults to false)'

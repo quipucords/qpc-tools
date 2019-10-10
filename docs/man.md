@@ -21,7 +21,7 @@ The following sections describe these commands, their subcommands, and their opt
 This section describes various `qpc-tools` commands for installing and configuring the Quipucords server.
 
 ### Server Install Command
-Use the `qpc-tools server install` command to install and configure the Quipucords server. When running the `qpc-tools server install` command, the user can optionally specify both the server admin password and the database password, but if they fail to specify, they will be prompted. Additionally, it is recommended to run the command with options to change default usernames.
+Use the `qpc-tools server install` command to install and configure the Quipucords server. When running the `qpc-tools server install` command, the user can optionally specify both the server admin password and the database password. If either password is not specified, they will be prompted to enter it. Additionally, it is recommended to run the command with options to change default usernames.
 
 **qpc-tools server install** [**-h**]
                          [**--offline**]

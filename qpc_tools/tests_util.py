@@ -134,9 +134,9 @@ class UtilsTests(unittest.TestCase):
 
     @mock.patch('qpc_tools.utils.getpass')
     def test_get_passwords_fail_empty(self, getpass):
-        """Test that we don't replace pre-existing passwords."""
+        """Test that we fail when the user enters 3 empty password attempts."""
         getpass.side_effect = ['', '', '']
         args_dictionary = {'foo': 'bar',
                            'server_password': None}
         with self.assertRaises(SystemExit):
-            updated_dictionary = utils.get_password(args_dictionary)
+            utils.get_password(args_dictionary)

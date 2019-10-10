@@ -44,15 +44,17 @@ class UtilsTests(unittest.TestCase):
         playbook = os.path.join(cli_path, CLI_INSTALL_PLAYBOOK)
         base_online_install = Namespace(action='cli', cli_version=None,
                                         home_dir='~/quipucords', install_offline='false',
-                                        offline_files=None, server_advanced=None,
+                                        offline_files=None,
                                         server_host='127.0.0.1', server_port='9443',
                                         subcommand='install', verbosity=0,
                                         server_password='qpcpassw0rd',
-                                        db_password='password')
+                                        db_password='password',
+                                        server_advanced=['use_supervisord=False'])
         success_online = ['ansible-playbook', playbook,
                           '-vv', '-e home_dir=~/quipucords', '-e install_offline=false',
                           '-e server_host=127.0.0.1', '-e server_port=9443',
-                          '-e server_password=qpcpassw0rd', '-e db_password=password']
+                          '-e server_password=qpcpassw0rd', '-e db_password=password',
+                          '-e use_supervisord=False']
 
         cmd_list = utils.create_ansible_command(base_online_install, playbook)
         for cmd_part in cmd_list:

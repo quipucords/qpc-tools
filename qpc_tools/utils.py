@@ -104,16 +104,21 @@ def create_ansible_command(namespace_args, playbook):
     verbosity_lvl = '-vv'
     cmd_list.append(verbosity_lvl)
     # Filter Extra Vars
-    extra_vars = get_password(namespace_args.__dict__)
+    install_vars = get_password(namespace_args.__dict__)
     for key in NOT_ANSIBLE_KEYS:
-        if key in extra_vars.keys():
-            extra_vars.pop(key, None)
-    extra_vars = {k: v for k, v in extra_vars.items() if v is not None}
+        if key in install_vars.keys():
+            install_vars.pop(key, None)
+    # grab the advanced args
+    advanced_args = install_vars.pop('server_advanced', []) or []
+    install_vars = {k: v for k, v in install_vars.items() if v is not None}
     # Add extra vars to command
     extra_format = '-e %s=%s'
-    for key, value in extra_vars.items():
+    for key, value in install_vars.items():
         extra_var = extra_format % (key, value)
         cmd_list.append(extra_var)
+    # loop through advanced args and add them to the command
+    for advanced_cmd in advanced_args:
+        cmd_list.append('-e %s' % advanced_cmd)
     return cmd_list
 
 

@@ -18,12 +18,10 @@ The `qpc-tools` package is used to configure the Quipucords server and command l
 The following sections describe these commands, their subcommands, and their options in more detail. They also describe additional tasks that are not highlighted in the previous list of major workflow tasks.
 
 ## Server
-This section describes various `qpc-tools` commands for installing and configuring the Quipucrods server.
+This section describes various `qpc-tools` commands for installing and configuring the Quipucords server.
 
 ### Server Install Command
-The `qpc-tools server install` command with no options performs a basic installation with the preset defaults. However, it is recommended to run the `qpc-tools server install` command with options to change default username and passwords.
-
-Note that in the log information for the `qpc-tools server install` command, references to `quipucords server` are relevant to the Quipucords server, and references to `QPC CLI` are relevant to the Quipucords command line interface client.
+Use the `qpc-tools server install` command to install and configure the Quipucords server. When running the `qpc-tools server install` command, the user can optionally specify both the server admin password and the database password. If either password is not specified, they will be prompted to enter it. Additionally, it is recommended to run the command with options to change default usernames.
 
 **qpc-tools server install** [**-h**]
                          [**--offline**]
@@ -32,8 +30,8 @@ Note that in the log information for the `qpc-tools server install` command, ref
                          [**--home-dir** *HOME_DIR*]
                          [**--port** *SERVER_PORT*]
                          [**--open-port** *OPEN_PORT*]
-                         [**--dbms-user** *DBMS_USER*]
-                         [**--dbms-password** *DBMS_PASSWORD*]
+                         [**--db-user** *DB_USER*]
+                         [**--db-password** *DB_PASSWORD*]
                          [**--username** *SERVER_USERNAME*]
                          [**--password** *SERVER_PASSWORD*]
 
@@ -61,21 +59,21 @@ Note that in the log information for the `qpc-tools server install` command, ref
 
   Determines whether to open the `port` in the firewall during the installation. This option enables communication between the Quipucords server and any remote clients over the port defined in `port`. Contains a true or false value. Defaults to `true`. Supply `false` to install without opening the server port in the firewall. The installation script must run with elevated privileges to open the server port.
 
-`--dbms-user=DBMS_USER`
+`--db-user=DB_USER`
 
   Specifies the database user for PostgreSQL. Defaults to `postgres`.
 
-`--dbms-password=DBMS_PASSWORD`
+`--db-password`
 
-  Specifies the database password for PostgreSQL. Defaults to `password`.
+  Specifies the database password for PostgreSQL.
 
 `--username=SERVER_USERNAME`
 
   Sets the Quipucords server user name. Defaults to `admin`.
 
-`--password=SERVER_PASSWORD`
+`--password`
 
-  Sets the Quipucords server password. Defaults to `qpcpassw0rd`.
+  Sets the Quipucords server password.
 
 
 #### Installing the server offline
@@ -93,7 +91,7 @@ If you choose the offline option to run the install command, you must do the fol
 1. Run qpc-tools with the required options to complete an offline installation.  For example:
 
     ```
-    qpc-tools server install --offline --offline-files='/PATH' --version=0.9.1
+    qpc-tools server install --password --db-password --offline --offline-files='/PATH' --version=0.9.1
     ```
 
 #### Installing a specific version of the server

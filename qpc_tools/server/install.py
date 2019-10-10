@@ -39,6 +39,16 @@ class InstallServerCommand(CliCommand):
         # pylint: disable=no-member
         CliCommand.__init__(self, self.SUBCOMMAND, self.ACTION,
                             subparsers.add_parser(self.ACTION))
+        if DOWNSTREAM:
+            # add a group for the required arguments
+            required_args = self.parser.add_argument_group('required arguments')
+            required_args.add_argument('--registry-user', dest='rh_registry_username',
+                                       help=_(messages.SERVER_INSTALL_REGISTRY_UN_HELP),
+                                       required=True)
+            self.parser.add_argument('--registry-password', dest='rh_registry_password',
+                                     help=_(messages.SERVER_INSTALL_REGISTRY_PASS_HELP),
+                                     required=False)
+
         self.parser.add_argument('--offline', dest='install_offline',
                                  action='store_true',
                                  help=_(messages.SERVER_INSTALL_OFFLINE_HELP),
@@ -61,12 +71,12 @@ class InstallServerCommand(CliCommand):
                                  default='true',
                                  help=_(messages.SERVER_INSTALL_OPEN_PORT_HELP),
                                  required=False)
-        self.parser.add_argument('--dbms-user', dest='dbms_user',
+        self.parser.add_argument('--db-user', dest='db_user',
                                  default='postgres',
-                                 help=_(messages.SERVER_INSTALL_DBMS_USER_HELP),
+                                 help=_(messages.SERVER_INSTALL_DB_USER_HELP),
                                  required=False)
-        self.parser.add_argument('--dbms-password', dest='dbms_password',
-                                 help=_(messages.SERVER_INSTALL_DBMS_PASSWORD_HELP),
+        self.parser.add_argument('--db-password', dest='db_password',
+                                 help=_(messages.SERVER_INSTALL_DB_PASSWORD_HELP),
                                  required=False)
         self.parser.add_argument('--username', dest='server_username',
                                  default='admin',
@@ -78,13 +88,6 @@ class InstallServerCommand(CliCommand):
         self.parser.add_argument('--advanced', dest='server_advanced',
                                  help=SUPPRESS,
                                  required=False)
-        if DOWNSTREAM:
-            self.parser.add_argument('--registry-user', dest='rh_registry_username',
-                                     help=_(messages.SERVER_INSTALL_REGISTRY_UN_HELP),
-                                     required=True)
-            self.parser.add_argument('--registry-password', dest='rh_registry_password',
-                                     help=_(messages.SERVER_INSTALL_REGISTRY_PASS_HELP),
-                                     required=True)
 
     def _validate_args(self):
         """Sub-commands can override."""

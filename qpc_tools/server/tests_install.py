@@ -37,7 +37,8 @@ class InstallServerCommandTests(unittest.TestCase):
         sys.stderr = HushUpStderr()
         # pylint:disable=line-too-long
         self.effect = [(b'', b" [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'\n [WARNING]: Consider using the yum, dnf or zypper module rather than running 'rpm'.  If you need to use command because yum, dnf or zypper is insufficient you can add 'warn: false' to this command task or set 'command_warnings=False' in\nansible.cfg to get rid of this message.\n")]  # noqa: E501
-        self.args = Namespace(home_dir=None, offline_files=None)
+        self.args = Namespace(home_dir=None, offline_files=None,
+                              server_password='qpcpassw0rd', db_password='password')
 
     def tearDown(self):
         """Remove test setup."""

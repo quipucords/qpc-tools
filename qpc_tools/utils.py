@@ -16,6 +16,7 @@ from __future__ import print_function
 import logging
 import os
 import sys
+from getpass import getpass
 
 from qpc_tools import messages
 from qpc_tools.translation import _
@@ -102,8 +103,8 @@ def create_ansible_command(namespace_args, playbook):
     cmd_list.append(playbook)
     verbosity_lvl = '-vv'
     cmd_list.append(verbosity_lvl)
-    # Fiter Extra Vars
-    extra_vars = namespace_args.__dict__
+    # Filter Extra Vars
+    extra_vars = get_password(namespace_args.__dict__)
     for key in NOT_ANSIBLE_KEYS:
         if key in extra_vars.keys():
             extra_vars.pop(key, None)
@@ -144,3 +145,28 @@ def check_abs_paths(args):
         args.offline_files = abs_offline_files
     if args.home_dir:
         args.home_dir = make_path_absolute(args.home_dir)
+
+
+def get_password(args_dictionary):
+    """Collect the password value and place in the args dictionary.
+
+    :param args_dictionary: the dictionary containing the args and values
+    :returns: the dictionary with updated passwords
+    """
+    password_prompt = {
+        'server_password': 'Enter server password:',
+        'db_password': 'Enter database password:',
+        'rh_registry_password': 'Enter redhat.registry.com password:'
+    }
+    for password, prompt in password_prompt.items():
+        if password in args_dictionary and args_dictionary[password] is None:
+            new_password = None
+            count = 0
+            while new_password in [None, ''] and count < 3:
+                new_password = getpass(prompt=prompt)
+                count += 1
+            if count >= 3:
+                sys.exit('Exiting due to failure to enter password.')
+            args_dictionary[password] = new_password
+
+    return args_dictionary

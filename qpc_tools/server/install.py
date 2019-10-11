@@ -48,17 +48,19 @@ class InstallServerCommand(CliCommand):
             self.parser.add_argument('--registry-password', dest='rh_registry_password',
                                      help=_(messages.SERVER_INSTALL_REGISTRY_PASS_HELP),
                                      required=False)
+        else:
+            # Upstream only args
+            self.parser.add_argument('--offline', dest='install_offline',
+                                     action='store_true',
+                                     help=_(messages.SERVER_INSTALL_OFFLINE_HELP),
+                                     required=False)
+            self.parser.add_argument('--offline-files', dest='offline_files',
+                                     help=_(messages.SERVER_INSTALL_OFFLINE_FILES_HELP),
+                                     required=False)
+            self.parser.add_argument('--version', dest='server_version',
+                                     help=_(messages.SERVER_INSTALL_VERSION_HELP),
+                                     required=False)
 
-        self.parser.add_argument('--offline', dest='install_offline',
-                                 action='store_true',
-                                 help=_(messages.SERVER_INSTALL_OFFLINE_HELP),
-                                 required=False)
-        self.parser.add_argument('--offline-files', dest='offline_files',
-                                 help=_(messages.SERVER_INSTALL_OFFLINE_FILES_HELP),
-                                 required=False)
-        self.parser.add_argument('--version', dest='server_version',
-                                 help=_(messages.SERVER_INSTALL_VERSION_HELP),
-                                 required=False)
         self.parser.add_argument('--home-dir', dest='home_dir',
                                  help=_(messages.ALL_INSTALL_HOME_DIR_HELP),
                                  required=False)

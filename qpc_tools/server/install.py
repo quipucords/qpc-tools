@@ -86,6 +86,7 @@ class InstallServerCommand(CliCommand):
                                  help=_(messages.SERVER_INSTALL_PASSWORD_HELP),
                                  required=False)
         self.parser.add_argument('--advanced', dest='server_advanced',
+                                 nargs='+', default=[],
                                  help=SUPPRESS,
                                  required=False)
 

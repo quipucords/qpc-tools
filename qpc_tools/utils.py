@@ -20,6 +20,7 @@ from getpass import getpass
 
 from qpc_tools import messages
 from qpc_tools.translation import _
+from qpc_tools.release import DOWNSTREAM
 
 
 QPC_PATH = 'qpc_tools'
@@ -136,13 +137,14 @@ def check_abs_paths(args):
     :param path: (args) commands arguments
     :returns: None
     """
-    if args.offline_files:
-        abs_offline_files = make_path_absolute(args.offline_files)
-        if not os.path.exists(abs_offline_files):
-            print(_(messages.ALL_DIRECTORY_DOES_NOT_EXIST %
-                    ('offline-files', abs_offline_files)))
-            sys.exit(1)
-        args.offline_files = abs_offline_files
+    if not DOWNSTREAM:
+        if args.offline_files:
+            abs_offline_files = make_path_absolute(args.offline_files)
+            if not os.path.exists(abs_offline_files):
+                print(_(messages.ALL_DIRECTORY_DOES_NOT_EXIST %
+                        ('offline-files', abs_offline_files)))
+                sys.exit(1)
+            args.offline_files = abs_offline_files
     if args.home_dir:
         args.home_dir = make_path_absolute(args.home_dir)
 

@@ -49,10 +49,9 @@ class InstallCLICommand(CliCommand):
             self.parser.add_argument('--offline-files', dest='offline_files',
                                      help=_(messages.CLI_INSTALL_OFFLINE_FILES_HELP),
                                      required=False)
-            self.parser.add_argument('--version', dest='cli_version',
-                                     help=_(messages.CLI_INSTALL_VERSION_HELP),
-                                     required=False)
-
+        self.parser.add_argument('--version', dest='cli_version',
+                                    help=_(messages.CLI_INSTALL_VERSION_HELP),
+                                    required=False)
         self.parser.add_argument('--home-dir', dest='home_dir',
                                  help=_(messages.ALL_INSTALL_HOME_DIR_HELP),
                                  required=False)

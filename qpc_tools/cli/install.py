@@ -21,6 +21,7 @@ from argparse import SUPPRESS
 import qpc_tools.cli as cli
 from qpc_tools import messages
 from qpc_tools.clicommand import CliCommand
+from qpc_tools.release import DOWNSTREAM
 from qpc_tools.translation import _
 from qpc_tools.utils import (check_abs_paths,
                              create_ansible_command)
@@ -39,13 +40,15 @@ class InstallCLICommand(CliCommand):
         # pylint: disable=no-member
         CliCommand.__init__(self, self.SUBCOMMAND, self.ACTION,
                             subparsers.add_parser(self.ACTION))
-        self.parser.add_argument('--offline', dest='install_offline',
-                                 action='store_true',
-                                 help=_(messages.CLI_INSTALL_OFFLINE_HELP),
-                                 required=False)
-        self.parser.add_argument('--offline-files', dest='offline_files',
-                                 help=_(messages.CLI_INSTALL_OFFLINE_FILES_HELP),
-                                 required=False)
+        if not DOWNSTREAM:
+            # Upstream only args
+            self.parser.add_argument('--offline', dest='install_offline',
+                                     action='store_true',
+                                     help=_(messages.CLI_INSTALL_OFFLINE_HELP),
+                                     required=False)
+            self.parser.add_argument('--offline-files', dest='offline_files',
+                                     help=_(messages.CLI_INSTALL_OFFLINE_FILES_HELP),
+                                     required=False)
         self.parser.add_argument('--version', dest='cli_version',
                                  help=_(messages.CLI_INSTALL_VERSION_HELP),
                                  required=False)

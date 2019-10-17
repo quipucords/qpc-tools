@@ -11,7 +11,7 @@
       postgres_version: '9.6.10'
       server_image_name: 'quipucords'
       server_image_tag: ''
-      podman_tls_verify: true
+      podman_tls_verify: 'true'
       db_name: 'qpc-db'
       server_username: 'admin'
       server_user_email: 'admin@example.com'

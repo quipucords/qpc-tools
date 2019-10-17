@@ -6,6 +6,7 @@
       install_offline: 'false'
       home_dir: "{{ansible_env['HOME'] + '/quipucords'}}"
       server_port: '9443'
+      cli_package_name: ''
   tasks:
     - name: Setting default variable values for installation
       include_role:

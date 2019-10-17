@@ -12,6 +12,7 @@
   changed_when: false
   when:
     - server_version is not defined
+    - server_image_tag == ""
 
 - name: Load Quipucords server release JSON
   set_fact:

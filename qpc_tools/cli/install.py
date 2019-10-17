@@ -62,6 +62,7 @@ class InstallCLICommand(CliCommand):
                                  help=_(messages.CLI_INSTALL_PORT_HELP),
                                  required=False)
         self.parser.add_argument('--advanced', dest='server_advanced',
+                                 nargs='+', default=[],
                                  help=SUPPRESS,
                                  required=False)
 

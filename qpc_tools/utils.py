@@ -160,20 +160,24 @@ def get_password(args_dictionary):
     :param args_dictionary: the dictionary containing the args and values
     :returns: the dictionary with updated passwords
     """
-    password_prompt = {
+    arg_prompt = {
+        'rh_registry_username': 'Enter registry.redhat.io username:',
+        'rh_registry_password': 'Enter registry.redhat.io password:',
         'server_password': 'Enter server password:',
-        'db_password': 'Enter database password:',
-        'rh_registry_password': 'Enter redhat.registry.com password:'
+        'db_password': 'Enter database password:'
     }
-    for password, prompt in password_prompt.items():
-        if password in args_dictionary and args_dictionary[password] is None:
-            new_password = None
-            count = 0
-            while new_password in [None, ''] and count < 3:
-                new_password = getpass(prompt=prompt)
-                count += 1
-            if count >= 3:
-                sys.exit('Exiting due to failure to enter password.')
-            args_dictionary[password] = new_password
+    for arg, prompt in arg_prompt.items():
+        if arg in args_dictionary and args_dictionary[arg] is None:
+            if arg == 'rh_registry_username':
+                arg_value = input(prompt)
+            else:
+                arg_value = None
+                count = 0
+                while arg_value in [None, ''] and count < 3:
+                    arg_value = getpass(prompt=prompt)
+                    count += 1
+                if count >= 3:
+                    sys.exit('Exiting due to failure to enter password.')
+            args_dictionary[arg] = arg_value
 
     return args_dictionary

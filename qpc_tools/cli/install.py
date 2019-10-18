@@ -42,10 +42,6 @@ class InstallCLICommand(CliCommand):
                             subparsers.add_parser(self.ACTION))
         if not DOWNSTREAM:
             # Upstream only args
-            self.parser.add_argument('--offline', dest='install_offline',
-                                     action='store_true',
-                                     help=_(messages.CLI_INSTALL_OFFLINE_HELP),
-                                     required=False)
             self.parser.add_argument('--offline-files', dest='offline_files',
                                      help=_(messages.CLI_INSTALL_OFFLINE_FILES_HELP),
                                      required=False)

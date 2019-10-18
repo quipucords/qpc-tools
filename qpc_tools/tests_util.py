@@ -142,3 +142,14 @@ class UtilsTests(unittest.TestCase):
                            'server_password': None}
         with self.assertRaises(SystemExit):
             utils.get_password(args_dictionary)
+
+    def test_check_offline(self):
+        """Test the check offline function."""
+        args_dictionary = {'offline_files': 'fake/path/to/offline'}
+        updated_args = utils.check_offline(args_dictionary)
+        self.assertEqual(updated_args['offline'], True)
+
+        # test that we don't add offline without offline files
+        args_dictionary = {'offline_files': None}
+        updated_args = utils.check_offline(args_dictionary)
+        self.assertNotIn('offline', updated_args)

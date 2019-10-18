@@ -153,7 +153,7 @@ make offline-prep
 make install-local-tools --or-- make install-release-tools
 # Disconnect from the network
 qpc-tools server install --offline-files /qpc_tools/install/packages
-qpc-tools cli install --ofline-files /qpc_tools/install/packages
+qpc-tools cli install --offline-files /qpc_tools/install/packages
 ```
 
 Note:

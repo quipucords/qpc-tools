@@ -19,8 +19,8 @@ import sys
 from getpass import getpass
 
 from qpc_tools import messages
-from qpc_tools.translation import _
 from qpc_tools.release import DOWNSTREAM
+from qpc_tools.translation import _
 
 
 QPC_PATH = 'qpc_tools'

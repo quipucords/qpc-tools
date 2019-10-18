@@ -105,7 +105,8 @@ def create_ansible_command(namespace_args, playbook):
     verbosity_lvl = '-vv'
     cmd_list.append(verbosity_lvl)
     # Filter Extra Vars
-    install_vars = get_password(namespace_args.__dict__)
+    args_dictionary = check_offline(namespace_args.__dict__)
+    install_vars = get_password(args_dictionary)
     for key in NOT_ANSIBLE_KEYS:
         if key in install_vars.keys():
             install_vars.pop(key, None)
@@ -180,4 +181,11 @@ def get_password(args_dictionary):
                     sys.exit('Exiting due to failure to enter password.')
             args_dictionary[arg] = arg_value
 
+    return args_dictionary
+
+
+def check_offline(args_dictionary):
+    """Check if offline_files exists and add offline arg."""
+    if args_dictionary.get('offline_files') is not None:
+        args_dictionary['offline'] = True
     return args_dictionary

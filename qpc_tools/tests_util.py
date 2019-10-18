@@ -150,3 +150,14 @@ class UtilsTests(unittest.TestCase):
         args_dictionary = {'rh_registry_username': None}
         updated_dictionary = utils.get_password(args_dictionary)
         self.assertEqual(updated_dictionary['rh_registry_username'], 'admin')
+
+    def test_check_offline(self):
+        """Test the check offline function."""
+        args_dictionary = {'offline_files': 'fake/path/to/offline'}
+        updated_args = utils.check_offline(args_dictionary)
+        self.assertEqual(updated_args['offline'], True)
+
+        # test that we don't add offline without offline files
+        args_dictionary = {'offline_files': None}
+        updated_args = utils.check_offline(args_dictionary)
+        self.assertNotIn('offline', updated_args)

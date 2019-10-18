@@ -23,6 +23,7 @@ install:
 # command to run tests
 script:
   - tox -e $TOX_ENV
+  - tox -e lint
 
 after_success:
   - codecov

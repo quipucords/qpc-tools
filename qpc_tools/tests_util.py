@@ -143,6 +143,14 @@ class UtilsTests(unittest.TestCase):
         with self.assertRaises(SystemExit):
             utils.get_password(args_dictionary)
 
+    @mock.patch('qpc_tools.utils.input')
+    def test_get_username(self, input_mock):
+        """Test that we prompt for username if it is None."""
+        input_mock.return_value = 'admin'
+        args_dictionary = {'rh_registry_username': None}
+        updated_dictionary = utils.get_password(args_dictionary)
+        self.assertEqual(updated_dictionary['rh_registry_username'], 'admin')
+
     def test_check_offline(self):
         """Test the check offline function."""
         args_dictionary = {'offline_files': 'fake/path/to/offline'}

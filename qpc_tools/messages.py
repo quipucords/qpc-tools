@@ -35,8 +35,8 @@ SERVER_INSTALL_DB_PASSWORD_HELP = 'Set the PostgreSQL DB password. If not provid
 SERVER_INSTALL_USERNAME_HELP = 'Set the server admin username (defaults to admin)'
 SERVER_INSTALL_PASSWORD_HELP = 'Set the server admin password. If not provided, '\
     'user will be prompted.'
-SERVER_INSTALL_REGISTRY_UN_HELP = 'Set the redhat.registry.com username'
-SERVER_INSTALL_REGISTRY_PASS_HELP = 'Set the rehat.registry.com password. '\
+SERVER_INSTALL_REGISTRY_UN_HELP = 'Set the registry.redhat.io username'
+SERVER_INSTALL_REGISTRY_PASS_HELP = 'Set the registry.redhat.io password. '\
     'If not provided, user will be prompted.'
 CLI_INSTALLATION_SUCCESSFUL = 'Installation of CLI was successful'
 CLI_INSTALLATION_FAILED = 'CLI installation failed. Review the install logs'

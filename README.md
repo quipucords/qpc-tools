@@ -161,7 +161,7 @@ Note:
 
 ## Vagrant: Testing Advanced Args
 
-Sometimes flags that are not externally available will need to be flipped in order to bypass special case issues during SEAP engagements. For example, some customers may not be able to use supervisord. To test these advanced internal arguements do the following:
+Sometimes flags that are not externally available will need to be flipped in order to bypass special case issues during SEAP engagements. For example, some customers may not be able to use supervisord. To test these advanced internal arguments do the following:
 
 ```
 clear;cd /qpc_tools;sudo su

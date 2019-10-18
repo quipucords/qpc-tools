@@ -1,11 +1,5 @@
 ---
 
-- name: Set the Quipucords CLI RPM package name
-  set_fact:
-    cli_package_name: "qpc.el{{ ansible_distribution_major_version }}.noarch.rpm"
-  when:
-    - cli_package_name == ""
-
 - name: Set the Quipucords CLI RPM file path
   set_fact:
     qpc_rpm_local_path: "{{ cli_packages }}{{ cli_package_name }}"

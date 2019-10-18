@@ -46,14 +46,8 @@
   when:
     - cli_version is not defined
 
-- name: Set the Quipucords CLI RPM package name
-  set_fact:
-    cli_package_name: "{{ cli_github_release_url }}/qpc.el{{ ansible_distribution_major_version }}.noarch.rpm"
-  when:
-    - cli_package_name == ""
-
 - name: Install the Quipucords CLI
   yum:
-    name: '{{ cli_package_name }}'
+    name: '{{ cli_github_release_url }}/{{ cli_package_name }}'
     state: present
   become: true

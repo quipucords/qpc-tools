@@ -17,49 +17,6 @@ The `qpc-tools` package is used to configure the Quipucords server and command l
 
 The following sections describe these commands, their subcommands, and their options in more detail. They also describe additional tasks that are not highlighted in the previous list of major workflow tasks.
 
-## Obtaining the qpc-tools package
-The qpc-tools rpm is required to install the Quipucords server and CLI.
-
-### Online
-Run the command for the correct operating system.
-- **CentOS 6 and RHEL 6**
-  ```
-  yum install https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el6.noarch.rpm
-  ```
-- **CentOS 7 and RHEL 7**
-  ```
-  yum install https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el7.noarch.rpm
-  ```
-- **RHEL 8**
-  ```
-  yum install https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el8.noarch.rpm
-  ```
-
-### Offline
-For an offline install you must first install the `qpc-tools` dependencies on the target machine.  Below is a list of required rpms per operating system.
-
-#### Dependencies
-- **CentOS 6 and RHEL 6**
-  - ansible
-  - python34
-- **CentOS 7 and RHEL 7**
-  - ansible
-  - python36
-- **RHEL 8**
-  - ansible
-  - python3
-
-On a machine connected to the internet, download the correct rpm for your operating system.
-
-- [CentOS 6 and RHEL 6](https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el6.noarch.rpm)
-- [CentOS 7 and RHEL 7](https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el7.noarch.rpm)
-- [RHEL 8](https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el8.noarch.rpm)
-
-Transfer the qpc-tools rpm that was downloaded and run the following command:
-```
-rpm -Uvh --force PATH_TO_RPM
-```
-
 ## Server
 This section describes various `qpc-tools` commands for installing and configuring the Quipucords server.
 
@@ -103,7 +60,7 @@ Use the `qpc-tools server install` command to install and configure the Quipucor
 
 `--db-password=DB_PASSWORD`
 
-  Specifies the database password for PostgreSQL.  If omitted, installer will prompt for password.
+  Specifies the database password for PostgreSQL.  If omitted, qpc-tools will prompt for password.
 
 `--username=SERVER_USERNAME`
 
@@ -111,7 +68,7 @@ Use the `qpc-tools server install` command to install and configure the Quipucor
 
 `--password=SERVER_PASSSWORD`
 
-  Sets the Quipucords server password. If omitted, installer will prompt for password.
+  Sets the Quipucords server password. If omitted, qpc-tools will prompt for password.
 
 
 #### Installing the server offline

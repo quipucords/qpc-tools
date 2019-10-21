@@ -48,6 +48,6 @@
 
 - name: Install the Quipucords CLI
   yum:
-    name: '{{ cli_github_release_url }}/{{ qpc_package_name }}'
+    name: '{{ cli_github_release_url }}/{{ cli_package_name }}'
     state: present
   become: true

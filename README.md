@@ -159,6 +159,16 @@ qpc-tools cli install --offline-files /qpc_tools/install/packages
 Note:
  - Optionally run any secret post install scripts you included in `tools_config.tar.gz`
 
+## Vagrant: Testing Advanced Args
+
+Sometimes flags that are not externally available will need to be flipped in order to bypass special case issues during SEAP engagements. For example, some customers may not be able to use supervisord. To test these advanced internal arguments do the following:
+
+```
+clear;cd /qpc_tools;sudo su
+make install-local-tools
+qpc-tools server install --advanced use_docker=True ansible_log_level=10 use_supervisord=false
+```
+
  ## Creating the man page
  After installing [pandoc](https://pandoc.org/installing.html) locally, run the following command:
 

@@ -155,7 +155,7 @@ class UtilsTests(unittest.TestCase):
         """Test the check offline function."""
         args_dictionary = {'offline_files': 'fake/path/to/offline'}
         updated_args = utils.check_offline(args_dictionary)
-        self.assertEqual(updated_args['offline'], True)
+        self.assertEqual(updated_args['install_offline'], True)
 
         # test that we don't add offline without offline files
         args_dictionary = {'offline_files': None}

@@ -187,5 +187,5 @@ def get_password(args_dictionary):
 def check_offline(args_dictionary):
     """Check if offline_files exists and add offline arg."""
     if args_dictionary.get('offline_files') is not None:
-        args_dictionary['offline'] = True
+        args_dictionary['install_offline'] = True
     return args_dictionary

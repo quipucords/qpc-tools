@@ -85,11 +85,17 @@ class InstallCLICommand(CliCommand):
                 format_line = line.decode('utf-8').strip('\n')
                 print(format_line)
             # process.communicate performs a wait until playbooks is done
-            process.communicate()
+            stderr_data = process.communicate()[1]
             code = process.returncode
             if code == 0:
                 print(_(messages.CLI_INSTALLATION_SUCCESSFUL))
             else:
                 print(_(messages.CLI_INSTALLATION_FAILED))
+                if stderr_data != b'':
+                    format_stderr = stderr_data.decode('utf-8').strip('\n')
+                    if 'WARNING' not in format_stderr:
+                        print(_(messages.INSTALL_ERROR_MESSAGE % format_stderr))
         except ValueError:
             print(_(messages.CLI_INSTALLATION_FAILED))
+        except KeyboardInterrupt:
+            print(_(messages.INSTALLATION_CANCELED))

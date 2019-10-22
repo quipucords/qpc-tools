@@ -22,7 +22,7 @@ ALL_INSTALL_HOME_DIR_HELP = 'The home directory for the Quipucords application d
 ALL_DIRECTORY_DOES_NOT_EXIST = "%s value '%s' does not exist"
 
 SERVER_INSTALLATION_SUCCESSFUL = 'Installation of server was successful'
-SERVER_INSTALLATION_FAILED = 'Server installation failed. Review the install logs'
+SERVER_INSTALLATION_FAILED = 'Server installation failed.'
 SERVER_INSTALL_OFFLINE_FILES_HELP = 'Specify the path to the server offline files'
 SERVER_INSTALL_VERSION_HELP = 'Specify the server version to install '\
     '(defaults to latest release)'
@@ -39,10 +39,13 @@ SERVER_INSTALL_REGISTRY_UN_HELP = 'Set the registry.redhat.io username'
 SERVER_INSTALL_REGISTRY_PASS_HELP = 'Set the registry.redhat.io password. '\
     'If not provided, user will be prompted.'
 CLI_INSTALLATION_SUCCESSFUL = 'Installation of CLI was successful'
-CLI_INSTALLATION_FAILED = 'CLI installation failed. Review the install logs'
+CLI_INSTALLATION_FAILED = 'CLI installation failed.'
 CLI_INSTALL_OFFLINE_FILES_HELP = 'Specify the path to the CLI offline files'
 CLI_INSTALL_VERSION_HELP = 'Specify the QPC CLI version to install (defaults to latest release)'
 CLI_INSTALL_SERVER_HELP = 'Host or IP address for the server'
 CLI_INSTALL_PORT_HELP = 'Port number of the server'
 CLI_INSTALL_MUST_SPECIFY_PORT_AND_HOST = \
     'If either server-host or server-port are specified, both are required'
+INSTALL_ERROR_MESSAGE = 'The installation failed with the following message:\n %s'
+PLAYBOOK_COMMAND = 'Running this playbook command: \n %s'
+INSTALLATION_CANCELED = '\n Installation canceled'

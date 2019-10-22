@@ -8,13 +8,13 @@ pandoc = pandoc
 help:
 	@echo "Please use \`make <target>' where <target> is one of:"
 	@echo "  setup-local-online                             Copy configuration, install, packages to OS specific folders"
-	@echo "  setup-local-offline                            Download/Build qpc server and postgres images. Download qpc client rpm. Copy configuration, install, packages to OS specific folders"
+	@echo "  setup-local-offline                            Download/Build qpc server and postgres images. Download qpc CLI rpm. Copy configuration, install, packages to OS specific folders"
 	@echo "         server_source=<local||release>                @param - defaults to release"
 	@echo "         cli_version=<x.x.x>                           @param - defaults to latest"
 	@echo "         server_version=<x.x.x>                        @param - required if server source is local; defaults to latest if using release"
 	@echo "  setup-release-online                           Download and copy qpc-tools to OS specific folders"
 	@echo "         tools_version=<x.x.x>                         @param - defaults to latest"
-	@echo "  setup-release-offline                          Download and copy qpc-tools, server image and qpc client rpm to OS specific folders"
+	@echo "  setup-release-offline                          Download and copy qpc-tools, server image and qpc CLI rpm to OS specific folders"
 	@echo "         tools_version=<x.x.x>                         @param - defaults to latest"
 	@echo "         cli_version=<x.x.x>                           @param - defaults to latest"
 	@echo "         server_version=<x.x.x>                        @param - defaults to latest"
@@ -26,7 +26,7 @@ help:
 	@echo "  test-centos-6                                  Launch the CentOS 6 VM for testing"
 	@echo "  test-centos-7                                  Launch the CentOS 7 VM for testing"
 	@echo "  manpage                                        Create the manpage"
-	@echo "  install                                        Install the client egg"
+	@echo "  install                                        Install the qpc CLI egg"
 	@echo "  lint                                           Run the flake8/pylint linter"
 	@echo "  unit-test                                      Run the python unit tests"
 	@echo "  test-coverage                                  Run the unit tests and measure test coverage"
@@ -67,12 +67,6 @@ copy-config:
 copy-packages:
 	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf test/packages/ test/$$os/install/packages/ ; done
 
-copy-qpc-tools: manifest
-	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf qpc_tools test/$$os; done
-	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf setup.py test/$$os; done
-	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf MANIFEST.in test/$$os; done
-	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf bin test/$$os; done
-
 # Internal subcommands that the user should not call
 local-server-image: download-postgres
 	@echo "Building quipucords $(server_version)"
@@ -93,31 +87,45 @@ else
 endif
 
 # Internal subcommands that the user should not call
-download-client:
+download-qpc-cli:
+	mkdir -p test/cli_packages
 	@for os_version in 6 7 8 ; do \
 		set -x; \
 		if [[ "$(cli_version)" = "" || "$(cli_version)" = "latest" ]]; then \
-			curl -k -SL https://github.com/quipucords/qpc/releases/latest/download/qpc.el$$os_version.noarch.rpm -o test/packages/qpc.el$$os_version.noarch.rpm; \
+			curl -k -SL https://github.com/quipucords/qpc/releases/latest/download/qpc.el$$os_version.noarch.rpm -o test/cli_packages/qpc.el$$os_version.noarch.rpm; \
 		else \
-			curl -k -SL https://github.com/quipucords/qpc/releases/download/$(cli_version)/qpc.el$$os_version.noarch.rpm -o test/packages/qpc.el$$os_version.noarch.rpm; \
+			curl -k -SL https://github.com/quipucords/qpc/releases/download/$(cli_version)/qpc.el$$os_version.noarch.rpm -o test/cli_packages/qpc.el$$os_version.noarch.rpm; \
 		fi; \
-		cp -f test/packages/qpc.el$$os_version.noarch.rpm test/rhel$$os_version/install/packages/; \
-		cp -f test/packages/qpc.el$$os_version.noarch.rpm test/centos$$os_version/install/packages/; \
 		set +x; \
 	done
-	rm -f test/packages/*.noarch.rpm
 
-# Internal subcommands that the user should not call
-download-tools:
-	mkdir -p test/downloaded_install
-ifeq ($(tools_version),$(filter $(tools_version),latest))
-	cd test/downloaded_install;curl -k -SL https://github.com/quipucords/qpc-tools/releases/latest/download/quipucords_install.tar.gz -o quipucords_install.tar.gz
-else
-	cd test/downloaded_install;curl -k -SL https://github.com/quipucords/qpc-tools/releases/download/$(tools_version)/quipucords_install.tar.gz -o quipucords_install.tar.gz
-endif
-	cd test/downloaded_install;tar -xzf quipucords_install.tar.gz
-	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf test/downloaded_install/install test/$$os/; done
-	rm -rf test/downloaded_install
+copy-qpc-cli:
+	@for os_version in 6 7 8 ; do \
+		set -x; \
+		cp -f test/cli_packages/qpc.el$$os_version.noarch.rpm test/rhel$$os_version/install/packages/; \
+		cp -f test/cli_packages/qpc.el$$os_version.noarch.rpm test/centos$$os_version/install/packages/; \
+		set +x; \
+	done
+
+download-qpc-tools:
+	mkdir -p test/tools_packages
+	@for os_version in 6 7 8 ; do \
+		set -x; \
+		if [[ "$(tools_version)" = "" || "$(tools_version)" = "latest" ]]; then \
+			curl -k -SL https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el$$os_version.noarch.rpm -o test/tools_packages/qpc-tools.el$$os_version.noarch.rpm; \
+		else \
+			curl -k -SL https://github.com/quipucords/qpc-tools/releases/download/$(tools_version)/qpc-tools.el$$os_version.noarch.rpm -o test/tools_packages/tools.el$$os_version.noarch.rpm; \
+		fi; \
+		set +x; \
+	done
+
+copy-qpc-tools:
+	@for os_version in 6 7 8 ; do \
+		set -x; \
+		cp -f test/tools_packages/qpc-tools.el$$os_version.noarch.rpm test/rhel$$os_version/install/; \
+		cp -f test/tools_packages/qpc-tools.el$$os_version.noarch.rpm test/centos$$os_version/install/; \
+		set +x; \
+	done
 
 # Internal subcommands that the user should not call
 download-postgres:
@@ -145,18 +153,20 @@ else
 endif
 endif
 	$(MAKE) copy-packages
-	$(MAKE) download-client
+	$(MAKE) download-qpc-cli
+	$(MAKE) copy-qpc-cli
 
 setup-release-online: create-test-dirs copy-vm-helper-files copy-config copy-packages
-	$(MAKE) download-tools
 
 setup-release-offline: create-test-dirs copy-vm-helper-files copy-config copy-packages
-	$(MAKE) download-tools
+	$(MAKE) download-qpc-tools
+	$(MAKE) copy-qpc-tools
 	$(MAKE) download-server-image
-	$(MAKE) download-client
+	$(MAKE) download-qpc-cli
+	$(MAKE) copy-qpc-cli
 	$(MAKE) copy-packages
 
-refresh: create-test-dirs copy-vm-helper-files copy-config copy-qpc-tools copy-packages
+refresh: create-test-dirs copy-vm-helper-files copy-config copy-qpc-cli copy-qpc-tools copy-packages
 
 test-all:
 	./launch_vms.sh

@@ -15,7 +15,7 @@ This *README* file contains information about the installation and development o
 
 
 # <a name="intro"></a> Introduction to qpc-tools
-The qpc-tools package is a bash script that utilizes Ansible to install both the Quipucords server and CLI.
+The qpc-tools package is a python script that utilizes Ansible to install both the Quipucords server and CLI.
 
 
 # <a name="requirements"></a> Requirements and Assumptions

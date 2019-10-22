@@ -76,9 +76,7 @@ Use the `qpc-tools server install` command to install and configure the Quipucor
 Install all dependencies for the target operating system. Dependencies include:
 - **CentOS 6 and RHEL 6**
   - [Docker 1.7.1](http://yum.dockerproject.org/repo/main/centos/6/Packages/docker-engine-1.7.1-1.el6.x86_64.rpm)
-- **CentOS 7 and RHEL 7**
-  - podman
-- **RHEL 8**
+- **CentOS 7, RHEL 7, and RHEL 8**
   - podman
 
 Next complete the following steps.

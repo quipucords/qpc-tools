@@ -26,15 +26,15 @@ This section describes various `qpc-tools` commands for installing and configuri
 Use the `qpc-tools server install` command to install and configure the Quipucords server. When running the `qpc-tools server install` command, the user can optionally specify both the server admin password and the database password. If either password is not specified, they will be prompted to enter it. Additionally, it is recommended to run the command with options to change default usernames.
 
 **qpc-tools server install** [**-h**]
-                         [**---offline-files** *OFFLINE_FILES*]
-                         [**---version** *SERVER_VERSION*]
-                         [**---home-dir** *HOME_DIR*]
-                         [**---port** *SERVER_PORT*]
-                         [**---open-port** *OPEN_PORT*]
-                         [**---db-user** *DB_USER*]
-                         [**---db-password** *DB_PASSWORD*]
-                         [**---username** *SERVER_USERNAME*]
-                         [**---password** *SERVER_PASSWORD*]
+                         [**\--offline-files** *OFFLINE_FILES*]
+                         [**\--version** *SERVER_VERSION*]
+                         [**\--home-dir** *HOME_DIR*]
+                         [**\--port** *SERVER_PORT*]
+                         [**\--open-port** *OPEN_PORT*]
+                         [**\--db-user** *DB_USER*]
+                         [**\--db-password** *DB_PASSWORD*]
+                         [**\--username** *SERVER_USERNAME*]
+                         [**\--password** *SERVER_PASSWORD*]
 
 `--offline-files=OFFLINE_FILES`
 
@@ -130,11 +130,11 @@ The `qpc-tools cli install` command with no options performs a basic installatio
 Note that in the log information for the `qpc-tools cli install` command, references to `Quipucords server` are relevant to the Quipucords server, and references to `QPC CLI` are relevant to the Quipucords command line interface client.
 
 **qpc-tools cli install** [**-h**]
-                         [**---offline-files** *OFFLINE_FILES*]
-                         [**---version** *SERVER_VERSION*]
-                         [**---home-dir** *HOME_DIR*]
-                         [**---server-host** *SERVER_HOST*]
-                         [**---server-port** *SERVER_PORT*]
+                         [**\--offline-files** *OFFLINE_FILES*]
+                         [**\--version** *SERVER_VERSION*]
+                         [**\--home-dir** *HOME_DIR*]
+                         [**\--server-host** *SERVER_HOST*]
+                         [**\--server-port** *SERVER_PORT*]
 
 `--offline-files=OFFLINE_FILES`
 

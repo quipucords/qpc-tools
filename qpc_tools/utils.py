@@ -163,10 +163,10 @@ def get_password(args_dictionary):
     :returns: the dictionary with updated passwords
     """
     arg_prompt = OrderedDict([
-        ('rh_registry_username', 'Enter registry.redhat.io username:'),
-        ('rh_registry_password', 'Enter registry.redhat.io password:'),
-        ('server_password', 'Enter server password:'),
-        ('db_password', 'Enter database password:')
+        ('rh_registry_username', 'Enter registry.redhat.io username: '),
+        ('rh_registry_password', 'Enter registry.redhat.io password: '),
+        ('server_password', 'Enter server password: '),
+        ('db_password', 'Enter database password: ')
     ])
     for arg, prompt in arg_prompt.items():
         if arg in args_dictionary and args_dictionary[arg] is None:

@@ -15,7 +15,7 @@ This *README* file contains information about the installation and development o
 
 
 # <a name="intro"></a> Introduction to qpc-tools
-The qpc-tools package is a bash script that utilizes Ansible to install both the Quipucords server and CLI.
+The qpc-tools package is a python script that utilizes Ansible to install both the Quipucords server and CLI.
 
 
 # <a name="requirements"></a> Requirements and Assumptions
@@ -24,12 +24,46 @@ Before installing qpc-tools on a system, review the following guidelines about i
  - qpc-tools is written to run on RHEL or CentOS servers.
 
 # <a name="installation"></a> Installation
-To work with the qpc-tools, begin by cloning the repository.
+The qpc-tools package is required to install the Quipucords server and CLI.
 
+## Online Installation of qpc-tools
+Run the command for the correct operating system.
+- **CentOS 6 and RHEL 6**
+  ```
+  yum install https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el6.noarch.rpm
+  ```
+- **CentOS 7 and RHEL 7**
+  ```
+  yum install https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el7.noarch.rpm
+  ```
+- **RHEL 8**
+  ```
+  yum install https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el8.noarch.rpm
+  ```
+
+## Offline Installation of qpc-tools
+For an offline install you must first install the `qpc-tools` dependencies on the target machine.  Below is a list of required rpms per operating system.
+
+### Dependencies
+- **CentOS 6 and RHEL 6**
+  - ansible
+  - python34
+- **CentOS 7 and RHEL 7**
+  - ansible
+  - python36
+- **RHEL 8**
+  - ansible
+  - python3
+
+On a machine connected to the internet, download the correct rpm for your operating system.
+
+- [CentOS 6 and RHEL 6](https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el6.noarch.rpm)
+- [CentOS 7 and RHEL 7](https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el7.noarch.rpm)
+- [RHEL 8](https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el8.noarch.rpm)
+
+Transfer the qpc-tools rpm that was downloaded to the target machine and run the following command:
 ```
-git clone git@github.com:quipucords/qpc-tools.git
-cd qpc-tools/install
-./qpc-tools
+rpm -Uvh --force PATH_TO_RPM
 ```
 
 # <a name="development"></a> Development

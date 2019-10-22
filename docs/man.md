@@ -11,28 +11,30 @@ qpc-tools - Configuration tools for the Quipucords server and command line inter
 
 ## Description
 
-The `qpc-tools` package is used to configure the Quipucords server and command line interface (CLI) client.
+The `qpc-tools` package is used to install and configure the Quipucords server and command line interface (CLI) client.
 
 # Usage
 
 The following sections describe these commands, their subcommands, and their options in more detail. They also describe additional tasks that are not highlighted in the previous list of major workflow tasks.
 
 ## Server
+
 This section describes various `qpc-tools` commands for installing and configuring the Quipucords server.
 
 ### Server Install Command
+
 Use the `qpc-tools server install` command to install and configure the Quipucords server. When running the `qpc-tools server install` command, the user can optionally specify both the server admin password and the database password. If either password is not specified, they will be prompted to enter it. Additionally, it is recommended to run the command with options to change default usernames.
 
 **qpc-tools server install** [**-h**]
-                         [**--offline-files** *OFFLINE_FILES*]
-                         [**--version** *SERVER_VERSION*]
-                         [**--home-dir** *HOME_DIR*]
-                         [**--port** *SERVER_PORT*]
-                         [**--open-port** *OPEN_PORT*]
-                         [**--db-user** *DB_USER*]
-                         [**--db-password** *DB_PASSWORD*]
-                         [**--username** *SERVER_USERNAME*]
-                         [**--password** *SERVER_PASSWORD*]
+                         [**---offline-files** *OFFLINE_FILES*]
+                         [**---version** *SERVER_VERSION*]
+                         [**---home-dir** *HOME_DIR*]
+                         [**---port** *SERVER_PORT*]
+                         [**---open-port** *OPEN_PORT*]
+                         [**---db-user** *DB_USER*]
+                         [**---db-password** *DB_PASSWORD*]
+                         [**---username** *SERVER_USERNAME*]
+                         [**---password** *SERVER_PASSWORD*]
 
 `--offline-files=OFFLINE_FILES`
 
@@ -74,27 +76,36 @@ Use the `qpc-tools server install` command to install and configure the Quipucor
 #### Installing the server offline
 
 Install all dependencies for the target operating system. Dependencies include:
+
 - **CentOS 6 and RHEL 6**
   - [Docker 1.7.1](http://yum.dockerproject.org/repo/main/centos/6/Packages/docker-engine-1.7.1-1.el6.x86_64.rpm)
+
 - **CentOS 7, RHEL 7, and RHEL 8**
   - podman
 
 Next complete the following steps.
+
 1. Obtain the installation packages on a machine with internet connectivity.
+
     - Download the [Quipucords server image](https://github.com/quipucords/quipucords/releases/latest/download/quipucords_server_image.tar.gz)
+
     - Create the PostgreSQL image TAR file named `postgres.9.6.10.tar`
+
       - CentOS 6 and RHEL 6 commands:
         ```
         docker pull postgres:9.6.10
         docker save -o postgres.9.6.10.tar postgres:9.6.10
         ```
+
       - CentOS 7, RHEL 7, and RHEL 8 commands:
         ```
         podman pull postgres:9.6.10
         podman save -o postgres.9.6.10.tar postgres:9.6.10
         ```
+
 1. Create a location for the packages on the machine where Quipucords will be installed and move the packages to that location.
-1. Run qpc-tools with the required options to complete an offline installation.  For example:
+
+1. Run qpc-tools with the required options to complete an offline installation. For example:
 
     ```
     qpc-tools server install --offline-files='/PATH' --version=0.9.1
@@ -109,20 +120,21 @@ qpc-tools server install --version=0.9.0
 ```
 
 ## Command Line Interface (CLI)
+
 This section describes various `qpc-tools` commands for installing and configuring the Quipucrods CLI.
 
 ### CLI Install Command
 
 The `qpc-tools cli install` command with no options performs a basic installation with the preset defaults.
 
-Note that in the log information for the `qpc-tools cli install` command, references to `quipucords server` are relevant to the Quipucords server, and references to `QPC CLI` are relevant to the Quipucords command line interface client.
+Note that in the log information for the `qpc-tools cli install` command, references to `Quipucords server` are relevant to the Quipucords server, and references to `QPC CLI` are relevant to the Quipucords command line interface client.
 
 **qpc-tools cli install** [**-h**]
-                         [**--offline-files** *OFFLINE_FILES*]
-                         [**--version** *SERVER_VERSION*]
-                         [**--home-dir** *HOME_DIR*]
-                         [**--server-host** *SERVER_HOST*]
-                         [**--server-port** *SERVER_PORT*]
+                         [**---offline-files** *OFFLINE_FILES*]
+                         [**---version** *SERVER_VERSION*]
+                         [**---home-dir** *HOME_DIR*]
+                         [**---server-host** *SERVER_HOST*]
+                         [**---server-port** *SERVER_PORT*]
 
 `--offline-files=OFFLINE_FILES`
 
@@ -147,31 +159,42 @@ Note that in the log information for the `qpc-tools cli install` command, refere
 
 #### Installing the CLI offline
 
-Install all dependencies for the target operating system.
-Dependencies include:
+Install all dependencies for the target operating system. Dependencies include:
+
 - **CentOS 6 and RHEL 6**
   - python34-requests
+
 - **CentOS 7**
   - epel-release
   - python36-requests
+
 - **RHEL 7**
   - python36-requests
+
 - **RHEL 8**
   - python3-requests
 
 Next complete the following steps.
-1. Obtain the installation packages on a machine with internet connectivity.  Select the appropriate RPM for your operating system.
+
+1. Obtain the installation packages on a machine with internet connectivity. Select the appropriate RPM for your operating system.
+
     - [Red Hat Enterprise Linux 6 and CentOS 6](https://github.com/quipucords/qpc/releases/latest/download/qpc.el6.noarch.rpm)
+
     - [Red Hat Enterprise Linux 7 and CentOS 7](https://github.com/quipucords/qpc/releases/latest/download/qpc.el7.noarch.rpm)
+
     - [Red Hat Enterprise Linux 8](https://github.com/quipucords/qpc/releases/latest/download/qpc.el8.noarch.rpm)
+
 1. Create a location for the packages on the machine where Quipucords will be installed and move the packages to that location.
-1. Run qpc-tools with the required options to complete an offline installation.  For example:
+
+1. Run qpc-tools with the required options to complete an offline installation. For example:
+
     ```
     qpc-tools cli install --offline-files='/PATH'
     ```
 
 #### Installing a specific version of the CLI
 By default, the `qpc-tools cli install` command installs the latest release unless an earlier version is specified in the command. For example, if the previous version of Quipucords that you want to install is 0.9.0., you would enter the following command:
+
 ```
 qpc-tools cli install --version=0.9.0
 ```

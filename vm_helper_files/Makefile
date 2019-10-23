@@ -10,6 +10,10 @@ help:
 	@echo "  online-prep                                        Install required dependencies for online install. Required if not using make commands."
 	@echo "  clean                                              Remove docker containers and images.  Also, qpc cli."
 	@echo "  install-local-tools                                Install the qpc-tools cli locally."
+	@echo "  install-online-tools                               Install the qpc-tools cli from online."
+	@echo "         tools_version=<x.x.x>                         @param - defaults to latest"
+	@echo "  install-offline-tools                              Perform an offline installation of qpc-tools."
+
 
 setup:
 	scripts/setup_repos.sh
@@ -78,3 +82,31 @@ install-local-tools: online-prep
 	echo "***************************"
 	echo "WARNING: you will need to run the following for centos/rhel 7"
 	echo "export PATH=$$PATH:/usr/local/bin" | xargs
+
+install-online-tools: online-prep
+	@if [[ "$(tools_version)" = "" || "$(tools_version)" = "latest" ]]; then \
+		if grep -q -i "release 7" /etc/redhat-release; then \
+			yum install -y https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el7.noarch.rpm; \
+		elif grep -q -i "release 6" /etc/redhat-release; then \
+			yum install -y hhttps://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el6.noarch.rpm; \
+		else \
+			yum install -y https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el8.noarch.rpm; \
+		fi; \
+	else \
+		if grep -q -i "release 7" /etc/redhat-release; then \
+			yum install -y https://github.com/quipucords/qpc-tools/releases/download/$(tools_version)/qpc-tools.el7.noarch.rpm; \
+		elif grep -q -i "release 6" /etc/redhat-release; then \
+			yum install -y https://github.com/quipucords/qpc-tools/releases/download/$(tools_version)/qpc-tools.el6.noarch.rpm; \
+		else \
+			yum install -y https://github.com/quipucords/qpc-tools/releases/download/$(tools_version)/qpc-tools.el8.noarch.rpm; \
+		fi; \
+	fi; \
+
+intall-offline-tools: offline-prep
+	@if grep -q -i "release 7" /etc/redhat-release; then \
+		cd install; rpm -Uvh --force "qpc-tools.el7.noarch.rpm"
+	elif grep -q -i "release 6" /etc/redhat-release; then \
+		cd install; rpm -Uvh --force "qpc-tools.el6.noarch.rpm"
+	else \
+		cd install; rpm -Uvh --force "qpc-tools.el7.noarch.rpm"
+	fi

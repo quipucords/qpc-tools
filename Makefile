@@ -12,8 +12,7 @@ help:
 	@echo "         server_source=<local||release>                @param - defaults to release"
 	@echo "         cli_version=<x.x.x>                           @param - defaults to latest"
 	@echo "         server_version=<x.x.x>                        @param - required if server source is local; defaults to latest if using release"
-	@echo "  setup-release-online                           Download and copy qpc-tools to OS specific folders"
-	@echo "         tools_version=<x.x.x>                         @param - defaults to latest"
+	@echo "  setup-release-online                           Copy configuration to OS specific folders"
 	@echo "  setup-release-offline                          Download and copy qpc-tools, server image and qpc CLI rpm to OS specific folders"
 	@echo "         tools_version=<x.x.x>                         @param - defaults to latest"
 	@echo "         cli_version=<x.x.x>                           @param - defaults to latest"
@@ -114,7 +113,7 @@ download-qpc-tools:
 		if [[ "$(tools_version)" = "" || "$(tools_version)" = "latest" ]]; then \
 			curl -k -SL https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el$$os_version.noarch.rpm -o test/tools_packages/qpc-tools.el$$os_version.noarch.rpm; \
 		else \
-			curl -k -SL https://github.com/quipucords/qpc-tools/releases/download/$(tools_version)/qpc-tools.el$$os_version.noarch.rpm -o test/tools_packages/tools.el$$os_version.noarch.rpm; \
+			curl -k -SL https://github.com/quipucords/qpc-tools/releases/download/$(tools_version)/qpc-tools.el$$os_version.noarch.rpm -o test/tools_packages/qpc-tools.el$$os_version.noarch.rpm; \
 		fi; \
 		set +x; \
 	done

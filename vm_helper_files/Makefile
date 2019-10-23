@@ -8,7 +8,7 @@ help:
 	@echo "  setup                                              Sets up yum repos"
 	@echo "  offline-prep                                       Install required dependencies for offline install"
 	@echo "  online-prep                                        Install required dependencies for online install. Required if not using make commands."
-	@echo "  clean                                              Remove docker containers and images.  Also, qpc cli."
+	@echo "  clean                                              Remove docker containers and images.  Also, QPC cli."
 	@echo "  install-local-tools                                Install the qpc-tools cli locally."
 	@echo "  install-online-tools                               Install the qpc-tools cli from online."
 	@echo "         tools_version=<x.x.x>                         @param - defaults to latest"

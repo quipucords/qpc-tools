@@ -47,5 +47,5 @@ CLI_INSTALL_PORT_HELP = 'Port number of the server'
 CLI_INSTALL_MUST_SPECIFY_PORT_AND_HOST = \
     'If either server-host or server-port are specified, both are required'
 INSTALL_ERROR_MESSAGE = 'The installation failed with the following message:\n %s'
-PLAYBOOK_COMMAND = 'Running this playbook command: \n %s'
+PLAYBOOK_COMMAND = 'Running the following playbook command: \n %s'
 INSTALLATION_CANCELED = '\n Installation canceled'

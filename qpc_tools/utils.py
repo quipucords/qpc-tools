@@ -16,6 +16,7 @@ from __future__ import print_function
 import logging
 import os
 import sys
+from collections import OrderedDict
 from getpass import getpass
 
 from qpc_tools import messages
@@ -169,12 +170,12 @@ def get_password(args_dictionary):
     :param args_dictionary: the dictionary containing the args and values
     :returns: the dictionary with updated passwords
     """
-    arg_prompt = {
-        'rh_registry_username': 'Enter registry.redhat.io username:',
-        'rh_registry_password': 'Enter registry.redhat.io password:',
-        'server_password': 'Enter server password:',
-        'db_password': 'Enter database password:'
-    }
+    arg_prompt = OrderedDict([
+        ('rh_registry_username', 'Enter registry.redhat.io username: '),
+        ('rh_registry_password', 'Enter registry.redhat.io password: '),
+        ('server_password', 'Enter server password: '),
+        ('db_password', 'Enter database password: ')
+    ])
     for arg, prompt in arg_prompt.items():
         if arg in args_dictionary and args_dictionary[arg] is None:
             if arg == 'rh_registry_username':

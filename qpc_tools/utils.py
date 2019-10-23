@@ -122,6 +122,14 @@ def create_ansible_command(namespace_args, playbook):
     # loop through advanced args and add them to the command
     for advanced_cmd in advanced_args:
         cmd_list.append('-e %s' % advanced_cmd)
+    # print command and mask passwords
+    tmp_list = cmd_list.copy()
+    for arg in tmp_list:
+        if 'password' in arg:
+            mask_arg = arg.split('=')[0] + '=' + '*******'
+            tmp_list.remove(arg)
+            tmp_list.append(mask_arg)
+    print(_(messages.PLAYBOOK_COMMAND % (' '.join(tmp_list))))
     return cmd_list
 
 

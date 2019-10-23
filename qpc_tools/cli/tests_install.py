@@ -37,6 +37,7 @@ class InstallCLICommandTests(unittest.TestCase):
         sys.stderr = HushUpStderr()
         # pylint:disable=line-too-long
         self.effect = [(b'', b" [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'\n [WARNING]: Consider using the yum, dnf or zypper module rather than running 'rpm'.  If you need to use command because yum, dnf or zypper is insufficient you can add 'warn: false' to this command task or set 'command_warnings=False' in\nansible.cfg to get rid of this message.\n")]  # noqa: E501
+        self.effect_error = [(b'', b'ERROR! the playbook: fail.yml could not be found')]
         self.args = Namespace(server_port=None, server_host=None, offline_files=None, home_dir=None)
 
     def tearDown(self):
@@ -57,7 +58,7 @@ class InstallCLICommandTests(unittest.TestCase):
         with redirect_stdout(cred_out):
             cac.main(self.args)
             expected = mock_ansible_logs + _(messages.CLI_INSTALLATION_SUCCESSFUL)
-            self.assertEqual(cred_out.getvalue().strip(), expected)
+            self.assertIn(expected, cred_out.getvalue().strip())
 
     @patch('qpc_tools.cli.install.subprocess.Popen')
     def test_install_cli_failure(self, subprocess):
@@ -72,13 +73,13 @@ class InstallCLICommandTests(unittest.TestCase):
         with redirect_stdout(cred_out):
             cac.main(self.args)
             expected = mock_ansible_logs + _(messages.CLI_INSTALLATION_FAILED)
-            self.assertEqual(cred_out.getvalue().strip(), expected)
+            self.assertIn(expected, cred_out.getvalue().strip())
 
     @patch('qpc_tools.cli.install.subprocess.Popen')
-    def test_value_error(self, subprocess):
+    def test_install_cli_critical_failure(self, subprocess):
         """Testing a failed CLI installlation."""
         subprocess.return_value.returncode = 1
-        subprocess.return_value.communicate.side_effect = ValueError()
+        subprocess.return_value.communicate.side_effect = self.effect_error
         mock_ansible_logs = 'test0\ntest1\n'
         byte_ansible_logs = bytes(mock_ansible_logs, 'utf-8')
         subprocess.return_value.stdout = io.BytesIO(byte_ansible_logs)
@@ -87,7 +88,25 @@ class InstallCLICommandTests(unittest.TestCase):
         with redirect_stdout(cred_out):
             cac.main(self.args)
             expected = mock_ansible_logs + _(messages.CLI_INSTALLATION_FAILED)
-            self.assertEqual(cred_out.getvalue().strip(), expected)
+            cred_output = cred_out.getvalue().strip()
+            self.assertIn(expected, cred_output)
+            byte_string = self.effect_error[0][1]
+            self.assertIn(byte_string.decode('utf-8'), cred_output)
+
+    @patch('qpc_tools.cli.install.subprocess.Popen')
+    def test_cli_keyboard_interupt(self, subprocess):
+        """Testing a failed CLI installlation."""
+        subprocess.return_value.returncode = 1
+        subprocess.return_value.communicate.side_effect = KeyboardInterrupt()
+        mock_ansible_logs = 'test0\ntest1\n'
+        byte_ansible_logs = bytes(mock_ansible_logs, 'utf-8')
+        subprocess.return_value.stdout = io.BytesIO(byte_ansible_logs)
+        cred_out = io.StringIO()
+        cac = InstallCLICommand(SUBPARSER)
+        with redirect_stdout(cred_out):
+            cac.main(self.args)
+            expected = mock_ansible_logs + _(messages.INSTALLATION_CANCELED)
+            self.assertIn(expected, cred_out.getvalue().strip())
 
     @patch('qpc_tools.cli.install.subprocess.Popen')
     def test_configure_server(self, subprocess):
@@ -106,7 +125,7 @@ class InstallCLICommandTests(unittest.TestCase):
         with redirect_stdout(cred_out):
             cac.main(args)
             expected = mock_ansible_logs + _(messages.CLI_INSTALLATION_FAILED)
-            self.assertEqual(cred_out.getvalue().strip(), expected)
+            self.assertIn(expected, cred_out.getvalue().strip())
 
     def test_configure_server_missing_port(self):
         """Testing option to configure server missing port."""
@@ -120,7 +139,7 @@ class InstallCLICommandTests(unittest.TestCase):
             with self.assertRaises(SystemExit):
                 cac.main(args)
             expected = _(messages.CLI_INSTALL_MUST_SPECIFY_PORT_AND_HOST)
-            self.assertEqual(cred_out.getvalue().strip(), expected)
+            self.assertIn(expected, cred_out.getvalue().strip())
 
     def test_configure_server_missing_host(self):
         """Testing option to configure server missing host."""
@@ -134,4 +153,4 @@ class InstallCLICommandTests(unittest.TestCase):
             with self.assertRaises(SystemExit):
                 cac.main(args)
             expected = _(messages.CLI_INSTALL_MUST_SPECIFY_PORT_AND_HOST)
-            self.assertEqual(cred_out.getvalue().strip(), expected)
+            self.assertIn(expected, cred_out.getvalue().strip())

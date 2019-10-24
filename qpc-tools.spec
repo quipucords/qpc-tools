@@ -2,7 +2,7 @@
 %global src_name qpc-tools
 %global egg_name qpc_tools
 Name: %{src_name}
-Version: 0.1.2
+Version: 0.2.0
 Release: 1%{?dist}
 Summary: A tool for discovery and inspection of an IT environment. The %{src_name} provides a server base infrastructure to process tasks that discover and inspect remote systems.
 
@@ -66,5 +66,13 @@ install -D -p -m 644 docs/qpc-tools.1 %{buildroot}%{_mandir}/man1/qpc-tools.1
 %{_mandir}/man1/%{src_name}.1.gz
 
 %changelog
-* Thu Jun 27 2019 Cody Myers <cmyers@redhat.com> 0.1.2
-- Creating the qpc-tools as a spec
+* Thu Oct 24 2019 Cody Myers <cmyers@redhat.com> 0.2.0
+- transitioned to a python client <kholdawa@redhat.com>
+- added for support RHEL8 <dtoirov@redhat.com>
+- added support for Podman on RHEL8 & RHEL/Centos7 <dtoirov@redhat.com>
+- added support for upgrading from docker to podman <kholdawa@redhat.com>
+- converted the installation script into an RPM <cmyers@redhat.com>
+- renamed the installer from quipucords-installer to qpc-tools <cmyers@redhat.com>
+- added a role for Redhat Registry authentication <cmyers@redhat.com>
+- added prompts for passwords & Redhat Registry username <aaiken@redhat.com>
+- handled advanced arguments for ansible-extras <aaiken@redhat.com>

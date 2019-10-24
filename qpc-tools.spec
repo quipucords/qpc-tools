@@ -67,11 +67,12 @@ install -D -p -m 644 docs/qpc-tools.1 %{buildroot}%{_mandir}/man1/qpc-tools.1
 
 %changelog
 * Thu Oct 24 2019 Cody Myers <cmyers@redhat.com> 0.2.0
-- transitioned to a python client
-- added for support RHEL8
-- added support for Podman on RHEL8 & RHEL/Centos7
-- converted the installation script into an RPM
-- renamed the installer from quipucords-installer to qpc-tools
-- added a role for Redhat Registry authentication
-- added prompts for passwords & Redhat Registry username
-- handled advanced arguements for ansible-extras
+- transitioned to a python client <kholdawa@redhat.com>
+- added for support RHEL8 <dtoirov@redhat.com>
+- added support for Podman on RHEL8 & RHEL/Centos7 <dtoirov@redhat.com>
+- added support for upgrading from docker to podman <kholdawa@redhat.com>
+- converted the installation script into an RPM <cmyers@redhat.com>
+- renamed the installer from quipucords-installer to qpc-tools <cmyers@redhat.com>
+- added a role for Redhat Registry authentication <cmyers@redhat.com>
+- added prompts for passwords & Redhat Registry username <aaiken@redhat.com>
+- handled advanced arguments for ansible-extras <aaiken@redhat.com>

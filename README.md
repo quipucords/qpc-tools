@@ -126,24 +126,30 @@ This method is used when you are testing installation scripts that have been rel
 ### Testing online installation
 To test the release scripts on all supported OS's, run the following.
 ```
-make setup-release-online tools_version=0.1.1
+make setup-release-online
 make test-all
+```
+
+Once inside the VM, run the following:
+```
+cd /qpc-tools;sudo su
+make install-release-online tools_version=0.2.0
 ```
 **Options:**
 - `tools_version`
-  - Contains the released version of the `qpc-tools`. Defaults to `latest`. Supply the qpc-tools version number you want to use.
+  - Contains the released version of the qpc-tools. Defaults to `latest`. Supply the qpc-tools version number you want to use.
 
 ### Testing offline installation
-To test the release scripts on all supported OS's, run the following. This command will download Quipucords server docker image, qpc-tools, `qpc` client and copy them to OS specific folders.
+To test the release scripts on all supported OS's, run the following. This command will download Quipucords server docker image, qpc-tools, QPC CLI client and copy them to OS specific folders.
 ```
-make setup-release-offline tools_version=0.1.1 cli_version=0.9.0 server_version=0.9.0
+make setup-release-offline tools_version=0.2.0 cli_version=0.9.0 server_version=0.9.0
 make test-all
 ```
 **Options:**
 - `tools_version`
-  - Contains the released version of the `qpc-tools`. Defaults to `latest`. Supply the qpc-tools version number you want to use.
+  - Contains the released version of the qpc-tools. Defaults to `latest`. Supply the qpc-tools version number you want to use.
 - `cli_version`
-  - Contains the released version of the `qpc` client. Defaults to `latest`. Supply the client version number you want to use.
+  - Contains the released version of the QPC client. Defaults to `latest`. Supply the client version number you want to use.
 - `server_version`
   - Contains Quipucords server version number. Defaults to `latest`. Supply the server version number you want to use.
 
@@ -169,7 +175,8 @@ To test online installation, do the following:
 ```
 clear;cd /qpc_tools;sudo su
 make setup
-make install-local-tools --or-- make install-release-tools
+make online-prep
+make install-local --or-- make install-release-online
 qpc-tools server install
 qpc-tools cli install
 ```
@@ -184,8 +191,8 @@ To test offline installation for RHEL 6/7/8 or CentOS 6/7, do the following (wit
 clear;cd /qpc_tools;sudo su
 make setup
 make offline-prep
-make install-local-tools --or-- make install-release-tools
 # Disconnect from the network
+make install-local or make install-release-offline
 qpc-tools server install --offline-files /qpc_tools/install/packages --version 0.9.1
 qpc-tools cli install --offline-files /qpc_tools/install/packages
 ```
@@ -199,7 +206,8 @@ Sometimes flags that are not externally available will need to be flipped in ord
 
 ```
 clear;cd /qpc_tools;sudo su
-make install-local-tools
+make online-prep
+make install-local
 qpc-tools server install --advanced use_docker=True ansible_log_level=10 use_supervisord=false
 ```
 

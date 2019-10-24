@@ -8,8 +8,12 @@ help:
 	@echo "  setup                                              Sets up yum repos"
 	@echo "  offline-prep                                       Install required dependencies for offline install"
 	@echo "  online-prep                                        Install required dependencies for online install. Required if not using make commands."
-	@echo "  clean                                              Remove docker containers and images.  Also, qpc cli."
-	@echo "  install-local-tools                                Install the qpc-tools cli locally."
+	@echo "  clean                                              Remove docker containers and images.  Also, QPC cli."
+	@echo "  install-local                                      Install the qpc-tools cli locally."
+	@echo "  install-release-online                             Install the qpc-tools cli from online."
+	@echo "         tools_version=<x.x.x>                         @param - defaults to latest"
+	@echo "  install-release-offline                            Perform an offline installation of qpc-tools."
+
 
 setup:
 	scripts/setup_repos.sh
@@ -67,7 +71,7 @@ online-prep: setup
 clean:
 	scripts/cleanup.sh
 
-install-local-tools: online-prep
+install-local:
 	python3 setup.py build
 	@if grep -q -i "release 8" /etc/redhat-release; then \
 	python3 setup.py install --prefix /usr; \
@@ -78,3 +82,31 @@ install-local-tools: online-prep
 	echo "***************************"
 	echo "WARNING: you will need to run the following for centos/rhel 7"
 	echo "export PATH=$$PATH:/usr/local/bin" | xargs
+
+install-release-online: online-prep
+	@if [[ "$(tools_version)" = "" || "$(tools_version)" = "latest" ]]; then \
+		if grep -q -i "release 7" /etc/redhat-release; then \
+			yum install -y https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el7.noarch.rpm; \
+		elif grep -q -i "release 6" /etc/redhat-release; then \
+			yum install -y hhttps://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el6.noarch.rpm; \
+		else \
+			yum install -y https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el8.noarch.rpm; \
+		fi; \
+	else \
+		if grep -q -i "release 7" /etc/redhat-release; then \
+			yum install -y https://github.com/quipucords/qpc-tools/releases/download/$(tools_version)/qpc-tools.el7.noarch.rpm; \
+		elif grep -q -i "release 6" /etc/redhat-release; then \
+			yum install -y https://github.com/quipucords/qpc-tools/releases/download/$(tools_version)/qpc-tools.el6.noarch.rpm; \
+		else \
+			yum install -y https://github.com/quipucords/qpc-tools/releases/download/$(tools_version)/qpc-tools.el8.noarch.rpm; \
+		fi; \
+	fi; \
+
+install-release-offline:
+	@if grep -q -i "release 7" /etc/redhat-release; then \
+		cd install; rpm -Uvh --force "qpc-tools.el7.noarch.rpm"; \
+	elif grep -q -i "release 6" /etc/redhat-release; then \
+		cd install; rpm -Uvh --force "qpc-tools.el6.noarch.rpm"; \
+	else \
+		cd install; rpm -Uvh --force "qpc-tools.el8.noarch.rpm"; \
+	fi; \

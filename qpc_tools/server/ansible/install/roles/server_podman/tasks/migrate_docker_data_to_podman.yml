@@ -6,7 +6,7 @@
   ignore_errors: yes
 
 - name: Query docker volumes to find the location of postgres data
-  shell: "docker volume inspect db-data"
+  shell: "docker volume inspect qpc-data"
   become: true
   register: docker_postgres_volume_json_raw
   ignore_errors: yes
@@ -27,7 +27,7 @@
     - docker_postgres_volume_json[0].Mountpoint is defined
 
 - name: Query podman volumes to find the location of postgres data
-  shell: "podman volume inspect db-data"
+  shell: "podman volume inspect qpc-data"
   become: true
   register: podman_postgres_volume_json_raw
   ignore_errors: yes

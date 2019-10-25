@@ -1,7 +1,7 @@
 ---
 
 - name: Start PostgreSQL container with Podman
-  shell: "podman run --name {{ db_name }} --network=container:{{ server_name }} -e POSTGRES_USER={{ db_user }} -e POSTGRES_PASSWORD='{{ db_password }}' -v db-data:/var/lib/postgresql/data -d postgres:{{postgres_version}}"
+  shell: "podman run --name {{ db_name }} --network=container:{{ server_name }} -e POSTGRES_USER={{ db_user }} -e POSTGRES_PASSWORD='{{ db_password }}' -v qpc-data:/var/lib/postgresql/data -d postgres:{{postgres_version}}"
   become: true
 
 - name: Waiting for PostgreSQL to spin up

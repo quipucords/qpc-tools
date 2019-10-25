@@ -118,6 +118,12 @@ download-qpc-tools:
 		set +x; \
 	done
 
+copy-qpc-tools-local: manifest
+	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf qpc_tools test/$$os; done
+	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf setup.py test/$$os; done
+	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf MANIFEST.in test/$$os; done
+	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf bin test/$$os; done
+
 copy-qpc-tools:
 	@for os_version in 6 7 8 ; do \
 		set -x; \
@@ -132,9 +138,9 @@ download-postgres:
 	docker pull postgres:9.6.10
 	cd test/packages;docker save -o postgres.9.6.10.tar postgres:9.6.10
 
-setup-local-online: create-test-dirs copy-qpc-tools copy-vm-helper-files copy-config
+setup-local-online: create-test-dirs copy-qpc-tools-local copy-vm-helper-files copy-config
 
-setup-local-offline: create-test-dirs copy-qpc-tools copy-vm-helper-files copy-config
+setup-local-offline: create-test-dirs copy-qpc-tools-local copy-vm-helper-files copy-config
 ifeq ($(server_source),local)
 ifeq ($(server_version),)
 	@echo "Server version is not provided. Exiting...";

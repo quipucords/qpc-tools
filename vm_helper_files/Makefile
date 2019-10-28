@@ -83,12 +83,12 @@ install-local:
 	echo "WARNING: you will need to run the following for centos/rhel 7"
 	echo "export PATH=$$PATH:/usr/local/bin" | xargs
 
-install-release-online: online-prep
+install-release-online:
 	@if [[ "$(tools_version)" = "" || "$(tools_version)" = "latest" ]]; then \
 		if grep -q -i "release 7" /etc/redhat-release; then \
 			yum install -y https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el7.noarch.rpm; \
 		elif grep -q -i "release 6" /etc/redhat-release; then \
-			yum install -y hhttps://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el6.noarch.rpm; \
+			yum install -y https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el6.noarch.rpm; \
 		else \
 			yum install -y https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el8.noarch.rpm; \
 		fi; \

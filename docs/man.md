@@ -131,7 +131,7 @@ Note that in the log information for the `qpc-tools cli install` command, refere
 
 **qpc-tools cli install** [**-h**]
                          [**\--offline-files** *OFFLINE_FILES*]
-                         [**\--version** *SERVER_VERSION*]
+                         [**\--version** *CLI_VERSION*]
                          [**\--home-dir** *HOME_DIR*]
                          [**\--server-host** *SERVER_HOST*]
                          [**\--server-port** *SERVER_PORT*]

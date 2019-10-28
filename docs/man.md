@@ -62,7 +62,7 @@ Use the `qpc-tools server install` command to install and configure the Quipucor
 
 `--db-password=DB_PASSWORD`
 
-  Specifies the database password for PostgreSQL.  If omitted, qpc-tools will prompt for password.
+  Specifies the database password for PostgreSQL.  If omitted, qpc-tools will prompt for the database password.  Note for upgrade installations you must provide the same password as the initial install.  If you installed using a Quipucords installer prior to qpc-tools 0.2.0, the default password was `password`.
 
 `--username=SERVER_USERNAME`
 
@@ -70,7 +70,7 @@ Use the `qpc-tools server install` command to install and configure the Quipucor
 
 `--password=SERVER_PASSSWORD`
 
-  Sets the Quipucords server password. If omitted, qpc-tools will prompt for password.
+  Sets the Quipucords server password. If omitted, qpc-tools will prompt for Quipucords server password.
 
 
 #### Installing the server offline

@@ -34,10 +34,6 @@
   set_fact:
     release_cache_server_filename: "quipucords.{{ server_image_tag }}.tar.gz"
 
-- name: Set Quipucords server container image name
-  set_fact:
-    server_image_name: "quipucords"
-
 - name: Set Quipucords container image and tag
   set_fact:
     server_image_and_tag: "{{server_image_name}}:{{server_image_tag}}"

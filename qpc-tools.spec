@@ -68,6 +68,7 @@ install -D -p -m 644 docs/qpc-tools.1 %{buildroot}%{_mandir}/man1/qpc-tools.1
 %changelog
 * Thu Nov 07 2019 Cody Myers <cmyers@redhat.com> 0.2.1
 - fix unintentional default var overwrite <cmyers@redhat.com>
+- Remove registry user from required args <cmyers@redhat.com>
 * Thu Oct 24 2019 Cody Myers <cmyers@redhat.com> 0.2.0
 - transitioned to a python client <kholdawa@redhat.com>
 - added for support RHEL8 <dtoirov@redhat.com>

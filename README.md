@@ -133,7 +133,7 @@ make test-all
 Once inside the VM, run the following:
 ```
 cd /qpc-tools;sudo su
-make install-release-online tools_version=0.2.0
+make install-release-online tools_version=0.2.1
 ```
 **Options:**
 - `tools_version`
@@ -142,7 +142,7 @@ make install-release-online tools_version=0.2.0
 ### Testing offline installation
 To test the release scripts on all supported OS's, run the following. This command will download Quipucords server docker image, qpc-tools, QPC CLI client and copy them to OS specific folders.
 ```
-make setup-release-offline tools_version=0.2.0 cli_version=0.9.0 server_version=0.9.0
+make setup-release-offline tools_version=0.2.1 cli_version=0.9.0 server_version=0.9.0
 make test-all
 ```
 **Options:**

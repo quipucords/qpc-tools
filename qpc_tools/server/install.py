@@ -40,11 +40,9 @@ class InstallServerCommand(CliCommand):
         CliCommand.__init__(self, self.SUBCOMMAND, self.ACTION,
                             subparsers.add_parser(self.ACTION))
         if DOWNSTREAM:
-            # add a group for the required arguments
-            required_args = self.parser.add_argument_group('required arguments')
-            required_args.add_argument('--registry-user', dest='rh_registry_username',
-                                       help=_(messages.SERVER_INSTALL_REGISTRY_UN_HELP),
-                                       required=False)
+            self.parser.add_argument('--registry-user', dest='rh_registry_username',
+                                     help=_(messages.SERVER_INSTALL_REGISTRY_UN_HELP),
+                                     required=False)
             self.parser.add_argument('--registry-password', dest='rh_registry_password',
                                      help=_(messages.SERVER_INSTALL_REGISTRY_PASS_HELP),
                                      required=False)

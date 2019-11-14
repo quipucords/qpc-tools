@@ -7,7 +7,7 @@ help:
 	@echo "Please use \`make <target>' where <target> is one of:"
 	@echo "  setup                                              Sets up yum repos"
 	@echo "  offline-prep                                       Install required dependencies for offline install"
-	@echo "  online-prep                                        Install required dependencies for online install. Required if not using make commands."
+	@echo "  install-tools-deps                                 Install required dependencies for qpc-tools rpm."
 	@echo "  clean                                              Remove docker containers and images.  Also, QPC cli."
 	@echo "  install-local                                      Install the qpc-tools cli locally."
 	@echo "  install-release-online                             Install the qpc-tools cli from online."
@@ -21,34 +21,24 @@ setup:
 offline-prep: setup
 	@if grep -q -i "release 7" /etc/redhat-release; then \
 		echo "Running 7"; \
-		yum install -y libcgroup; \
-		yum install -y yum-utils; \
-		yum install -y ansible; \
 		yum install -y docker; \
 		yum install -y podman; \
 		yum install -y epel-release; \
-		yum install -y python36; \
 		yum install -y python36-requests; \
 	elif grep -q -i "release 6" /etc/redhat-release; then \
 		echo "Running 6"; \
-		yum install -y libcgroup; \
-		yum install -y yum-utils; \
-		yum install -y ansible; \
 		yum install -y xz; \
 		cd install/packages/; curl -k -O -sSl http://yum.dockerproject.org/repo/main/centos/6/Packages/docker-engine-1.7.1-1.el6.x86_64.rpm; \
 		rpm -Uvh --force "docker-engine-1.7.1-1.el6.x86_64.rpm"; \
-		yum install -y python34; \
 		yum install -y python34-requests; \
 	else \
 		echo "Running 8"; \
-		yum install -y ansible; \
 		yum install -y podman; \
-		yum install -y python36; \
 		yum install -y python3-requests; \
 		yum install -y libselinux-python3; \
 	fi
 
-online-prep: setup
+install-tools-deps: setup
 	@if grep -q -i "release 7" /etc/redhat-release; then \
 		echo "Running 7"; \
 		yum install -y libcgroup; \
@@ -71,7 +61,7 @@ online-prep: setup
 clean:
 	scripts/cleanup.sh
 
-install-local:
+install-local: install-tools-deps
 	python3 setup.py build
 	@if grep -q -i "release 8" /etc/redhat-release; then \
 	python3 setup.py install --prefix /usr; \
@@ -102,7 +92,7 @@ install-release-online:
 		fi; \
 	fi; \
 
-install-release-offline:
+install-release-offline: install-tools-deps
 	@if grep -q -i "release 7" /etc/redhat-release; then \
 		cd install; rpm -Uvh --force "qpc-tools.el7.noarch.rpm"; \
 	elif grep -q -i "release 6" /etc/redhat-release; then \

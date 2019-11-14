@@ -175,7 +175,6 @@ To test online installation, do the following:
 ```
 clear;cd /qpc_tools;sudo su
 make setup
-make online-prep
 make install-local --or-- make install-release-online
 qpc-tools server install
 qpc-tools cli install
@@ -206,7 +205,6 @@ Sometimes flags that are not externally available will need to be flipped in ord
 
 ```
 clear;cd /qpc_tools;sudo su
-make online-prep
 make install-local
 qpc-tools server install --advanced use_docker=True ansible_log_level=10 use_supervisord=false
 ```

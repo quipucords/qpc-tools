@@ -206,7 +206,7 @@ manpage:
 	  --standalone -t man -o docs/qpc-tools.1 \
 	  --variable=section:1 \
 	  --variable=date:'June 6, 2019' \
-	  --variable=footer:'version 0.2.1' \
+	  --variable=footer:'version 0.2.2' \
 	  --variable=header:'qpc-tools'
 
 # Install python egg

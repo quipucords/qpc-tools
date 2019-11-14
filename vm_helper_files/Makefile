@@ -71,7 +71,7 @@ online-prep: setup
 clean:
 	scripts/cleanup.sh
 
-install-local:
+install-local: online-prep
 	python3 setup.py build
 	@if grep -q -i "release 8" /etc/redhat-release; then \
 	python3 setup.py install --prefix /usr; \

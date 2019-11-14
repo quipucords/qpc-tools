@@ -42,7 +42,7 @@ Use the `qpc-tools server install` command to install and configure the Quipucor
 
 `--version=VERSION`
 
-  Enables the installation of a specific Quipucords server version. Contains the semantic versioning format (version.release.patch, such as 0.9.0) of the Quipucords server that you want to install. Required if `offline-files` is specified.
+  Enables the installation of a specific Quipucords server version. Contains the semantic versioning format (version.release.patch, such as 0.9.1) of the Quipucords server that you want to install. Required if `offline-files` is specified.
 
 `--home-dir=HOME_DIR`
 
@@ -113,10 +113,10 @@ Next complete the following steps.
 
 #### Installing a specific version of the server
 
-By default, the `qpc-tools server install` command installs the latest release unless an earlier version is specified in the command. For example, if the previous version of Quipucords that you want to install is 0.9.0, you would enter the following command:
+By default, the `qpc-tools server install` command installs the latest release unless an earlier version is specified in the command. For example, if the previous version of Quipucords that you want to install is 0.9.1, you would enter the following command:
 
 ```
-qpc-tools server install --version=0.9.0
+qpc-tools server install --version=0.9.1
 ```
 
 ## Command Line Interface (CLI)
@@ -142,7 +142,7 @@ Note that in the log information for the `qpc-tools cli install` command, refere
 
 `--version=VERSION`
 
-  Enables the installation of a specific Quipucords CLI version. Contains the semantic versioning format (version.release.patch, such as 0.9.0) of the Quipucords CLI that you want to install.
+  Enables the installation of a specific Quipucords CLI version. Contains the semantic versioning format (version.release.patch, such as 0.9.1) of the Quipucords CLI that you want to install.
 
 `--home-dir=HOME_DIR`
 
@@ -193,10 +193,10 @@ Next complete the following steps.
     ```
 
 #### Installing a specific version of the CLI
-By default, the `qpc-tools cli install` command installs the latest release unless an earlier version is specified in the command. For example, if the previous version of Quipucords that you want to install is 0.9.0., you would enter the following command:
+By default, the `qpc-tools cli install` command installs the latest release unless an earlier version is specified in the command. For example, if the previous version of Quipucords that you want to install is 0.9.1., you would enter the following command:
 
 ```
-qpc-tools cli install --version=0.9.0
+qpc-tools cli install --version=0.9.1
 ```
 
 ## Options for All Commands

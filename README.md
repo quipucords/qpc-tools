@@ -101,7 +101,7 @@ There is no need to restart the VM.
 ### Testing offline installation
 To build the docker image, download the `qpc` client and test with the local install scripts on all supported OS's, run the following:
 ```
-make setup-local-offline server_source=release cli_version=0.9.0 server_version=0.9.0
+make setup-local-offline server_source=release cli_version=0.9.1 server_version=0.9.1
 make test-all
 ```
 **Options:**

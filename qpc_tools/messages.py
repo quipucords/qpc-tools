@@ -26,6 +26,8 @@ SERVER_INSTALLATION_FAILED = 'Server installation failed.'
 SERVER_INSTALL_OFFLINE_FILES_HELP = 'Specify the path to the server offline files'
 SERVER_INSTALL_VERSION_HELP = 'Specify the server version to install '\
     '(defaults to latest release)'
+SERVER_INSTALL_IMAGE_NAME = 'Sets the name of the server image. Defaults to the ' \
+    'latest discover-server name on redhat.registry.io'
 SERVER_INSTALL_PORT_HELP = 'Port number of the server (defaults to 9443)'
 SERVER_INSTALL_OPEN_PORT_HELP = "Indicate whether the host machine's port should be' \
     'opened (defaults to true)"
@@ -35,10 +37,13 @@ SERVER_INSTALL_DB_PASSWORD_HELP = 'Set the PostgreSQL DB password. If not provid
 SERVER_INSTALL_USERNAME_HELP = 'Set the server admin username (defaults to admin)'
 SERVER_INSTALL_PASSWORD_HELP = 'Set the server admin password. If not provided, '\
     'user will be prompted.'
-SERVER_INSTALL_REGISTRY_UN_HELP = 'Set the registry.redhat.io username. If '\
-    'not provided, user will be prompted.'
-SERVER_INSTALL_REGISTRY_PASS_HELP = 'Set the registry.redhat.io password. '\
-    'If not provided, user will be prompted.'
+SERVER_INSTALL_REGISTRY_LOGIN_HELP = 'Indicate whether or not we should authenticate' \
+    ' with the container registry (defaults to true)'
+SERVER_INSTALL_REGISTRY_URL_HELP = 'Set the registry url (defaults to redhat.registry.io)'
+SERVER_INSTALL_REGISTRY_UN_HELP = 'Set the registry username. If '\
+    'not provided, user will be prompted if registry login is required.'
+SERVER_INSTALL_REGISTRY_PASS_HELP = 'Set the registry password. '\
+    'If not provided, user will be prompted if registry login is required.'
 CLI_INSTALLATION_SUCCESSFUL = 'Installation of CLI was successful'
 CLI_INSTALLATION_FAILED = 'CLI installation failed.'
 CLI_INSTALL_OFFLINE_FILES_HELP = 'Specify the path to the CLI offline files'

@@ -44,8 +44,9 @@
     name: server_podman
     tasks_from: redhat_registry
   when:
-    - rh_registry_username is defined
-    - rh_registry_password is defined
+    - registry_username is defined
+    - registry_password is defined
+    - registry_login|bool
 
 - name: Download server image from GitHub
   include_role:

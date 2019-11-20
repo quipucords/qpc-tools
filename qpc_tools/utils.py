@@ -170,7 +170,7 @@ def get_password(args_dictionary):
     :param args_dictionary: the dictionary containing the args and values
     :returns: the dictionary with updated passwords
     """
-    if args_dictionary.get('registry_login') in ['false', 'False']:
+    if args_dictionary.get('registry_no_auth'):
         arg_prompt = OrderedDict([
             ('server_password', 'Enter server password: '),
             ('db_password', 'Enter database password: ')

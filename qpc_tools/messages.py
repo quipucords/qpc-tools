@@ -37,8 +37,8 @@ SERVER_INSTALL_DB_PASSWORD_HELP = 'Set the PostgreSQL DB password. If not provid
 SERVER_INSTALL_USERNAME_HELP = 'Set the server admin username (defaults to admin)'
 SERVER_INSTALL_PASSWORD_HELP = 'Set the server admin password. If not provided, '\
     'user will be prompted.'
-SERVER_INSTALL_REGISTRY_LOGIN_HELP = 'Indicate whether or not we should authenticate' \
-    ' with the container registry (defaults to true)'
+SERVER_INSTALL_REGISTRY_NO_AUTH_HELP = 'Indicates that the host machine ' \
+    'does not need to authenticate with container registry to pull images.'
 SERVER_INSTALL_REGISTRY_URL_HELP = 'Set the registry url (defaults to redhat.registry.io)'
 SERVER_INSTALL_REGISTRY_UN_HELP = 'Set the registry username. If '\
     'not provided, user will be prompted if registry login is required.'

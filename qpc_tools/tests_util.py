@@ -152,11 +152,11 @@ class UtilsTests(unittest.TestCase):
         self.assertEqual(updated_dictionary['registry_username'], 'admin')
 
     @mock.patch('qpc_tools.utils.getpass')
-    def test_register_login_false(self, input_mock):
+    def test_register_no_auth(self, input_mock):
         """Test that we prompt for username if it is None."""
         input_mock.return_value = 'pass'
         args_dictionary = {'server_password': None,
-                           'registry_login': 'false'}
+                           'registry_no_auth': True}
         updated_dictionary = utils.get_password(args_dictionary)
         self.assertEqual(updated_dictionary['server_password'], 'pass')
 

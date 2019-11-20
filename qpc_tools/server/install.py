@@ -45,10 +45,9 @@ class InstallServerCommand(CliCommand):
             self.parser.add_argument('--image-name', dest='server_image_name',
                                      help=_(messages.SERVER_INSTALL_IMAGE_NAME),
                                      required=False)
-            self.parser.add_argument('--registry-login', dest='registry_login',
-                                     choices=BOOLEAN_CHOICES,
-                                     default='true',
-                                     help=_(messages.SERVER_INSTALL_REGISTRY_LOGIN_HELP),
+            self.parser.add_argument('--registry-no-auth', dest='registry_no_auth',
+                                     action='store_true',
+                                     help=_(messages.SERVER_INSTALL_REGISTRY_NO_AUTH_HELP),
                                      required=False)
             self.parser.add_argument('--registry-url', dest='registry_url',
                                      default='registry.redhat.io',

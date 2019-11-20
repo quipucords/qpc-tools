@@ -14,14 +14,6 @@
     - not open_port|lower == 'true'
     - not open_port|lower == 'false'
 
-- name: Validate registry_login is set to true or false
-  fail:
-    msg: "{{ registry_login }} is invalid value for registry_login.  Must be equal to true or false"
-  when:
-    - registry_login is defined
-    - not registry_login|lower == 'true'
-    - not registry_login|lower == 'false'
-
 - name: Validate Quipucords server version compatibility with RHEL 8
   fail:
     msg: "Quipucords server {{ server_version }} cannot be installed on RHEL 8.  RHEL 8 requires version 0.9.1 or newer."

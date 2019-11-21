@@ -59,7 +59,7 @@ class InstallServerCommand(CliCommand):
             self.parser.add_argument('--server-image-name', dest='server_image_name',
                                      help=_(messages.SERVER_INSTALL_SERVER_IMAGE_HELP),
                                      required=False)
-            self.parser.add_argument('--db-image-name', dest='server_image_name',
+            self.parser.add_argument('--db-image-name', dest='db_image_name',
                                      help=_(messages.SERVER_INSTALL_DB_IMAGE_HELP),
                                      required=False)
         else:

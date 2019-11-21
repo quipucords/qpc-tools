@@ -26,8 +26,10 @@ SERVER_INSTALLATION_FAILED = 'Server installation failed.'
 SERVER_INSTALL_OFFLINE_FILES_HELP = 'Specify the path to the server offline files'
 SERVER_INSTALL_VERSION_HELP = 'Specify the server version to install '\
     '(defaults to latest release)'
-SERVER_INSTALL_IMAGE_NAME = 'Sets the name of the server image. Defaults to the ' \
-    'latest discover-server name on redhat.registry.io'
+SERVER_INSTALL_SERVER_IMAGE_HELP = 'Sets the name of the server image. Defaults to ' \
+    'the latest discover-server on redhat.registry.io'
+SERVER_INSTALL_DB_IMAGE_HELP = 'Sets the name of the DB image. Defaults to ' \
+    'the latest postgres96 on redhat.registry.io'
 SERVER_INSTALL_PORT_HELP = 'Port number of the server (defaults to 9443)'
 SERVER_INSTALL_OPEN_PORT_HELP = "Indicate whether the host machine's port should be' \
     'opened (defaults to true)"

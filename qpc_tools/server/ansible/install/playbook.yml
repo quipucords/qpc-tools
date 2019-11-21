@@ -9,6 +9,7 @@
       server_port: '9443'
       server_name: 'quipucords'
       postgres_version: '9.6.10'
+      db_image_name: 'postgres'
       server_image_name: 'quipucords'
       server_image_tag: ''
       registry_url: 'registry.redhat.io'

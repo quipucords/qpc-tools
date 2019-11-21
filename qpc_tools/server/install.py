@@ -42,9 +42,6 @@ class InstallServerCommand(CliCommand):
         if DOWNSTREAM:
             # Be careful adding defaults here, because it would require a new
             # upstream release to change the downstream defaults.
-            self.parser.add_argument('--image-name', dest='server_image_name',
-                                     help=_(messages.SERVER_INSTALL_IMAGE_NAME),
-                                     required=False)
             self.parser.add_argument('--registry-no-auth', dest='registry_no_auth',
                                      action='store_true',
                                      help=_(messages.SERVER_INSTALL_REGISTRY_NO_AUTH_HELP),
@@ -58,6 +55,12 @@ class InstallServerCommand(CliCommand):
                                      required=False)
             self.parser.add_argument('--registry-password', dest='registry_password',
                                      help=_(messages.SERVER_INSTALL_REGISTRY_PASS_HELP),
+                                     required=False)
+            self.parser.add_argument('--server-image-name', dest='server_image_name',
+                                     help=_(messages.SERVER_INSTALL_SERVER_IMAGE_HELP),
+                                     required=False)
+            self.parser.add_argument('--db-image-name', dest='server_image_name',
+                                     help=_(messages.SERVER_INSTALL_DB_IMAGE_HELP),
                                      required=False)
         else:
             # Upstream only args

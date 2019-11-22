@@ -176,7 +176,7 @@ def get_password(args_dictionary):
             ('db_password', 'Enter database password: ')
         ])
     else:
-        registry_url = args_dictionary.get('registry_url', 'registry url')
+        registry_url = args_dictionary.get('registry_url')
         arg_prompt = OrderedDict([
             ('registry_username', 'Enter %s username: ' % registry_url),
             ('registry_password', 'Enter %s password: ' % registry_url),

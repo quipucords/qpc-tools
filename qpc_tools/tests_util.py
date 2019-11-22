@@ -147,9 +147,18 @@ class UtilsTests(unittest.TestCase):
     def test_get_username(self, input_mock):
         """Test that we prompt for username if it is None."""
         input_mock.return_value = 'admin'
-        args_dictionary = {'rh_registry_username': None}
+        args_dictionary = {'registry_username': None}
         updated_dictionary = utils.get_password(args_dictionary)
-        self.assertEqual(updated_dictionary['rh_registry_username'], 'admin')
+        self.assertEqual(updated_dictionary['registry_username'], 'admin')
+
+    @mock.patch('qpc_tools.utils.getpass')
+    def test_register_no_auth(self, input_mock):
+        """Test that registry_no_auth doesn't prompt for info."""
+        input_mock.return_value = 'pass'
+        args_dictionary = {'server_password': None,
+                           'registry_no_auth': True}
+        updated_dictionary = utils.get_password(args_dictionary)
+        self.assertEqual(updated_dictionary['server_password'], 'pass')
 
     def test_check_offline(self):
         """Test the check offline function."""

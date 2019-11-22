@@ -40,11 +40,27 @@ class InstallServerCommand(CliCommand):
         CliCommand.__init__(self, self.SUBCOMMAND, self.ACTION,
                             subparsers.add_parser(self.ACTION))
         if DOWNSTREAM:
-            self.parser.add_argument('--registry-user', dest='rh_registry_username',
+            # Be careful adding defaults here, because it would require a new
+            # upstream release to change the downstream defaults.
+            self.parser.add_argument('--registry-no-auth', dest='registry_no_auth',
+                                     action='store_true',
+                                     help=_(messages.SERVER_INSTALL_REGISTRY_NO_AUTH_HELP),
+                                     required=False)
+            self.parser.add_argument('--registry-url', dest='registry_url',
+                                     default='registry.redhat.io',
+                                     help=_(messages.SERVER_INSTALL_REGISTRY_URL_HELP),
+                                     required=False)
+            self.parser.add_argument('--registry-user', dest='registry_username',
                                      help=_(messages.SERVER_INSTALL_REGISTRY_UN_HELP),
                                      required=False)
-            self.parser.add_argument('--registry-password', dest='rh_registry_password',
+            self.parser.add_argument('--registry-password', dest='registry_password',
                                      help=_(messages.SERVER_INSTALL_REGISTRY_PASS_HELP),
+                                     required=False)
+            self.parser.add_argument('--server-image-name', dest='server_image_name',
+                                     help=_(messages.SERVER_INSTALL_SERVER_IMAGE_HELP),
+                                     required=False)
+            self.parser.add_argument('--db-image-name', dest='db_image_name',
+                                     help=_(messages.SERVER_INSTALL_DB_IMAGE_HELP),
                                      required=False)
         else:
             # Upstream only args

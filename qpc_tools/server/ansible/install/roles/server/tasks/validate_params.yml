@@ -24,7 +24,7 @@
 
 - name: Fail if podman command not found when podman is being used instead of docker
   fail:
-    msg: "Podman command not found and "
+    msg: "Podman command not found"
   ignore_errors: true
   when:
     - use_docker|lower == 'false'

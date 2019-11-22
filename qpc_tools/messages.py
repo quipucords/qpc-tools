@@ -35,10 +35,6 @@ SERVER_INSTALL_DB_PASSWORD_HELP = 'Set the PostgreSQL DB password. If not provid
 SERVER_INSTALL_USERNAME_HELP = 'Set the server admin username (defaults to admin)'
 SERVER_INSTALL_PASSWORD_HELP = 'Set the server admin password. If not provided, '\
     'user will be prompted.'
-SERVER_INSTALL_REGISTRY_UN_HELP = 'Set the registry.redhat.io username. If '\
-    'not provided, user will be prompted.'
-SERVER_INSTALL_REGISTRY_PASS_HELP = 'Set the registry.redhat.io password. '\
-    'If not provided, user will be prompted.'
 CLI_INSTALLATION_SUCCESSFUL = 'Installation of CLI was successful'
 CLI_INSTALLATION_FAILED = 'CLI installation failed.'
 CLI_INSTALL_OFFLINE_FILES_HELP = 'Specify the path to the CLI offline files'
@@ -50,3 +46,16 @@ CLI_INSTALL_MUST_SPECIFY_PORT_AND_HOST = \
 INSTALL_ERROR_MESSAGE = 'The installation failed with the following message:\n %s'
 PLAYBOOK_COMMAND = 'Running the following playbook command: \n %s'
 INSTALLATION_CANCELED = '\n Installation canceled'
+
+# the following message vars are for downstream use only
+SERVER_INSTALL_SERVER_IMAGE_HELP = 'Set the name of the server image. Defaults to ' \
+    'the latest discovery-server on redhat.registry.io'
+SERVER_INSTALL_DB_IMAGE_HELP = 'Set the name of the DB image. Defaults to ' \
+    'the latest postgres96 on redhat.registry.io'
+SERVER_INSTALL_REGISTRY_NO_AUTH_HELP = 'Indicates that the host machine ' \
+    'does not need to authenticate with container registry to pull images.'
+SERVER_INSTALL_REGISTRY_URL_HELP = 'Set the registry url (defaults to redhat.registry.io)'
+SERVER_INSTALL_REGISTRY_UN_HELP = 'Set the registry username. If '\
+    'not provided, user will be prompted if registry login is required.'
+SERVER_INSTALL_REGISTRY_PASS_HELP = 'Set the registry password. '\
+    'If not provided, user will be prompted if registry login is required.'

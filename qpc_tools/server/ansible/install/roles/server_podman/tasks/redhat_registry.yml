@@ -1,12 +1,12 @@
 ---
 
-- name: Login to redhat registry with podman
-  shell: "podman login -u '{{rh_registry_username}}' -p '{{rh_registry_password}}' registry.redhat.io"
-  register: rh_registry_login_attempt
+- name: Login to registry with podman
+  shell: "podman login -u '{{registry_username}}' -p '{{registry_password}}' '{{registry_url}}'"
+  register: registry_login_attempt
   ignore_errors: True
   no_log: True
 
 - fail:
-    msg: "Login attempt failed. Log in manually with `podman login registry.redhat.io`"
+    msg: "Login attempt failed. Log in manually with `podman login {{registry_url}}`"
   when:
-    - rh_registry_login_attempt.rc != 0
+    - registry_login_attempt.rc != 0

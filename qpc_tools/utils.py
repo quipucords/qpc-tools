@@ -177,8 +177,8 @@ def get_password(args_dictionary):
         ])
     else:
         arg_prompt = OrderedDict([
-            ('registry_username', 'Enter registry.redhat.io username: '),
-            ('registry_password', 'Enter registry.redhat.io password: '),
+            ('registry_username', 'Enter container registry username: '),
+            ('registry_password', 'Enter container registry password: '),
             ('server_password', 'Enter server password: '),
             ('db_password', 'Enter database password: ')
         ])

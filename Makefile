@@ -99,10 +99,15 @@ download-qpc-cli:
 	done
 
 copy-qpc-cli:
-	@for os_version in 6 7 8 ; do \
+	@for os_version in 6 7 ; do \
 		set -x; \
 		cp -f test/cli_packages/qpc.el$$os_version.noarch.rpm test/rhel$$os_version/install/packages/; \
 		cp -f test/cli_packages/qpc.el$$os_version.noarch.rpm test/centos$$os_version/install/packages/; \
+		set +x; \
+	done
+	@for os_version in 8 ; do \
+		set -x; \
+		cp -f test/cli_packages/qpc.el$$os_version.noarch.rpm test/rhel$$os_version/install/packages/; \
 		set +x; \
 	done
 
@@ -125,10 +130,15 @@ copy-qpc-tools-local: manifest
 	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf bin test/$$os; done
 
 copy-qpc-tools:
-	@for os_version in 6 7 8 ; do \
+	@for os_version in 6 7 ; do \
 		set -x; \
 		cp -f test/tools_packages/qpc-tools.el$$os_version.noarch.rpm test/rhel$$os_version/install/; \
 		cp -f test/tools_packages/qpc-tools.el$$os_version.noarch.rpm test/centos$$os_version/install/; \
+		set +x; \
+	done
+	@for os_version in 8 ; do \
+		set -x; \
+		cp -f test/tools_packages/qpc-tools.el$$os_version.noarch.rpm test/rhel$$os_version/install/; \
 		set +x; \
 	done
 

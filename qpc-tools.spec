@@ -66,8 +66,9 @@ install -D -p -m 644 docs/qpc-tools.1 %{buildroot}%{_mandir}/man1/qpc-tools.1
 %{_mandir}/man1/%{src_name}.1.gz
 
 %changelog
-* Thu Nov 14 2019 Kevan Holdaway <kholdawa@redhat.com> 0.2.2
+* Tue Dec 03 2019 Kevan Holdaway <kholdawa@redhat.com> 0.2.2
 - Update version for master <kholdawa@redhat.com>
+- Turn off server SSL validation for quipucords server image <kholdawa@redhat.com>
 - Add args to support installing from satellite downstream <cmyers@redhat.com>
 * Thu Nov 07 2019 Cody Myers <cmyers@redhat.com> 0.2.1
 - fix unintentional default var overwrite <cmyers@redhat.com>

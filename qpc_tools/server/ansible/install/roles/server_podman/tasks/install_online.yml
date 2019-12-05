@@ -46,7 +46,6 @@
   when:
     - registry_username is defined
     - registry_password is defined
-    - registry_no_auth is not defined
 
 - name: Download server image from GitHub
   include_role:

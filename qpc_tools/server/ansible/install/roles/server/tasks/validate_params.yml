@@ -20,7 +20,7 @@
   when:
   - server_version is defined
   - server_version < '0.9.1'
-  - is_rhel8|bool
+  - is_rhel_centos_8|bool
 
 - name: Fail if podman command not found when podman is being used instead of docker
   fail:

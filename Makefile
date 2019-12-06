@@ -35,7 +35,7 @@ help:
 # Internal subcommands that the user should not call
 create-test-dirs:
 	mkdir -p test/packages
-	@for os in rhel6 rhel7 rhel8 centos6 centos7; do \
+	@for os in rhel6 rhel7 rhel8 centos6 centos7 centos8; do \
 		set -x; \
 		mkdir -p test/$$os/install/; \
 		mkdir -p test/$$os/config/rhel6; \
@@ -45,7 +45,7 @@ create-test-dirs:
 	done
 
 copy-vm-helper-files:
-	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf vm_helper_files/ test/$$os; done
+	for os in rhel6 rhel7 rhel8 centos6 centos7 centos8; do cp -vrf vm_helper_files/ test/$$os; done
 
 # Internal subcommands that the user should not call
 copy-config:
@@ -55,7 +55,7 @@ copy-config:
 		tar -xvf tools_config.tar.gz | true; \
 		cp -rf tools_config/* test/helpers | true; \
 		rm -rf tools_config/ | true; \
-		for dest in test/rhel8 test/rhel7 test/rhel6 test/centos6 test/centos7 ; do cp -vrf test/helpers/* $$dest | true; done; \
+		for dest in test/rhel8 test/rhel7 test/rhel6 test/centos6 test/centos7 test/centos8 ; do cp -vrf test/helpers/* $$dest | true; done; \
 		rm -rf test/helpers | true; \
 		set +x; \
 	else \
@@ -64,7 +64,7 @@ copy-config:
 
 # Internal subcommands that the user should not call
 copy-packages:
-	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf test/packages/ test/$$os/install/packages/ ; done
+	for os in rhel6 rhel7 rhel8 centos6 centos7 centos8; do cp -vrf test/packages/ test/$$os/install/packages/ ; done
 
 # Internal subcommands that the user should not call
 local-server-image: download-postgres
@@ -119,10 +119,10 @@ download-qpc-tools:
 	done
 
 copy-qpc-tools-local: manifest
-	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf qpc_tools test/$$os; done
-	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf setup.py test/$$os; done
-	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf MANIFEST.in test/$$os; done
-	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf bin test/$$os; done
+	for os in rhel6 rhel7 rhel8 centos6 centos7 centos8 ; do cp -vrf qpc_tools test/$$os; done
+	for os in rhel6 rhel7 rhel8 centos6 centos7 centos8 ; do cp -vrf setup.py test/$$os; done
+	for os in rhel6 rhel7 rhel8 centos6 centos7 centos8 ; do cp -vrf MANIFEST.in test/$$os; done
+	for os in rhel6 rhel7 rhel8 centos6 centos7 centos8 ; do cp -vrf bin test/$$os; done
 
 copy-qpc-tools:
 	@for os_version in 6 7 8 ; do \
@@ -190,6 +190,9 @@ test-centos-6:
 
 test-centos-7:
 	vagrant up vcentos7;vagrant ssh vcentos7
+
+test-centos-8:
+	vagrant up vcentos8;vagrant ssh vcentos8
 
 clean-local-cli:
 	rm -rf dist/ build/ qpc_tools.egg-info/

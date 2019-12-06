@@ -41,6 +41,7 @@ offline-prep: setup
 		yum install -y python34-requests; \
 	else \
 		echo "Running 8"; \
+		yum install -y epel-release; \
 		yum install -y ansible; \
 		yum install -y podman; \
 		yum install -y python36; \
@@ -64,6 +65,7 @@ online-prep: setup
 		yum install -y python34-setuptools; \
 	else \
 		echo "Running 8"; \
+		yum install -y epel-release; \
 		yum install -y ansible; \
 		yum install -y python36; \
 	fi

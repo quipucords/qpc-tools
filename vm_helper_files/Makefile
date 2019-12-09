@@ -24,7 +24,6 @@ offline-prep: setup
 		yum install -y libcgroup; \
 		yum install -y yum-utils; \
 		yum install -y ansible; \
-		yum install -y docker; \
 		yum install -y podman; \
 		yum install -y epel-release; \
 		yum install -y python36; \
@@ -39,6 +38,7 @@ offline-prep: setup
 		rpm -Uvh --force "docker-engine-1.7.1-1.el6.x86_64.rpm"; \
 		yum install -y python34; \
 		yum install -y python34-requests; \
+		yum install -y python34-setuptools; \
 	else \
 		echo "Running 8"; \
 		yum install -y epel-release; \

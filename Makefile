@@ -126,10 +126,10 @@ download-qpc-tools:
 	done
 
 copy-qpc-tools-local: manifest
-	for os in rhel6 rhel7 rhel8 centos6 centos7 centos8 ; do cp -vrf qpc_tools test/$$os; done
-	for os in rhel6 rhel7 rhel8 centos6 centos7 centos8 ; do cp -vrf setup.py test/$$os; done
-	for os in rhel6 rhel7 rhel8 centos6 centos7 centos8 ; do cp -vrf MANIFEST.in test/$$os; done
-	for os in rhel6 rhel7 rhel8 centos6 centos7 centos8 ; do cp -vrf bin test/$$os; done
+	for os in $(PLATFORMS) ; do cp -vrf qpc_tools test/$$os; done
+	for os in $(PLATFORMS) ; do cp -vrf setup.py test/$$os; done
+	for os in $(PLATFORMS) ; do cp -vrf MANIFEST.in test/$$os; done
+	for os in $(PLATFORMS) ; do cp -vrf bin test/$$os; done
 
 copy-qpc-tools:
 	@for os_version in $(PLATFORM_VERSIONS) ; do \

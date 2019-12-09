@@ -1,6 +1,12 @@
 DATE = $(shell date)
 PYTHON = $(shell which python)
 TOPDIR = $(shell pwd)
+
+# PLATFORMS to be used in the setup routines and test-all target
+PLATFORMS = rhel6 rhel7 rhel8 centos6 centos7 centos8
+PLATFORM_VERSIONS = 6 7 8
+
+
 # Required for a work around in the spec file
 pandoc = pandoc
 .PHONY: install
@@ -24,6 +30,7 @@ help:
 	@echo "  test-rhel-8                                    Launch the RHEL 8 VM for testing"
 	@echo "  test-centos-6                                  Launch the CentOS 6 VM for testing"
 	@echo "  test-centos-7                                  Launch the CentOS 7 VM for testing"
+	@echo "  test-centos-8                                  Launch the CentOS 8 VM for testing"
 	@echo "  manpage                                        Create the manpage"
 	@echo "  install                                        Install the qpc-tools CLI egg"
 	@echo "  lint                                           Run the flake8/pylint linter"
@@ -35,7 +42,7 @@ help:
 # Internal subcommands that the user should not call
 create-test-dirs:
 	mkdir -p test/packages
-	@for os in rhel6 rhel7 rhel8 centos6 centos7; do \
+	@for os in $(PLATFORMS); do \
 		set -x; \
 		mkdir -p test/$$os/install/; \
 		mkdir -p test/$$os/config/rhel6; \
@@ -45,7 +52,7 @@ create-test-dirs:
 	done
 
 copy-vm-helper-files:
-	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf vm_helper_files/ test/$$os; done
+	for os in $(PLATFORMS); do cp -vrf vm_helper_files/ test/$$os; done
 
 # Internal subcommands that the user should not call
 copy-config:
@@ -55,7 +62,7 @@ copy-config:
 		tar -xvf tools_config.tar.gz | true; \
 		cp -rf tools_config/* test/helpers | true; \
 		rm -rf tools_config/ | true; \
-		for dest in test/rhel8 test/rhel7 test/rhel6 test/centos6 test/centos7 ; do cp -vrf test/helpers/* $$dest | true; done; \
+		for dest in test/rhel8 test/rhel7 test/rhel6 test/centos6 test/centos7 test/centos8 ; do cp -vrf test/helpers/* $$dest | true; done; \
 		rm -rf test/helpers | true; \
 		set +x; \
 	else \
@@ -64,7 +71,7 @@ copy-config:
 
 # Internal subcommands that the user should not call
 copy-packages:
-	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf test/packages/ test/$$os/install/packages/ ; done
+	for os in $(PLATFORMS); do cp -vrf test/packages/ test/$$os/install/packages/ ; done
 
 # Internal subcommands that the user should not call
 local-server-image: download-postgres
@@ -88,7 +95,7 @@ endif
 # Internal subcommands that the user should not call
 download-qpc-cli:
 	mkdir -p test/cli_packages
-	@for os_version in 6 7 8 ; do \
+	@for os_version in $(PLATFORM_VERSIONS) ; do \
 		set -x; \
 		if [[ "$(cli_version)" = "" || "$(cli_version)" = "latest" ]]; then \
 			curl -k -SL https://github.com/quipucords/qpc/releases/latest/download/qpc.el$$os_version.noarch.rpm -o test/cli_packages/qpc.el$$os_version.noarch.rpm; \
@@ -99,7 +106,7 @@ download-qpc-cli:
 	done
 
 copy-qpc-cli:
-	@for os_version in 6 7 8 ; do \
+	@for os_version in $(PLATFORM_VERSIONS) ; do \
 		set -x; \
 		cp -f test/cli_packages/qpc.el$$os_version.noarch.rpm test/rhel$$os_version/install/packages/; \
 		cp -f test/cli_packages/qpc.el$$os_version.noarch.rpm test/centos$$os_version/install/packages/; \
@@ -108,7 +115,7 @@ copy-qpc-cli:
 
 download-qpc-tools:
 	mkdir -p test/tools_packages
-	@for os_version in 6 7 8 ; do \
+	@for os_version in $(PLATFORM_VERSIONS) ; do \
 		set -x; \
 		if [[ "$(tools_version)" = "" || "$(tools_version)" = "latest" ]]; then \
 			curl -k -SL https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el$$os_version.noarch.rpm -o test/tools_packages/qpc-tools.el$$os_version.noarch.rpm; \
@@ -119,13 +126,13 @@ download-qpc-tools:
 	done
 
 copy-qpc-tools-local: manifest
-	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf qpc_tools test/$$os; done
-	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf setup.py test/$$os; done
-	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf MANIFEST.in test/$$os; done
-	for os in rhel6 rhel7 rhel8 centos6 centos7 ; do cp -vrf bin test/$$os; done
+	for os in $(PLATFORMS) ; do cp -vrf qpc_tools test/$$os; done
+	for os in $(PLATFORMS) ; do cp -vrf setup.py test/$$os; done
+	for os in $(PLATFORMS) ; do cp -vrf MANIFEST.in test/$$os; done
+	for os in $(PLATFORMS) ; do cp -vrf bin test/$$os; done
 
 copy-qpc-tools:
-	@for os_version in 6 7 8 ; do \
+	@for os_version in $(PLATFORM_VERSIONS) ; do \
 		set -x; \
 		cp -f test/tools_packages/qpc-tools.el$$os_version.noarch.rpm test/rhel$$os_version/install/; \
 		cp -f test/tools_packages/qpc-tools.el$$os_version.noarch.rpm test/centos$$os_version/install/; \
@@ -190,6 +197,9 @@ test-centos-6:
 
 test-centos-7:
 	vagrant up vcentos7;vagrant ssh vcentos7
+
+test-centos-8:
+	vagrant up vcentos8;vagrant ssh vcentos8
 
 clean-local-cli:
 	rm -rf dist/ build/ qpc_tools.egg-info/

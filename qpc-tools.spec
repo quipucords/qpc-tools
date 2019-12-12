@@ -66,8 +66,10 @@ install -D -p -m 644 docs/qpc-tools.1 %{buildroot}%{_mandir}/man1/qpc-tools.1
 %{_mandir}/man1/%{src_name}.1.gz
 
 %changelog
-* Tue Dec 03 2019 Cody Myers <cmyers@redhat.com> 0.2.3
+* Thu Dec 12 2019 Cody Myers <cmyers@redhat.com> 0.2.3
 - Update version for master <cmyers@redhat.com>
+- Add suport for Centos8 <kholdawa@redhat.com>
+- Fixed bad ansible condition in registry authentication <cmyers@redhat.com>
 * Tue Dec 03 2019 Kevan Holdaway <kholdawa@redhat.com> 0.2.2
 - Update version for master <kholdawa@redhat.com>
 - Turn off server SSL validation for quipucords server image <kholdawa@redhat.com>

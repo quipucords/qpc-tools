@@ -174,7 +174,6 @@ The repository files will be copied to the `/etc/yum.repos.d/` directory in the 
 To test online installation, do the following:
 ```
 clear;cd /qpc_tools;sudo su
-make setup
 make online-prep
 make install-local --or-- make install-release-online
 qpc-tools server install
@@ -189,8 +188,7 @@ To test offline installation for RHEL 6/7/8 or CentOS 6/7, do the following (wit
 
 ```
 clear;cd /qpc_tools;sudo su
-make setup
-make offline-prep
+make offline-prep (only for local testing)
 # Disconnect from the network
 make install-local or make install-release-offline
 qpc-tools server install --offline-files /qpc_tools/install/packages --version 0.9.1

@@ -92,6 +92,7 @@ install-release-online: setup
 		elif grep -q -i "release 6" /etc/redhat-release; then \
 			yum install -y https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el6.noarch.rpm; \
 		else \
+			yum install -y epel-release; \
 			yum install -y https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el8.noarch.rpm; \
 		fi; \
 	else \

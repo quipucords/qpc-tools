@@ -187,22 +187,12 @@ Note:
 
 To test offline installation for RHEL 6/7/8 or CentOS 6/7, do the following (with internet connectivity):
 
-**Local Testing**
 ```
 clear;cd /qpc_tools;sudo su
 make setup
-make offline-prep
+make offline-prep (only for local testing)
 # Disconnect from the network
-make install-local
-qpc-tools server install --offline-files /qpc_tools/install/packages --version 0.9.1
-qpc-tools cli install --offline-files /qpc_tools/install/packages
-```
-
-**Release Testing**
-```
-clear;cd /qpc_tools;sudo su
-make setup
-make install-release-offline
+make install-local or make install-release-offline
 qpc-tools server install --offline-files /qpc_tools/install/packages --version 0.9.1
 qpc-tools cli install --offline-files /qpc_tools/install/packages
 ```

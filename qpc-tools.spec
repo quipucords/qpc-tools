@@ -2,7 +2,7 @@
 %global src_name qpc-tools
 %global egg_name qpc_tools
 Name: %{src_name}
-Version: 0.2.4
+Version: 0.2.5
 Release: 1%{?dist}
 Summary: A tool for discovery and inspection of an IT environment. The %{src_name} provides a server base infrastructure to process tasks that discover and inspect remote systems.
 
@@ -66,6 +66,8 @@ install -D -p -m 644 docs/qpc-tools.1 %{buildroot}%{_mandir}/man1/qpc-tools.1
 %{_mandir}/man1/%{src_name}.1.gz
 
 %changelog
+* Fri Jan 24 2020 Kevan Holdaway <kholdawa@redhat.com> 0.2.5
+- Change master branch version to 0.2.5
 * Fri Jan 24 2020 Kevan Holdaway <kholdawa@redhat.com> 0.2.4
 - Change master branch version to 0.2.4
 - Set have_epel default to false in CLI install playbook

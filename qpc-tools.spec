@@ -68,7 +68,7 @@ install -D -p -m 644 docs/qpc-tools.1 %{buildroot}%{_mandir}/man1/qpc-tools.1
 %changelog
 * Fri Jan 24 2020 Kevan Holdaway <kholdawa@redhat.com> 0.2.4
 - Change master branch version to 0.2.4
-- have_epel default have_epel to false in playbook for CLI install
+- have_epel default to false in playbook for CLI install
 * Thu Dec 12 2019 Cody Myers <cmyers@redhat.com> 0.2.3
 - Update version for master <cmyers@redhat.com>
 - Add suport for Centos8 <kholdawa@redhat.com>

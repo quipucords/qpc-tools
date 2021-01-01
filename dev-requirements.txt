@@ -15,7 +15,7 @@ pylint-plugin-utils==0.6
 pyflakes==2.2.0
 
 # Test
-tox==3.14.5
+tox==3.20.1
 
 # Doc
 pandoc==1.0.2

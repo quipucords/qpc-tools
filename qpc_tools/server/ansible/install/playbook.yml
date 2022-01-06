@@ -8,7 +8,7 @@
       open_port: 'true'
       server_port: '9443'
       server_name: 'quipucords'
-      postgres_version: '14.0'
+      postgres_version: '14.1'
       db_image_name: 'postgres'
       server_image_name: 'quipucords'
       server_image_tag: ''

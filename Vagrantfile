@@ -1,3 +1,5 @@
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'virtualbox'
+
 Vagrant.configure("2") do |config|
   config.vm.define "vrhel6" do |rhel6|
     rhel6.vm.box = "samdoran/rhel6"

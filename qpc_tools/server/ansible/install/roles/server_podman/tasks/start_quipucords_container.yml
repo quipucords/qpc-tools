@@ -25,7 +25,7 @@
   shell: "podman images | grep {{ server_image_name }} | grep {{ server_image_tag }}"
   become: true
   register: quipucords_image_raw
-  ignore_errors: yes
+  ignore_errors: true
   when:
     load_quipucords_server_attempted|bool
 

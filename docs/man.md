@@ -89,18 +89,18 @@ Next complete the following steps.
 
     - Download the [Quipucords server image](https://github.com/quipucords/quipucords/releases/latest/download/quipucords_server_image.tar.gz)
 
-    - Create the PostgreSQL image TAR file named `postgres.9.6.10.tar`
+    - Create the PostgreSQL image TAR file named `postgres.14.1.tar`
 
       - CentOS 6 and RHEL 6 commands:
         ```
-        docker pull postgres:9.6.10
-        docker save -o postgres.9.6.10.tar postgres:9.6.10
+        docker pull postgres:14.1
+        docker save -o postgres.14.1.tar postgres:14.1
         ```
 
       - CentOS 7, RHEL 7, and RHEL 8 commands:
         ```
-        podman pull postgres:9.6.10
-        podman save -o postgres.9.6.10.tar postgres:9.6.10
+        podman pull postgres:14.1
+        podman save -o postgres.14.1.tar postgres:14.1
         ```
 
 1. Create a location for the packages on the machine where Quipucords will be installed and move the packages to that location.

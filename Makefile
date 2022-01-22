@@ -142,8 +142,8 @@ copy-qpc-tools:
 # Internal subcommands that the user should not call
 download-postgres:
 	mkdir -p test/packages
-	docker pull postgres:9.6.10
-	cd test/packages;docker save -o postgres.9.6.10.tar postgres:9.6.10
+	docker pull postgres:14.1
+	cd test/packages;docker save -o postgres.14.1.tar postgres:14.1
 
 setup-local-online: create-test-dirs copy-qpc-tools-local copy-vm-helper-files copy-config
 

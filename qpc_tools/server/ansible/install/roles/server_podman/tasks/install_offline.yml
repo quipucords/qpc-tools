@@ -1,5 +1,4 @@
 ---
-
 - name: Setting common default variable values for server installation
   include_role:
     name: server
@@ -44,15 +43,15 @@
     name: server_podman
     tasks_from: load_postgres_image_offline
 
-- name: Start the Quipucords server
-  include_role:
-    name: server_podman
-    tasks_from: start_quipucords_container
-
 - name: Start the PostgreSQL container
   include_role:
     name: server_podman
     tasks_from: start_postgres_container
+
+- name: Start the Quipucords server
+  include_role:
+    name: server_podman
+    tasks_from: start_quipucords_container
 
 - name: Migrate existing PostgreSQL data from the docker volume to podman
   include_role:

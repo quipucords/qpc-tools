@@ -49,4 +49,9 @@ Vagrant.configure("2") do |config|
     centos8.vm.synced_folder "./test/centos8/", "/qpc_tools", :mount_options => ["dmode=777", "fmode=777"]
   end
 
+  config.vm.provision "shell", inline: <<-EOF
+    sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config    
+    systemctl restart sshd.service || service sshd restart # rhel6/centos6 don't have systemctl
+  EOF
+
 end

@@ -1,4 +1,4 @@
-%{!?python3_sitelib: %define python3_sitelib %(%{__python3} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+%{!?python3_sitelib: %define python3_sitelib %(%{__python3} -c "import site; print(site.getsitepackages()[0])")}
 %global src_name qpc-tools
 %global egg_name qpc_tools
 Name: %{src_name}

@@ -215,8 +215,8 @@ manpage:
 	$(pandoc) docs/man.md \
 	  --standalone -t man -o docs/qpc-tools.1 \
 	  --variable=section:1 \
-	  --variable=date:'January 24, 2020' \
-	  --variable=footer:'version 0.2.5' \
+	  --variable=date:'February 16, 2022' \
+	  --variable=footer:'version 0.3.0' \
 	  --variable=header:'qpc-tools'
 
 # Install python egg

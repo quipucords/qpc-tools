@@ -3,9 +3,8 @@
 """A setuptools-based script for installing qpc-tools."""
 import os
 import sys
-import json
-
 from setuptools import find_packages, setup
+
 from qpc_tools.release import (VERSION, AUTHOR, AUTHOR_EMAIL,
                                PKG_NAME, BIN_SCRIPT, URL)
 

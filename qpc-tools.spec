@@ -9,25 +9,22 @@ Summary: A tool for discovery and inspection of an IT environment. The %{src_nam
 Group: Applications/Internet
 License: GNU
 URL: http://github.com/quipucords/qpc-tools
-Source0: http://github.com/quipucords/qpc-tools/archive/copr.tar.gz
+Source0: http://github.com/quipucords/qpc-tools/archive/refs/heads/master.zip
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch: noarch
 
 %if 0%{?el7}
 %global pyver 36
-%endif
-%if 0%{?el8}
+%else
 %global pyver 3
 %endif
 
-#Common Requirements
-Requires: ansible >= 2.4
-%if "%{dist}" != ".el8"
+BuildRequires: make
 BuildRequires: pandoc
-%endif
 BuildRequires: python%{pyver}-devel
 BuildRequires: python%{pyver}-setuptools
+Requires: ansible >= 2.4
 Requires: python%{pyver}
 
 %description
@@ -42,14 +39,7 @@ make manifest
 
 %install
 %{__python3} setup.py install --skip-build --root %{buildroot}
-
-%if "%{dist}" == ".el8"
-curl -k -SL https://github.com/jgm/pandoc/releases/download/2.7.3/pandoc-2.7.3-linux.tar.gz -o pandoc.tar.gz
-tar xvzf pandoc.tar.gz --strip-components 1 -C ~/
-make manpage pandoc=~/bin/pandoc
-%else
 make manpage
-%endif
 install -D -p -m 644 docs/qpc-tools.1 %{buildroot}%{_mandir}/man1/qpc-tools.1
 
 %files
@@ -58,7 +48,7 @@ install -D -p -m 644 docs/qpc-tools.1 %{buildroot}%{_mandir}/man1/qpc-tools.1
 %license LICENSE
 %{_bindir}/%{src_name}
 %{python3_sitelib}/%{egg_name}
-%{python3_sitelib}/%{egg_name}-%{version}-py3.?.egg-info/
+%{python3_sitelib}/%{egg_name}-%{version}-py%{python3_version}.egg-info/
 %{_mandir}/man1/%{src_name}.1.gz
 
 %changelog

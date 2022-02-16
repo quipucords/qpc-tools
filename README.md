@@ -28,10 +28,6 @@ The qpc-tools package is required to install the Quipucords server and CLI.
 
 ## Online Installation of qpc-tools
 Run the command for the correct operating system.
-- **CentOS 6 and RHEL 6**
-  ```
-  yum install https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el6.noarch.rpm
-  ```
 - **CentOS 7 and RHEL 7**
   ```
   yum install https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el7.noarch.rpm
@@ -45,9 +41,6 @@ Run the command for the correct operating system.
 For an offline install you must first install the `qpc-tools` dependencies on the target machine.  Below is a list of required rpms per operating system.
 
 ### Dependencies
-- **CentOS 6 and RHEL 6**
-  - ansible
-  - python34
 - **CentOS 7 and RHEL 7**
   - ansible
   - python36
@@ -57,7 +50,6 @@ For an offline install you must first install the `qpc-tools` dependencies on th
 
 On a machine connected to the internet, download the correct rpm for your operating system.
 
-- [CentOS 6 and RHEL 6](https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el6.noarch.rpm)
 - [CentOS 7 and RHEL 7](https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el7.noarch.rpm)
 - [RHEL 8](https://github.com/quipucords/qpc-tools/releases/latest/download/qpc-tools.el8.noarch.rpm)
 
@@ -184,7 +176,7 @@ Note:
 
 ## Vagrant: Testing Offline Installation
 
-To test offline installation for RHEL 6/7/8 or CentOS 6/7, do the following (with internet connectivity):
+To test offline installation for RHEL 7/8 or CentOS 7, do the following (with internet connectivity):
 
 ```
 clear;cd /qpc_tools;sudo su

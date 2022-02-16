@@ -14,10 +14,6 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch: noarch
 
-#Python Version
-%if 0%{?el6}
-%global pyver 34
-%endif
 %if 0%{?el7}
 %global pyver 36
 %endif

@@ -181,7 +181,7 @@ setup-release-offline: create-test-dirs copy-vm-helper-files copy-config copy-pa
 refresh: create-test-dirs copy-vm-helper-files copy-config copy-qpc-cli copy-qpc-tools copy-packages
 
 test-all:
-	vagrant status --machine-readable | grep metadata | cut -d, -f2 | xargs -P $(shell nproc || 4) vagrant up --provision
+	vagrant status --machine-readable | grep metadata | cut -d, -f2 | xargs -n1 -P $(shell nproc || 4) vagrant up --provision
 
 test-rhel-6:
 	vagrant up vrhel6;vagrant ssh vrhel6

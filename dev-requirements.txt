@@ -3,7 +3,8 @@
 --editable .
 
 #Coverage
-coverage==6.3.2
+coverage==6.3.2; python_version>"3.6"
+coverage==6.2; python_version=="3.6"
 
 # Linting
 flake8==4.0.1

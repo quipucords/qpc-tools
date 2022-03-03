@@ -18,7 +18,7 @@ import subprocess
 import sys
 from argparse import SUPPRESS
 
-import qpc_tools.cli as cli
+from qpc_tools import cli
 from qpc_tools import messages
 from qpc_tools.clicommand import CliCommand
 from qpc_tools.release import DOWNSTREAM
@@ -78,9 +78,10 @@ class InstallCLICommand(CliCommand):
         playbook_abs_path = os.path.join(cwd_abs_path, cli.CLI_INSTALL_PLAYBOOK)
         ansible_command = create_ansible_command(self.args, playbook_abs_path)
         try:
-            process = subprocess.Popen(ansible_command,
-                                       stderr=subprocess.PIPE,
-                                       stdout=subprocess.PIPE)
+            # pylint: disable=consider-using-with
+            process = subprocess.Popen(
+                ansible_command, stderr=subprocess.PIPE, stdout=subprocess.PIPE
+            )
             for line in iter(process.stdout.readline, b''):
                 format_line = line.decode('utf-8').strip('\n')
                 print(format_line)

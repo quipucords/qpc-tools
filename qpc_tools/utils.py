@@ -121,7 +121,7 @@ def create_ansible_command(namespace_args, playbook):
         cmd_list.append(extra_var)
     # loop through advanced args and add them to the command
     for advanced_cmd in advanced_args:
-        cmd_list.append('-e %s' % advanced_cmd)
+        cmd_list.append(f'-e {advanced_cmd}')
     # print command and mask passwords
     tmp_list = cmd_list.copy()
     for arg in tmp_list:
@@ -178,8 +178,8 @@ def get_password(args_dictionary):
     else:
         registry_url = args_dictionary.get('registry_url')
         arg_prompt = OrderedDict([
-            ('registry_username', 'Enter %s username: ' % registry_url),
-            ('registry_password', 'Enter %s password: ' % registry_url),
+            ('registry_username', f'Enter {registry_url} username: '),
+            ('registry_password', f'Enter {registry_url} password: '),
             ('server_password', 'Enter server password: '),
             ('db_password', 'Enter database password: ')
         ])
